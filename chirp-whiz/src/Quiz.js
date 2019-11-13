@@ -7,7 +7,7 @@ class Quiz extends Component {
       return(
         <div class="container justify-center flex-column">
           <h1>Quiz</h1>
-          {/*<Counter />*/}
+          <Counter />
           
             <h2>What is the answer for this question  ???????</h2>  
             <div class="choice-container">
