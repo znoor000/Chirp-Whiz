@@ -8,7 +8,7 @@ class Quiz extends Component {
         <div>
           <h2>Quiz</h2>
         </div>
-      )
+      );
     }
   }
 
