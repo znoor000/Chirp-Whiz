@@ -73,6 +73,12 @@ class Quiz extends Component {
     if(this.state.quizFlow[this.state.quizPointer] === 0){
       return(
         <div>
+          <h2>This is a Blue Jay</h2>
+          <img id="1" src="Birds/BlueJay.jpg" width="200px" />
+          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" />
+          <audio controls>
+            <source src="BirdAudios/BlueJayCall.wav" type="audio/wav" />
+          </audio>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
@@ -84,7 +90,7 @@ class Quiz extends Component {
             <source src="BirdAudios/pigeons.wav" type="audio/wav" />
           </audio>
           <div className="options" onClick={this.handleChoices}>
-            <img id="1" src="Birds/RockPigeon.jpg" width="200px" />
+            <img id="1" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
             <img id="2" src="Birds/MourningDove.jpg" width="200px" />
             <img id="3" src="Birds/HouseSparrow.jpg" width="200px" />
             <img id="4" src="Birds/EuropeanStarling.jpg" width="200px" />      
