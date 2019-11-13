@@ -74,28 +74,37 @@ class Quiz extends Component {
       return(
         <div>
           <h2>This is a Blue Jay</h2>
-          <img id="1" src="Birds/BlueJay.jpg" width="200px" />
-          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" />
+          <img id="1" src="Birds/BlueJay.jpg" width="200px" height="150px" />
+          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" height="150px" />
           <audio controls>
             <source src="BirdAudios/BlueJayCall.wav" type="audio/wav" />
           </audio>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
-    }else{
+    }else if (this.state.quizPointer === 1){
       return(
         <div>
-          <h2>Select the bird that has this call:</h2>
-          <audio controls>
-            <source src="BirdAudios/pigeons.wav" type="audio/wav" />
-          </audio>
+          <h2>Select the bird that is a BlueJay</h2>
           <div className="options" onClick={this.handleChoices}>
             <img id="1" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
-            <img id="2" src="Birds/MourningDove.jpg" width="200px" />
-            <img id="3" src="Birds/HouseSparrow.jpg" width="200px" />
-            <img id="4" src="Birds/EuropeanStarling.jpg" width="200px" />      
+            <img id="2" src="Birds/TreeSwallow(2).jpg" width="200px" height="150px" />
+            <img id="3" src="Birds/HouseSparrow.jpg" width="200px" height="150px" />
+            <img id="4" src="Birds/EuropeanStarling.jpg" width="200px" height="150px" />      
           </div>
           <button className="answer" onClick={this.handleAnsButton}>Submit</button>
+          <button className="next" onClick={this.handleNext}>Next</button>
+        </div>
+      );
+    }else if (this.state.quizPointer === 2){
+      return(
+        <div>
+          <h2>This is a Blue Jay</h2>
+          <img id="1" src="Birds/BlueJay.jpg" width="200px" height="150px" />
+          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" height="150px" />
+          <audio controls>
+            <source src="BirdAudios/BlueJayCall.wav" type="audio/wav" />
+          </audio>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
