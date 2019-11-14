@@ -4,13 +4,13 @@ import {birdList, habitats} from './birdInfo.js';
 class Quiz extends Component {
   choices;
   userChoice;
+  quizFlow = [0, 1, 0, 1, 1]; // 0 is info page, 1 are quiz pages
+  quizPointer = 0;
   
   constructor(){
     super()
 
     this.state = {
-      quizFlow: [0, 1, 0, 1, 1], // 0 is info page, 1 are quiz pages
-      quizPointer: 0,
       hasAnswered: true
     }
   }
@@ -42,20 +42,20 @@ class Quiz extends Component {
     if (!this.state.hasAnswered) {
       alert('Please make a selection!');
     } else { // check answer is correct or wrong
-      if(this.userChoice.id == "1"){this.userChoice.className = "correct"}
+      if(this.userChoice.id == "correct"){this.userChoice.className = "correct"}
       else{this.userChoice.className = "wrong"}
     }
   }
 
   handleNext = (event) => {
-    if(this.state.quizFlow[this.state.quizPointer] === 0){
+    if(this.quizFlow[this.quizPointer] === 0){
+      this.quizPointer++;
       this.setState((prevState) => ({
-        quizPointer: prevState.quizPointer + 1,
         hasAnswered: false
       }));
     } else if (this.state.hasAnswered) {
+      this.quizPointer++;
       this.setState((prevState) => ({
-        quizPointer: prevState.quizPointer + 1,
         hasAnswered: false
       }));
     }
@@ -70,41 +70,69 @@ class Quiz extends Component {
   }
 
   render() {
-    if(this.state.quizFlow[this.state.quizPointer] === 0){
+    if(this.quizPointer === 0){
       return(
         <div>
           <h2>This is a Blue Jay</h2>
-          <img id="1" src="Birds/BlueJay.jpg" width="200px" height="150px" />
-          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" height="150px" />
+          <img id="" src="Birds/BlueJay.jpg" width="200px" height="150px" />
+          <img id="" src="Birds/BlueJay(1).jpg" width="200px" height="150px" />
           <audio controls>
             <source src="BirdAudios/BlueJayCall.wav" type="audio/wav" />
           </audio>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
-    }else if (this.state.quizPointer === 1){
+    }else if (this.quizPointer === 1){
       return(
         <div>
           <h2>Select the bird that is a BlueJay</h2>
           <div className="options" onClick={this.handleChoices}>
-            <img id="1" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
-            <img id="2" src="Birds/TreeSwallow(2).jpg" width="200px" height="150px" />
-            <img id="3" src="Birds/HouseSparrow.jpg" width="200px" height="150px" />
-            <img id="4" src="Birds/EuropeanStarling.jpg" width="200px" height="150px" />      
+            <img id="correct" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
+            <img id="" src="Birds/TreeSwallow(2).jpg" width="200px" height="150px" />
+            <img id="" src="Birds/HouseSparrow.jpg" width="200px" height="150px" />
+            <img id="" src="Birds/EuropeanStarling.jpg" width="200px" height="150px" />      
           </div>
           <button className="answer" onClick={this.handleAnsButton}>Submit</button>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
-    }else if (this.state.quizPointer === 2){
+    }else if (this.quizPointer === 2){
       return(
         <div>
-          <h2>This is a Blue Jay</h2>
-          <img id="1" src="Birds/BlueJay.jpg" width="200px" height="150px" />
-          <img id="2" src="Birds/BlueJay(1).jpg" width="200px" height="150px" />
+          <h2>This is a TreeSwallow</h2>
+          <img id="" src="Birds/TreeSwallow.jpg" width="200px" height="150px" />
+          <img id="" src="Birds/TreeSwallow(1).jpg" width="200px" height="150px" />
           <audio controls>
             <source src="BirdAudios/BlueJayCall.wav" type="audio/wav" />
           </audio>
+          <button className="next" onClick={this.handleNext}>Next</button>
+        </div>
+      );
+    } else if (this.quizPointer === 3){
+      return(
+        <div>
+          <h2>Select the bird that is a BlueJay</h2>
+          <div className="options" onClick={this.handleChoices}>
+            <img id="" src="Birds/TreeSwallow(2).jpg" width="200px" height="150px" />
+            <img id="" src="Birds/HouseSparrow.jpg" width="200px" height="150px" />
+            <img id="" src="Birds/EuropeanStarling.jpg" width="200px" height="150px" />      
+            <img id="correct" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
+          </div>
+          <button className="answer" onClick={this.handleAnsButton}>Submit</button>
+          <button className="next" onClick={this.handleNext}>Next</button>
+        </div>
+      );
+    } else {
+      return(
+        <div>
+          <h2>Select the bird that is a Tree Swallow</h2>
+          <div className="options" onClick={this.handleChoices}>
+            <img id="" src="Birds/HouseSparrow.jpg" width="200px" height="150px" />
+            <img id="" src="Birds/BlueJay(2).jpg" width="200px" height="150px" />
+            <img id="correct" src="Birds/TreeSwallow(2).jpg" width="200px" height="150px" />
+            <img id="" src="Birds/EuropeanStarling.jpg" width="200px" height="150px" />      
+          </div>
+          <button className="answer" onClick={this.handleAnsButton}>Submit</button>
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
