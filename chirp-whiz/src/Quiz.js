@@ -34,7 +34,7 @@ class Quiz extends Component {
   handleAnsButton = (event) => {
     // Check if user has made a selection
     for (let i = 0; i < this.choices.children.length; ++i){
-      if(this.choices.children[i].className == 'selected'){
+      if(this.choices.children[i].className === 'selected'){
         this.state.hasAnswered = true;
       }
     }
@@ -42,7 +42,7 @@ class Quiz extends Component {
     if (!this.state.hasAnswered) {
       alert('Please make a selection!');
     } else { // check answer is correct or wrong
-      if(this.userChoice.id == "correct"){this.userChoice.className = "correct"}
+      if(this.userChoice.id === "correct"){this.userChoice.className = "correct"}
       else{this.userChoice.className = "wrong"}
     }
   }
@@ -122,7 +122,7 @@ class Quiz extends Component {
           <button className="next" onClick={this.handleNext}>Next</button>
         </div>
       );
-    } else {
+    } else if (this.quizPointer === 4){
       return(
         <div>
           <h2>Select the bird that is a Tree Swallow</h2>
@@ -134,6 +134,12 @@ class Quiz extends Component {
           </div>
           <button className="answer" onClick={this.handleAnsButton}>Submit</button>
           <button className="next" onClick={this.handleNext}>Next</button>
+        </div>
+      );
+    } else {
+      return(
+        <div>
+          <h2>Congrats on Completing your first quiz</h2>
         </div>
       );
     }
