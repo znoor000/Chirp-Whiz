@@ -1,0 +1,14 @@
+{
+    "myenv": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-chirp-whiz-myenv-172436-authRole",
+            "UnauthRoleArn": "arn:aws:iam::469592802444:role/amplify-chirp-whiz-myenv-172436-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::469592802444:role/amplify-chirp-whiz-myenv-172436-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-chirp-whiz-myenv-172436-deployment",
+            "UnauthRoleName": "amplify-chirp-whiz-myenv-172436-unauthRole",
+            "StackName": "amplify-chirp-whiz-myenv-172436",
+            "StackId": "arn:aws:cloudformation:us-east-2:469592802444:stack/amplify-chirp-whiz-myenv-172436/b4ca7da0-07f6-11ea-a919-0af17cbfa87c"
+        }
+    }
+}
