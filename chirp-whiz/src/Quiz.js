@@ -10,7 +10,7 @@ class AudioButton extends Component {
   render() {
     return (
       <div>
-        <audio id="bird">
+        <audio id="bird" controls>
           <source src={this.props.sound} type="audio/mpeg"></source>
         </audio>
 
@@ -45,6 +45,9 @@ class Quiz extends Component {
     return(
       <div>
         {/* <AudioButton sound={birdList[2].sound} /> */}
+        <ImageButton name={birdList[1].name} image={birdList[1].image} />
+        <ImageButton name={birdList[2].name} image={birdList[2].image} />
+        <ImageButton name={birdList[3].name} image={birdList[3].image} />
         <ImageButton name={birdList[4].name} image={birdList[4].image} />
       </div>
     );
