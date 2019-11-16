@@ -9,6 +9,18 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import API, { graphqlOperation } from '@aws-amplify/api'
+import PubSub from '@aws-amplify/pubsub';
+import { createTodo } from './graphql/mutations'
+import config from './aws-exports'
+
+API.configure(config)             // Configure Amplify
+PubSub.configure(config);
+
+async function createNewTodo() {
+  const todo = { name: "Use AppSync" , description: "Realtime and Offline"}
+  await API.graphql(graphqlOperation(createTodo, { input: todo }))
+}
 
 function App() {
   return (
@@ -42,6 +54,7 @@ function App() {
           </Switch>
         </div>
       </Router>
+      <button onClick={createNewTodo}>Add Todo</button>
     </div>
   );
 }

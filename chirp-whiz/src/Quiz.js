@@ -31,7 +31,7 @@ class ImageButton extends Component {
     return (
       <div>
         <button>
-          <img src={this.props.image} onClick={this.answer} />
+          <img src={this.props.image} onClick={this.answer} alt="Desired bird" />
           <div>{this.props.name}</div>
         </button>
       </div>
@@ -43,7 +43,7 @@ class Quiz extends Component {
     render() {
       return(
         <div>
-          {/* <AudioButton sound={birdList[2].sound} /> */}
+          <AudioButton sound={birdList[4].sound} />
           <ImageButton name={birdList[4].name} image={birdList[4].image} />
         </div>
       );
