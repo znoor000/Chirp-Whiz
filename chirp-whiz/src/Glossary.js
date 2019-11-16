@@ -5,7 +5,8 @@ class Glossary extends Component {
     render() {
       return(
         <div>
-          <h2>Glossary</h2>
+          <h2>Glossary Page</h2>
+            
         </div>
       );
     }
