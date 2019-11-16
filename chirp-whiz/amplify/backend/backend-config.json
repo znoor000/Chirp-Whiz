@@ -22,7 +22,7 @@
 					"defaultAuthentication": {
 						"authenticationType": "API_KEY",
 						"apiKeyConfig": {
-							"description": "Chirp Whiz API",
+							"description": "ChirpWhizAPI",
 							"apiKeyExpirationDays": 7
 						}
 					}

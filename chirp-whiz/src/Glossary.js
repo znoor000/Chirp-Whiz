@@ -1,14 +1,44 @@
-import React, { Component } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import API, { graphqlOperation } from '@aws-amplify/api'
+import { listTodos } from './graphql/queries'
+import { onCreateTodo } from './graphql/subscriptions'
 
-class Glossary extends Component {
-    render() {
-      return(
-        <div>
-          <h2>Glossary Page</h2>
-            
-        </div>
-      );
-    }
+const initialState = {todos:[]};
+const reducer = (state, action) =>{
+  switch(action.type){
+    case 'QUERY':
+      return {...state, todos:action.todos}
+    case 'SUBSCRIPTION':
+      return {...state, todos:[...state.todos, action.todo]}
+    default:
+      return state
   }
+}
+
+function Glossary () {
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  useEffect(() => {
+    getData()
+    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+      next: (eventData) => {
+        const todo = eventData.value.data.onCreateTodo;
+        dispatch({type:'SUBSCRIPTION', todo})
+      }
+    })
+  return () => subscription.unsubscribe()
+  }, [])
+
+  async function getData() {
+    const todoData = await API.graphql(graphqlOperation(listTodos))
+    dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
+  }
+
+  return(
+    <div>
+      <h2>Glossary Page</h2>
+    </div>
+  );
+}
 
 export default Glossary;

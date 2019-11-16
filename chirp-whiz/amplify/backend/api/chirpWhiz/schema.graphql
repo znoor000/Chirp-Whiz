@@ -1,5 +1,8 @@
 type Todo @model {
   id: ID!
   name: String!
-  description: String
+  image: String!
+  sound: String!
+  habitatImage: String!
+  habitatSound: String!
 }

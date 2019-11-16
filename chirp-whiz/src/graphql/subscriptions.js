@@ -5,7 +5,10 @@ export const onCreateTodo = `subscription OnCreateTodo {
   onCreateTodo {
     id
     name
-    description
+    image
+    sound
+    habitatImage
+    habitatSound
   }
 }
 `;
@@ -13,7 +16,10 @@ export const onUpdateTodo = `subscription OnUpdateTodo {
   onUpdateTodo {
     id
     name
-    description
+    image
+    sound
+    habitatImage
+    habitatSound
   }
 }
 `;
@@ -21,7 +27,10 @@ export const onDeleteTodo = `subscription OnDeleteTodo {
   onDeleteTodo {
     id
     name
-    description
+    image
+    sound
+    habitatImage
+    habitatSound
   }
 }
 `;
