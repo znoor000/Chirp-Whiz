@@ -36,7 +36,12 @@ function Glossary () {
 
   return(
     <div>
-      <h2>Glossary Page</h2>
+      {state.todos.length > 0 &&
+        <div>
+          <h2>Glossary</h2>
+          {/* Glossary code */}
+        </div>
+      }
     </div>
   );
 }
