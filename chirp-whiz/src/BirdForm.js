@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 
-class Glossary extends Component {
+class BirdForm extends Component {
     render() {
       return(
         <div>
-          <h2>Glossary Page</h2>
-            
+          <h2>Bird Form</h2>
         </div>
       );
     }
   }
 
-export default Glossary;
+export default BirdForm;

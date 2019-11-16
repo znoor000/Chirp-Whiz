@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {birdList, habitats} from './birdInfo.js';
 
 class Home extends Component {
     render() {
