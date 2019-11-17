@@ -12,14 +12,9 @@ function AudioButton(props) {
             <source src={props.sound} type="audio/mpeg"></source>
           </audio>
   
-          <button onClick={playAudio}>{props.name}</button>
+          <button onClick={playAudio}>Bird Call/Sound</button>
         </div>
       );
-  }
-  
-  AudioButton.defaultProps = {
-    name: "Bird Call/Sound",
-    sound: ""
   }
 
 export default AudioButton;
