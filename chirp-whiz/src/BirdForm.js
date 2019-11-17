@@ -23,7 +23,9 @@ function BirdForm() {
     return(
         <div>
             <h2>Bird Form</h2>
-            {/* Bird Form code */}
+            <form>
+                
+            </form>
         </div>
     );
 }
