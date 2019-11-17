@@ -3,6 +3,7 @@ import './App.css';
 import Home from './Home.js';
 import Quiz from './Quiz.js';
 import Glossary from './Glossary.js';
+import BirdForm from './BirdForm.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,6 +27,9 @@ function App() {
               <li>
                 <Link to="/glossary">Glossary</Link>
               </li>
+              <li>
+                <Link to="/bird-form">Bird Form</Link>
+              </li>
             </ul>
           </nav>
 
@@ -35,6 +39,9 @@ function App() {
             </Route>
             <Route path="/glossary">
               <Glossary />
+            </Route>
+            <Route path="/bird-form">
+              <BirdForm />
             </Route>
             <Route path="/">
               <Home />

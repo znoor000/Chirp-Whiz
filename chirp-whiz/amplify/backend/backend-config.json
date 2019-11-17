@@ -11,5 +11,23 @@
 			"providerPlugin": "awscloudformation",
 			"dependsOn": []
 		}
+	},
+	"api": {
+		"chirpWhiz": {
+			"service": "AppSync",
+			"providerPlugin": "awscloudformation",
+			"output": {
+				"authConfig": {
+					"additionalAuthenticationProviders": [],
+					"defaultAuthentication": {
+						"authenticationType": "API_KEY",
+						"apiKeyConfig": {
+							"description": "ChirpWhizAPI",
+							"apiKeyExpirationDays": 7
+						}
+					}
+				}
+			}
+		}
 	}
 }
