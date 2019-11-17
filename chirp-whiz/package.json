@@ -5,6 +5,7 @@
   "dependencies": {
     "@aws-amplify/api": "^1.2.4",
     "@aws-amplify/pubsub": "^1.2.4",
+    "aws-amplify": "^1.2.4",
     "aws-amplify-react": "^2.5.4",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",

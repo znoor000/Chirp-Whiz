@@ -10,42 +10,55 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Amplify from 'aws-amplify';
+import awsconfig from './aws-exports';
+import { withAuthenticator } from 'aws-amplify-react';
+
+Amplify.configure(awsconfig);
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <div>
+        <div className="makeAppTall">
           <nav>
-            <Link to="/">Home</Link><br />
-            <Link to="/quiz">Quiz</Link><br />
-            <Link to="/glossary">Glossary</Link><br />
-            <Link to="/bird-form">Bird Form</Link><br />
+            <Link to="/"><button>Home</button></Link><br />
+            <Link to="/quiz"><button>Quiz</button></Link><br />
+            <Link to="/glossary"><button>Glossary</button></Link><br />
+            <Link to="/bird-form"><button>Bird Form</button></Link><br />
           </nav>
 
           <Switch>
             <Route path="/quiz">
               <Quiz />
               <Link to="/">
-                <button>Home page</button>
+                <div className="bottomButton">
+                  <button>Home page</button>
+                </div>
               </Link>
             </Route>
             <Route path="/glossary">
               <Glossary />
               <Link to="/">
-                <button>Home page</button>
+                <div className="bottomButton">
+                  <button>Home page</button>
+                </div>
               </Link>
             </Route>
             <Route path="/bird-form">
               <BirdForm />
               <Link to="/">
-                <button>Home page</button>
+                <div className="bottomButton">
+                  <button>Home page</button>
+                </div>
               </Link>
             </Route>
             <Route path="/">
               <Home />
               <Link to="/quiz">
-                <button>Go to quiz</button>
+                <div className="bottomButton">
+                  <button>Go to quiz</button>
+                </div>
               </Link>
             </Route>
           </Switch>
@@ -55,4 +68,4 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App, true);
