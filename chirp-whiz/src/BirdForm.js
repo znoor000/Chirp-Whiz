@@ -33,6 +33,9 @@ function BirdForm() {
                 <label>
                     Sound clip of bird:
                 </label>
+                <label>
+                    Habitat image of bird:
+                </label>
             </form>
         </div>
     );
