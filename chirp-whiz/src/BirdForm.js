@@ -7,7 +7,7 @@ import config from './aws-exports'
 API.configure(config);
 PubSub.configure(config);
 
-async function createNewTodo(birdName, birdImage, birdSound, backgroundImage, backgroundSound) {
+async function createNewTodo(newBird) {
     const todo = {
       name: birdName,
       image: birdImage,
