@@ -34,26 +34,26 @@ function BirdForm() {
             <form>
                 <label>
                     Name of bird:
-                    <input name="birdName" type="text" />
+                    <input name="birdName" type="text" onChange={fillingForm}/>
                 </label><br />
                 <label>
                     Image of bird:
-                    <input name="birdImage" type="text" />
+                    <input name="birdImage" type="text" onChange={fillingForm}/>
                 </label><br />
                 <label>
                     Sound clip of bird:
-                    <input name="birdSound" type="text" />
+                    <input name="birdSound" type="text" onChange={fillingForm}/>
                 </label><br />
                 <label>
                     Habitat image of bird:
-                    <input name="habitatImage" type="text" />
+                    <input name="habitatImage" type="text" onChange={fillingForm}/>
                 </label><br />
                 <label>
                     Habitat sound of bird:
-                    <input name="habitatSound" type="text" />
+                    <input name="habitatSound" type="text" onChange={fillingForm}/>
                 </label><br />
             </form>
-            <button>Add Bird</button>
+            <button onChange={fillingForm}>Add Bird</button>
         </div>
     );
 }
