@@ -17,34 +17,36 @@ function App() {
       <Router>
         <div>
           <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/quiz">Quiz</Link>
-              </li>
-              <li>
-                <Link to="/glossary">Glossary</Link>
-              </li>
-              <li>
-                <Link to="/bird-form">Bird Form</Link>
-              </li>
-            </ul>
+            <Link to="/">Home</Link><br />
+            <Link to="/quiz">Quiz</Link><br />
+            <Link to="/glossary">Glossary</Link><br />
+            <Link to="/bird-form">Bird Form</Link><br />
           </nav>
 
           <Switch>
             <Route path="/quiz">
               <Quiz />
+              <Link to="/">
+                <button>Home page</button>
+              </Link>
             </Route>
             <Route path="/glossary">
               <Glossary />
+              <Link to="/">
+                <button>Home page</button>
+              </Link>
             </Route>
             <Route path="/bird-form">
               <BirdForm />
+              <Link to="/">
+                <button>Home page</button>
+              </Link>
             </Route>
             <Route path="/">
               <Home />
+              <Link to="/quiz">
+                <button>Go to quiz</button>
+              </Link>
             </Route>
           </Switch>
         </div>
