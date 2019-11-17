@@ -30,6 +30,9 @@ function BirdForm() {
                 <label>
                     Image of bird:
                 </label>
+                <label>
+                    Sound clip of bird:
+                </label>
             </form>
         </div>
     );
