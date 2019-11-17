@@ -13,10 +13,6 @@ class AudioButton extends Component {
         <audio id="bird" controls>
           <source src={this.props.sound} type="audio/mpeg"></source>
         </audio>
-
-        <button onClick={this.playAudio}>
-          <div>Bird Call/Sound</div>
-        </button>
       </div>
     );
   }
@@ -31,7 +27,7 @@ class ImageButton extends Component {
     return (
       <div>
         <button>
-          <img src={this.props.image} onClick={this.answer} />
+          <img src={this.props.image} onClick={this.answer} width="300px"/>
           <div>{this.props.name}</div>
         </button>
       </div>
@@ -44,7 +40,7 @@ class Quiz extends Component {
   render(){
     return(
       <div>
-        {/* <AudioButton sound={birdList[2].sound} /> */}
+        <AudioButton sound={birdList[1].sound} />
         <ImageButton name={birdList[1].name} image={birdList[1].image} />
         <ImageButton name={birdList[2].name} image={birdList[2].image} />
         <ImageButton name={birdList[3].name} image={birdList[3].image} />
