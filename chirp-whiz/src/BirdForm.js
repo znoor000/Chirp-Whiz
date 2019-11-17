@@ -26,19 +26,19 @@ function BirdForm() {
             <form>
                 <label>
                     Name of bird:
-                </label>
+                </label><br />
                 <label>
                     Image of bird:
-                </label>
+                </label><br />
                 <label>
                     Sound clip of bird:
-                </label>
+                </label><br />
                 <label>
                     Habitat image of bird:
-                </label>
+                </label><br />
                 <label>
                     Habitat sound of bird:
-                </label>
+                </label><br />
             </form>
             <button>Add Bird</button>
         </div>
