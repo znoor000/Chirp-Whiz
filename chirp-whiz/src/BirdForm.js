@@ -9,11 +9,11 @@ PubSub.configure(config);
 
 async function createNewTodo(newBird) {
     const todo = {
-      name: birdName,
-      image: birdImage,
-      sound: birdSound,
-      habitatImage: backgroundImage,
-      habitatSound: backgroundSound
+        name: newBird.birdName,
+        image: newBird.birdImage,
+        sound: newBird.birdSound,
+        habitatImage: newBird.habitatImage,
+        habitatSound: newBird.habitatSound  
     }
 
     await API.graphql(graphqlOperation(createTodo, { input: todo }))
