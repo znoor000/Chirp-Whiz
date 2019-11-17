@@ -36,6 +36,9 @@ function BirdForm() {
                 <label>
                     Habitat image of bird:
                 </label>
+                <label>
+                    Habitat sound of bird:
+                </label>
             </form>
         </div>
     );
