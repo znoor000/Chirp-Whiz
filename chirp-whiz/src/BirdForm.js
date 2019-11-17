@@ -40,6 +40,7 @@ function BirdForm() {
                     Habitat sound of bird:
                 </label>
             </form>
+            <button>Add Bird</button>
         </div>
     );
 }
