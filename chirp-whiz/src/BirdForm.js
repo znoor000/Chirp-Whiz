@@ -27,6 +27,9 @@ function BirdForm() {
                 <label>
                     Name of bird:
                 </label>
+                <label>
+                    Image of bird:
+                </label>
             </form>
         </div>
     );
