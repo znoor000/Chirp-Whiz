@@ -21,12 +21,11 @@ async function createNewTodo(newBird) {
 
 function BirdForm() {
     const [newBird, setNewBird] = useState({
-        birdName: "",
-        birdImage: "",
-        birdSound: "",
-        habitatImage: "",
-        habitatSound: ""
-
+        birdName: "Evening grosbeak",
+        birdImage: "https://www.allaboutbirds.org/guide/assets/photo/120746601-480px.jpg",
+        birdSound: "https://www.mbr-pwrc.usgs.gov/id/htmwav/h5140so.mp3",
+        habitatImage: "will insert later",
+        habitatSound: "will insert later"
     });
 
     function fillingForm(e) {
