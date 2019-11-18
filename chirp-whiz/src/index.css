@@ -17,3 +17,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.selected {
+  border-style: solid;
+  border-width: 10px;
+  border-color: blue;
+}
+
+.wrong {
+  border-style: solid;
+  border-width: 10px;
+  border-color: red;
+}
+
+.correct {
+  border-style: solid;
+  border-width: 10px;
+  border-color: green;
+}
