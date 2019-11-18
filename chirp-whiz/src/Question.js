@@ -49,6 +49,35 @@ function Question() {
     if (state.todos.length !== 0) randomize();
   }, [state.todos.length]);
 
+  function AnswerButton(props) {
+    if(props.type === 0) {
+      return (
+        <div>
+          <button onClick={() => checkAnswer(props.answerID)}>
+            <img src={props.bird.image} alt={props.bird.name} />
+          </button>
+        </div>
+      );
+    } else if (props.type === 1) {
+      return (
+        <div>
+          <button onClick={() => checkAnswer(props.answerID)}>
+            <div>{props.bird.name}</div>
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button onClick={() => checkAnswer(props.answerID)}>
+            <img src={props.bird.image} alt={props.bird.name} />
+            <div>{props.bird.name}</div>
+          </button>
+        </div>
+      );
+    }
+  }
+
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
