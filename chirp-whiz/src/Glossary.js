@@ -1,9 +1,9 @@
-import React, { useEffect,useState ,useReducer } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import AudioButton from './AudioButton.js';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import { listTodos } from './graphql/queries'
 import { onCreateTodo } from './graphql/subscriptions'
-import{
+import {
   Switch,
   Route,
   Link,
@@ -25,7 +25,7 @@ const reducer = (state, action) =>{
 
 function Glossary () {
   const [state, dispatch] = useReducer(reducer, initialState)
-  const [birdNum, setBirdNum]= useState(0);
+  const [birdNum, setBirdNum] = useState(0);
 
   useEffect(() => {
     getData()
@@ -42,11 +42,10 @@ function Glossary () {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
   }
-
+  
   let match = useRouteMatch();
 
-  
-  function chosenBird(index){
+  function chosenBird(index) {
     setBirdNum(index);
   }
 
@@ -54,7 +53,7 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-            <h1>Glossary</h1>
+          <h1>Glossary</h1>
           <Switch>
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
@@ -77,6 +76,18 @@ function Glossary () {
           </Switch>
         </div>
       }
+    </div>
+  );
+}
+
+function Bird(props) {
+  let { birdName } = useParams();
+
+  return(
+    <div>
+      <h3>{props.bird.name}</h3>
+      <img src={props.bird.image} alt={props.bird.name} />
+      <AudioButton sound={props.bird.sound}/>
     </div>
   );
 }
