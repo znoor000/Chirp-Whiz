@@ -104,6 +104,17 @@ function Question() {
     }
   }
 
+  function randomize() {
+    var arr = [];
+    while(arr.length < 4) {
+      var r = Math.floor(Math.random() * state.todos.length);
+      if(arr.indexOf(r) === -1) arr.push(r);
+    }
+    setBirds(arr);
+    setQType(Math.floor(Math.random() * 3));
+    setCorrectBird(Math.floor(Math.random() * 4));
+  }
+
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
