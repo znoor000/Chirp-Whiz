@@ -78,6 +78,32 @@ function Question() {
     }
   }
 
+  function Result(props) {
+    if (answerType === "correct") {
+      return (
+        <div>
+          <h1>Correct!</h1>
+          <h2>{props.bird.name}</h2>
+          <img src={props.bird.image} alt={props.bird.name} />
+          <AudioButton sound={props.bird.sound} />
+          <button onClick={() => window.location.reload(false)}>Next Question</button>
+        </div>
+      );
+    } else if (answerType === "incorrect") {
+      return (
+        <div>
+          <h1>Incorrect.</h1>
+          <h2>{props.bird.name}</h2>
+          <img src={props.bird.image} alt={props.bird.name} />
+          <AudioButton sound={props.bird.sound} />
+          <button onClick={() => window.location.reload(false)}>Next Question</button>
+        </div>
+      )
+    } else {
+      return <div>Hmm...</div>
+    }
+  }
+
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
