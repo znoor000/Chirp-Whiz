@@ -25,6 +25,7 @@ const reducer = (state, action) =>{
 
 function Glossary () {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const [birdNum, setBirdNum]= useState(0);
 
   useEffect(() => {
     getData()
@@ -40,6 +41,12 @@ function Glossary () {
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
+  }
+
+  let match = useRouteMatch();
+
+  function chosenBird(index){
+    setBirdNum(index);
   }
 
   return(
