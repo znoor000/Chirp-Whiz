@@ -84,7 +84,10 @@ function Bird(props) {
   let { birdName } = useParams();
 
   return(
-    <div>
+    <div style={{backgroundImage: `url(${props.bird.habitatImage})`,
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat'}}>
       <h3>{props.bird.name}</h3>
       <img src={props.bird.image} alt={props.bird.name} />
       <AudioButton sound={props.bird.sound}/>
