@@ -45,6 +45,7 @@ function Glossary () {
 
   let match = useRouteMatch();
 
+  
   function chosenBird(index){
     setBirdNum(index);
   }
@@ -53,8 +54,27 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <h2>Glossary</h2>
-          {/* Glossary code */}
+            <h1>Glossary</h1>
+          <Switch>
+            <Route path={`${match.path}/:birdName`}>
+              <Bird bird={state.todos[birdNum]}/>
+              <Link to={match.path}>
+                <button>Return</button>
+              </Link>
+            </Route>
+            <Route path={match.path}>
+              <div>
+              {state.todos.map((todo, i) =>
+                <Link to={`${match.url}/${todo.name}`} key={todo.id}>
+                  <button onClick={() => chosenBird(i)}>
+                    <p>{todo.name}</p>
+                    <img src={todo.image} alt={todo.name} />
+                  </button>
+                </Link>
+              )}
+              </div>
+            </Route>
+          </Switch>
         </div>
       }
     </div>
