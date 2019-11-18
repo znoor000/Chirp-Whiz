@@ -38,7 +38,7 @@ function BirdForm() {
 
     return(
         <div>
-            <h2>Bird Form</h2>
+            <h1>Bird Form</h1>
             <form>
                 <label>
                     Name of bird:
