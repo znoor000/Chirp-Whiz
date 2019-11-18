@@ -126,10 +126,12 @@ function Question() {
     if (choice === correctBird) {
       setAnswerType("correct");
       let x = document.getElementById("ding");
+      x.volume = 0.2;
       x.play();
     } else {
       setAnswerType("incorrect");
       let x = document.getElementById("buzz");
+      x.volume = 0.2;
       x.play();
     }
 
@@ -142,7 +144,10 @@ function Question() {
   return(
     <div>
       {state.todos.length > 0 && birds.length > 1 &&
-        <div>
+        <div style={{backgroundImage: `url(${state.todos[birds[correctBird]].habitatImage})`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat'}}>
           <h4>Question type:</h4>
           <button onClick={() => setQType(0)}>Name</button>
           <button onClick={() => setQType(1)}>Image</button>
