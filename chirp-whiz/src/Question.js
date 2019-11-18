@@ -141,9 +141,29 @@ function Question() {
 
   return(
     <div>
-      {state.todos.length > 0 &&
+      {state.todos.length > 0 && birds.length > 1 &&
         <div>
-          <h2>Quiz</h2>
+          <h4>Question type:</h4>
+          <button onClick={() => setQType(0)}>Name</button>
+          <button onClick={() => setQType(1)}>Image</button>
+          <button onClick={() => setQType(2)}>Audio</button>
+          <button onClick={() => setQType(Math.floor(Math.random() * 3))}>Random</button>
+          <h2>Question:</h2>
+          <QuestionInfo type={qType} bird={state.todos[birds[correctBird]]} />
+          <h2>Answers:</h2>
+          <AnswerButton type={qType} bird={state.todos[birds[0]]} answerID={0} />
+          <AnswerButton type={qType} bird={state.todos[birds[1]]} answerID={1} />
+          <AnswerButton type={qType} bird={state.todos[birds[2]]} answerID={2} />
+          <AnswerButton type={qType} bird={state.todos[birds[3]]} answerID={3} />
+          <div ref={resultRef}>
+            <Result bird={state.todos[birds[correctBird]]}/>
+            <audio id="buzz">
+              <source src="https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3" type="audio/mpeg"></source>
+            </audio>
+            <audio id="ding">
+              <source src="https://www.myinstants.com/media/sounds/correct.swf.mp3" type="audio/mpeg"></source>
+            </audio>
+          </div>
         </div>
       }
     </div>
