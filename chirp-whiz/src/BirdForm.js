@@ -21,7 +21,12 @@ async function createNewTodo(newBird) {
 
 function BirdForm() {
     const [newBird, setNewBird] = useState({
-        
+        birdName: "",
+        birdImage: "",
+        birdSound: "",
+        habitatImage: "",
+        habitatSound: ""
+
     });
 
     function fillingForm(e) {
