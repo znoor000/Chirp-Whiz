@@ -16,6 +16,8 @@ async function createNewTodo(newBird) {
         habitatSound: newBird.habitatSound  
     }
 
+    window.location.reload(false);
+
     await API.graphql(graphqlOperation(createTodo, { input: todo }))
 }
 
