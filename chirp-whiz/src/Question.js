@@ -29,6 +29,10 @@ function QuestionInfo(props) {
 
 function Question() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [birds, setBirds] = useState([0]);
+  const [qType, setQType] = useState(0);
+  const [correctBird, setCorrectBird] = useState(0);
+  const [answerType, setAnswerType] = useState("none_yet");
 
   useEffect(() => {
     getData()
