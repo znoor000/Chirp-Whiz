@@ -45,6 +45,10 @@ function Question() {
   return () => subscription.unsubscribe()
   }, [])
 
+  useEffect(() => {
+    if (state.todos.length !== 0) randomize();
+  }, [state.todos.length]);
+
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
