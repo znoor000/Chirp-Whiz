@@ -7,3 +7,5 @@ http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazon
 
 * npm install
 * npm install react-router-dom
+* amplify
+* npm install --save-dev @testing-library/dom
