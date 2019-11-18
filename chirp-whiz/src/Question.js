@@ -120,6 +120,25 @@ function Question() {
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
   }
 
+  const resultRef = React.createRef();
+
+  function checkAnswer(choice) {
+    if (choice === correctBird) {
+      setAnswerType("correct");
+      let x = document.getElementById("ding");
+      x.play();
+    } else {
+      setAnswerType("incorrect");
+      let x = document.getElementById("buzz");
+      x.play();
+    }
+
+    resultRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+
   return(
     <div>
       {state.todos.length > 0 &&
