@@ -16,6 +16,17 @@ const reducer = (state, action) =>{
   }
 }
 
+function QuestionInfo(props) {
+  if (props.type === 0) {
+    return <h3>{props.bird.name}</h3>;
+  } else if (props.type === 1) {
+    return <img src={props.bird.image} alt={props.bird.name} />;
+  } else {
+    return <AudioButton sound={props.bird.sound} />;
+  }
+}
+
+
 function Question() {
   const [state, dispatch] = useReducer(reducer, initialState);
 
