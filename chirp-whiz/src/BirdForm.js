@@ -20,6 +20,10 @@ async function createNewTodo(newBird) {
 }
 
 function BirdForm() {
+    const [newBird, setNewBird] = useState({
+        
+    });
+
     function fillingForm(e) {
         const name = e.target.name;
         let tempBird = newBird;
@@ -53,7 +57,7 @@ function BirdForm() {
                     <input name="habitatSound" type="text" onChange={fillingForm}/>
                 </label><br />
             </form>
-            <button onChange={fillingForm}>Add Bird</button>
+            <button onClick={() => createNewTodo(newBird)}>Add Bird</button>
         </div>
     );
 }
