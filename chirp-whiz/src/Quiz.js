@@ -14,9 +14,6 @@ function Quiz() {
         <Switch>
             <Route path={`${match.path}/question`}>
               <Question />
-              <Link to={match.path}>
-                <button>Return to quiz page</button>
-              </Link>
             </Route>
             <Route path={match.path}>
             <div>
