@@ -61,13 +61,14 @@ function Glossary () {
                 <button>Return</button>
               </Link>
             </Route>
+
             <Route path={match.path}>
               <div>
               {state.todos.map((todo, i) =>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
                   <button onClick={() => chosenBird(i)}>
                     <p>{todo.name}</p>
-                    <img src={todo.image} alt={todo.name} />
+                    <img src={todo.image} alt={todo.name} style={{width:300, height:200}} />
                   </button>
                 </Link>
               )}
@@ -89,7 +90,7 @@ function Bird(props) {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat'}}>
       <h3>{props.bird.name}</h3>
-      <img src={props.bird.image} alt={props.bird.name} />
+      <img src={props.bird.image} alt={props.bird.name} style={{width:200}} />
       <AudioButton sound={props.bird.sound}/>
     </div>
   );
