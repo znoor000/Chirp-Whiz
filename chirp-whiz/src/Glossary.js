@@ -53,7 +53,7 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <h1>Glossary</h1>
+          <h1>Glossary</h1><hr />
           <Switch>
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
