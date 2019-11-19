@@ -10,6 +10,12 @@ import {
   useRouteMatch,
   useParams
 } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 
 const initialState = {todos:[]};
 const reducer = (state, action) =>{
@@ -53,25 +59,30 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <h1>Glossary</h1><hr />
+          <h1>Glossary</h1>
           <Switch>
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
               <Link to={match.path}>
-                <button>Return</button>
+                <Button variant="primary">Return</Button>
               </Link>
             </Route>
-
             <Route path={match.path}>
               <div>
+              <ButtonGroup vertical>
+              <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
+                <ListGroup.Item>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <button onClick={() => chosenBird(i)}>
+                  <Button variant="outline-primary" onClick={() => chosenBird(i)}>
                     <p>{todo.name}</p>
-                    <img src={todo.image} alt={todo.name} style={{width:300, height:200}} />
-                  </button>
+                    <Image src={todo.image} rounded style={{height: '300px'}} />
+                  </Button>
                 </Link>
+                </ListGroup.Item>
               )}
+              </ListGroup>
+              </ButtonGroup>
               </div>
             </Route>
           </Switch>
@@ -85,13 +96,18 @@ function Bird(props) {
   let { birdName } = useParams();
 
   return(
-    <div style={{backgroundImage: `url(${props.bird.habitatImage})`,
+    <div>
+      <Card>
+      <Card.Header>{props.bird.name}</Card.Header>
+      <Card.Body>
+       {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat'}}>
-      <h3>{props.bird.name}</h3>
-      <img src={props.bird.image} alt={props.bird.name} style={{width:200}} />
+  backgroundRepeat: 'no-repeat'}}*/}
+      <Image src={props.bird.image} rounded />
       <AudioButton sound={props.bird.sound}/>
+      </Card.Body>
+      </Card>
     </div>
   );
 }
