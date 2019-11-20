@@ -7,6 +7,9 @@ const BirdLib = require('./BirdForm');
 
 test('update bird with blank info', () => {
     expect(BirdLib.updateBird({
+        name: "",
+        value: ""
+    },{
         birdName: "",
         birdImage: "",
         birdSound: "",
@@ -23,6 +26,9 @@ test('update bird with blank info', () => {
 
 test('update bird with only name', () => {
     expect(BirdLib.updateBird({
+        name: "",
+        value: ""
+    },{
         birdName: "",
         birdImage: "",
         birdSound: "",
@@ -39,6 +45,9 @@ test('update bird with only name', () => {
 
 test('update bird with only image', () => {
     expect(BirdLib.updateBird({
+        name: "",
+        value: ""
+    },{
         birdName: "",
         birdImage: "",
         birdSound: "",
@@ -55,6 +64,9 @@ test('update bird with only image', () => {
 
 test('update bird that already has info', () => {
     expect(BirdLib.updateBird({
+        name: "",
+        value: ""
+    },{
         birdName: "",
         birdImage: "",
         birdSound: "",
