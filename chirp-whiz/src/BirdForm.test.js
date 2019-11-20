@@ -7,4 +7,4 @@ const BirdLib = require('./BirdForm');
 
 test('update bird with blank info', () => {});
 
-
+test('update bird with only name', () => {});
