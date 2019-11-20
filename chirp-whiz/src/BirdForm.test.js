@@ -81,4 +81,7 @@ test('update bird that already has info', () => {
     })
 });
 
-test('test BirdForm renders', () => {});
+it('test BirdForm renders', () => {
+    const container = render(<BirdForm />)
+    expect(container.firstChild).toMatchSnapshot();
+});
