@@ -7,7 +7,7 @@ const BirdLib = require('./BirdForm');
 
 test('update bird with blank info', () => {
     expect(BirdLib.updateBird({
-        name: "",
+        name: "birdName",
         value: ""
     },{
         birdName: "",
@@ -26,8 +26,8 @@ test('update bird with blank info', () => {
 
 test('update bird with only name', () => {
     expect(BirdLib.updateBird({
-        name: "",
-        value: ""
+        name: "birdName",
+        value: "Pigeon"
     },{
         birdName: "",
         birdImage: "",
@@ -45,8 +45,8 @@ test('update bird with only name', () => {
 
 test('update bird with only image', () => {
     expect(BirdLib.updateBird({
-        name: "",
-        value: ""
+        name: "birdImage",
+        value: "https://download.ams.birds.cornell.edu/api/v1/asset/66031271/1800"
     },{
         birdName: "",
         birdImage: "",
@@ -64,11 +64,11 @@ test('update bird with only image', () => {
 
 test('update bird that already has info', () => {
     expect(BirdLib.updateBird({
-        name: "",
-        value: ""
+        name: "birdSound",
+        value: "https://www.mbr-pwrc.usgs.gov/id/htmwav/h5600so.mp3"
     },{
-        birdName: "",
-        birdImage: "",
+        birdName: "Chipping Sparrow",
+        birdImage: "https://download.ams.birds.cornell.edu/api/v1/asset/64972021/1800",
         birdSound: "",
         habitatImage: "",
         habitatSound: ""
