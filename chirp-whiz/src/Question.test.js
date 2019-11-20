@@ -30,6 +30,17 @@ test('Reducer funciton, default case, with state being passed in', () => {
   expect(QuestionInfo.reducer("foo", {type: "bar"})).toStrictEqual("foo");
 });
 
+test('Reducer funciton, query case, with state being passed in', () => {
+  expect(QuestionInfo.reducer(
+      "foo", {type: "QUERY", todos: "bar"}
+  )).toStrictEqual({
+      0: "f",
+      1: "o",
+      2: "o",
+      todos: "bar"}
+  );
+})
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
