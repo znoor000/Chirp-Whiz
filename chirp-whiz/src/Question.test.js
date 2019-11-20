@@ -18,6 +18,14 @@ test('Reducer function with the query case', () => {
       .toStrictEqual({todos: "todos"});
 });
 
+test('Reducer function with the subscription case', () => {
+  expect(QuestionInfo.reducer(
+      {todos: "foo"}, {type: "SUBSCRIPTION", todo: "testing"}
+  )).toStrictEqual(
+      {todos: ["f", "o", "o", "testing"]}
+  );
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
