@@ -50,6 +50,18 @@ test('Reducer funciton, default case, with state having more arguments', () => {
   );
 });
 
+test('result when nothing is chosen yet', () => {
+  expect(QuestionInfo.Result(
+      {answerType: "not_yet"}
+  )).toStrictEqual(<div>Hmm...</div>);
+});
+
+test('result when correct answer choice', () => {
+  expect(QuestionInfo.Result(
+      {answerType: "correct"}
+  )).toStrictEqual(<div>Hmm...</div>);
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
