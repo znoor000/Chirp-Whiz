@@ -39,7 +39,16 @@ test('Reducer funciton, query case, with state being passed in', () => {
       2: "o",
       todos: "bar"}
   );
-})
+});
+
+test('Reducer funciton, default case, with state having more arguments', () => {
+  expect(QuestionInfo.reducer(
+      {0: "f", 1: "o", 2:"o", todos: "bar"},
+      {type: "SUBSCRIPTION", todo: "test"}
+  )).toStrictEqual(
+      {0: "f", 1: "o", 2: "o", todos: ["b", "a", "r", "test"]}
+  );
+});
 
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
