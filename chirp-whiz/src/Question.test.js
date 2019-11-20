@@ -26,6 +26,10 @@ test('Reducer function with the subscription case', () => {
   );
 });
 
+test('Reducer funciton, default case, with state being passed in', () => {
+  expect(QuestionInfo.reducer("foo", {type: "bar"})).toStrictEqual("foo");
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
