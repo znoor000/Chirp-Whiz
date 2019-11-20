@@ -35,7 +35,7 @@ test('update bird with only name', () => {
         habitatImage: "",
         habitatSound: ""
     })).toStrictEqual({
-        birdName: "",
+        birdName: "Pigeon",
         birdImage: "",
         birdSound: "",
         habitatImage: "",
@@ -55,7 +55,7 @@ test('update bird with only image', () => {
         habitatSound: ""
     })).toStrictEqual({
         birdName: "",
-        birdImage: "",
+        birdImage: "https://download.ams.birds.cornell.edu/api/v1/asset/66031271/1800",
         birdSound: "",
         habitatImage: "",
         habitatSound: ""
@@ -73,9 +73,9 @@ test('update bird that already has info', () => {
         habitatImage: "",
         habitatSound: ""
     })).toStrictEqual({
-        birdName: "",
-        birdImage: "",
-        birdSound: "",
+        birdName: "Chipping Sparrow",
+        birdImage: "https://download.ams.birds.cornell.edu/api/v1/asset/64972021/1800",
+        birdSound: "https://www.mbr-pwrc.usgs.gov/id/htmwav/h5600so.mp3",
         habitatImage: "",
         habitatSound: ""
     })
