@@ -80,3 +80,5 @@ test('update bird that already has info', () => {
         habitatSound: ""
     })
 });
+
+test('test BirdForm renders', () => {});
