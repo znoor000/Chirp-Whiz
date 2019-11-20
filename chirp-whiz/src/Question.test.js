@@ -13,6 +13,11 @@ test('Reducer function with the default case', () => {
   expect(QuestionInfo.reducer({}, {type: "DEFAULT"})).toStrictEqual({});
 });
 
+test('Reducer function with the query case', () => {
+  expect(QuestionInfo.reducer({}, {type: "QUERY", todos: "todos"}))
+      .toStrictEqual({todos: "todos"});
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
