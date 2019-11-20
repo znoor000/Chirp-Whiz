@@ -6,7 +6,12 @@ import Question from './Question.js';
 import { AnswerButton } from './Question';
 import Button from 'react-bootstrap/Button'
 import Image from 'react-bootstrap/Image'
+
 const QuestionInfo = require('./Question.js');
+
+test('Reducer function with the default case', () => {
+  expect(QuestionInfo.reducer({}, {type: "DEFAULT"})).toStrictEqual({});
+});
 
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
