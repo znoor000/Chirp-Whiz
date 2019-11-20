@@ -13,13 +13,20 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
+it('test App renders', () => {
+    const container = render(<App />)
+    expect(container.firstChild).toMatchSnapshot();
+});
+
 test('test full app', () => {
   const history = createMemoryHistory()
   const { container, getByText } = render(
     <Router history={history}>
       <App />
     </Router>
-  )
+)})
+
+
   {/*
   expect(container.innerHTML).toMatch('Chirp Whiz')
 
@@ -27,4 +34,3 @@ test('test full app', () => {
 
   expect(container.innerHTML).toMatch('Quiz')
   */}
-})

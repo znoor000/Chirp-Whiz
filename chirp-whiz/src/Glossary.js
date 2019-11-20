@@ -18,7 +18,7 @@ import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
 
 const initialState = {todos:[]};
-const reducer = (state, action) =>{
+export const reducer = (state, action) => {
   switch(action.type){
     case 'QUERY':
       return {...state, todos:action.todos}
@@ -50,10 +50,10 @@ function Glossary () {
   }
   
   let match = useRouteMatch();
-
+{/*
   function chosenBird(index) {
     setBirdNum(index);
-  }
+  }*/}
 
   return(
     <div>
@@ -74,7 +74,7 @@ function Glossary () {
               {state.todos.map((todo, i) =>
                 <ListGroup.Item>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <Button variant="outline-primary" onClick={() => chosenBird(i)}>
+                  <Button variant="outline-primary" onClick={() => setBirdNum(i)}>
                     <p>{todo.name}</p>
                     <Image src={todo.image} rounded style={{height: '300px'}} />
                   </Button>
@@ -92,7 +92,7 @@ function Glossary () {
   );
 }
 
-function Bird(props) {
+export function Bird(props) {
   let { birdName } = useParams();
 
   return(

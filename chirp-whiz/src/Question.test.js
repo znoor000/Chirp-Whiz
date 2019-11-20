@@ -1,45 +1,29 @@
-import React from 'react';
-import AudioButton from './AudioButton.js';
-import { AnswerButton } from './Question';
+import '@testing-library/jest-dom/extend-expect'
 
 const QuestionInfo = require('./Question.js');
 
-test('QuestionInfo returns name', () => {
-    expect(
-        QuestionInfo({
-            type: 0, 
-            bird: {name: "a", image: "b", sound: "c"}
-        })).toStrictEqual(<h3>a</h3>);
-});
+test('Check answer correct', () => {
+    const spy = jest.spyOn(document, 'getElementById')
+    spy.mockReturnValueOnce({volume: 5, play() {}});
 
-test('QuestionInfo returns image', () => {
-    expect(
-        QuestionInfo({
-            type: 1, 
-            bird: {name: "a", image: "b", sound: "c"}
-        })).toStrictEqual(<img src="b" alt="a" />);
-});
+    expect(QuestionInfo.checkAnswer(2, 2,
+        {current: {scrollIntoView() {}}})).toStrictEqual("correct");
+    expect(spy).toHaveBeenCalledTimes(1)
+})
 
-test('QuestionInfo returns audio', () => {
-    expect(
-        QuestionInfo({
-            type: 2, 
-            bird: {name: "a", image: "b", sound: "c"}
-        })).toStrictEqual(<AudioButton sound="c" />);
-});
+test('Check answer correct', () => {
+    const spy = jest.spyOn(document, 'getElementById')
+    spy.mockReturnValueOnce({volume: 5, play() {}});
 
-{/* Doesn't work yet
-test('AnswerButton returns only image', () => {
-    expect(
-        AnswerButton({
-            type: 0, 
-            bird: {name: "a", image: "b", sound: "c"},
-            answerID: 0
-        })).toStrictEqual(
-            <div>
-              <button onClick={() => checkAnswer(0)}>
-                <img src="b" alt="a" />
-              </button>
-            </div>
-        );
-});*/}
+    expect(QuestionInfo.checkAnswer(2, 3,
+        {current: {scrollIntoView() {}}})).toStrictEqual("incorrect");
+    expect(spy).toHaveBeenCalledTimes(2)
+})
+
+test('Randomize with 0.5', () => {
+    const spy = jest.spyOn(Math, 'random')
+    spy.mockReturnValueOnce(0.5);
+
+    expect(QuestionInfo.randomize("correctBird")).toBeLessThanOrEqual(4)
+    expect(spy).toHaveBeenCalledTimes(1)
+})

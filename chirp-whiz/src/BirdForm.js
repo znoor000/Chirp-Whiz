@@ -24,6 +24,14 @@ async function createNewTodo(newBird) {
     await API.graphql(graphqlOperation(createTodo, { input: todo }))
 }
 
+export function updateBird(target, newBird) {
+    const name = target.name;
+    let tempBird = newBird;
+    tempBird[name] = target.value;
+
+    return tempBird;
+}
+
 function BirdForm() {
     const [newBird, setNewBird] = useState({
         birdName: "",
@@ -34,11 +42,7 @@ function BirdForm() {
     });
 
     function fillingForm(e) {
-        const name = e.target.name;
-        let tempBird = newBird;
-        tempBird[name] = e.target.value;
-
-        setNewBird(tempBird);
+        setNewBird(updateBird(e.target, newBird));
     }
 
     return(

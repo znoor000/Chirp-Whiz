@@ -16,6 +16,7 @@ class Home extends Component {
       return(
         <div className="homepage">
           <br /><h1>Chirp Whiz</h1><br />
+          <Router>
           <p>
           <Link to="/quiz">
             <Button variant="outline-light" size="lg" style={{backgroundColor: "#ffa333"}}>Start Quiz Now</Button>
@@ -33,6 +34,7 @@ class Home extends Component {
           </Link>
           </Col>
           </Row>
+          </Router>
         </div>
       );
     }
