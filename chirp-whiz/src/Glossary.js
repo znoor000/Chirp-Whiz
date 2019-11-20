@@ -74,7 +74,7 @@ function Glossary () {
               {state.todos.map((todo, i) =>
                 <ListGroup.Item>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <Button variant="outline-primary" onClick={() => setBird(i)}>
+                  <Button variant="outline-primary" onClick={() => setBirdNum(i)}>
                     <p>{todo.name}</p>
                     <Image src={todo.image} rounded style={{height: '300px'}} />
                   </Button>

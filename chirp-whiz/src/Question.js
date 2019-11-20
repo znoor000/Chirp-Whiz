@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import AudioButton from './AudioButton.js';
 import API, { graphqlOperation } from '@aws-amplify/api'
+import PubSub from '@aws-amplify/pubsub';
 import { listTodos } from './graphql/queries'
 import { onCreateTodo } from './graphql/subscriptions'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +11,10 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
+import awsconfig from './aws-exports';
+
+API.configure(awsconfig);
+PubSub.configure(awsconfig);
 
 const initialState = {todos:[]};
 export const reducer = (state, action) =>{
@@ -40,8 +45,8 @@ export function QuestionInfo(props) {
   );
 }
 
-export function Result(answerType) {
-  if (answerType === "correct") {
+export function Result(props) {
+  if (props.isCorrect === "correct") {
     return (
       <div>
         {/*<h1>Correct!</h1>
@@ -51,7 +56,7 @@ export function Result(answerType) {
         <Button variant="success" onClick={() => window.location.reload(false)}>Correct! Next Question</Button>
       </div>
     );
-  } else if (answerType === "incorrect") {
+  } else if (props.isCorrect === "incorrect") {
     return (
       <div>
         {/*<h1>Incorrect.</h1>
@@ -67,7 +72,7 @@ export function Result(answerType) {
 }
 
 export function checkAnswer(choice, correctBird, resultRef) {
-  let aType = "";
+  var aType = "";
   if (choice === correctBird) {
     aType = "correct";
     let x = document.getElementById("ding");
@@ -76,7 +81,7 @@ export function checkAnswer(choice, correctBird, resultRef) {
   } else {
     aType = "incorrect";
     let x = document.getElementById("buzz");
-    x.volume = 0.2;
+    x.volume = 0.1;
     x.play();
   }
 
@@ -89,7 +94,7 @@ export function checkAnswer(choice, correctBird, resultRef) {
 }
 
 export function randomize(whichState, length) {
-  if (whichState == "birds") {
+  if (whichState === "birds") {
     var arr = [];
     while(arr.length < 4) {
       var r = Math.floor(Math.random() * length);
@@ -124,7 +129,6 @@ function Question() {
   useEffect(() => {
     if (state.todos.length !== 0) {
       setBirds(randomize("birds", state.todos.length));
-    } else {
       setCorrectBird(randomize("correctBird"));
     }
   }, [state.todos.length]);
@@ -137,7 +141,7 @@ function Question() {
             variant="primary"
             size="lg"
             block
-            onClick={() => setAnswwerType(checkAnswer(props.answerID, props.correctBird, resultRef))}>
+            onClick={() => setAnswerType(checkAnswer(props.answerID, props.correctBird, resultRef))}>
             <img src={props.bird.image} alt={props.bird.name} />
           </Button>
         </div>
@@ -197,21 +201,21 @@ function Question() {
           <Container>
             <Row>
               <Col>
-              <AnswerButton type={qType} bird={state.todos[birds[0]]} answerID={0} />
+              <AnswerButton type={qType} bird={state.todos[birds[0]]} answerID={0} correctBird={correctBird} />
               </Col>
               <Col>
-              <AnswerButton type={qType} bird={state.todos[birds[1]]} answerID={1} />
+              <AnswerButton type={qType} bird={state.todos[birds[1]]} answerID={1} correctBird={correctBird} />
               </Col>
               <Col>
-              <AnswerButton type={qType} bird={state.todos[birds[2]]} answerID={2} />
+              <AnswerButton type={qType} bird={state.todos[birds[2]]} answerID={2} correctBird={correctBird} />
               </Col>
               <Col>
-              <AnswerButton type={qType} bird={state.todos[birds[3]]} answerID={3} />
+              <AnswerButton type={qType} bird={state.todos[birds[3]]} answerID={3} correctBird={correctBird} />
               </Col>
             </Row>
           </Container>
           <div ref={resultRef}><br />
-            <Result answerType={answerType} /*bird={state.todos[birds[correctBird]]}*/ />
+            <Result isCorrect={answerType} /*bird={state.todos[birds[correctBird]]}*/ />
             <audio id="buzz">
               <source src="https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3" type="audio/mpeg"></source>
             </audio>
