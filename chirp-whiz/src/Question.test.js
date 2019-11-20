@@ -62,6 +62,16 @@ test('result when correct answer choice', () => {
   )).toStrictEqual(<div>Hmm...</div>);
 });
 
+test('QuestionInfo returns image and audio', () => {
+  expect(
+      QuestionInfo.QuestionInfo({
+          bird: {image: "a", sound: "b"}
+      })).toStrictEqual(<div>
+          <Image src="a" thumbnail style={{height: '300px'}}/>
+          <AudioButton sound="b" />
+        </div>);
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
