@@ -72,6 +72,11 @@ test('QuestionInfo returns image and audio', () => {
         </div>);
 });
 
+it('test Question renders', () => {
+  const container = render(<Question />)
+  expect(container.firstChild).toMatchSnapshot();
+});
+
 test('Check answer correct', () => {
     const spy = jest.spyOn(document, 'getElementById')
     spy.mockReturnValueOnce({volume: 5, play() {}});
