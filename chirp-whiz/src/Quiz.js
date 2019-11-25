@@ -25,7 +25,7 @@ function Quiz() {
               </label>
               </form>
               <Link to={`${match.path}/question`}>
-                
+              <Button variant="outline-light" size="lg" style={{backgroundColor: "#ffa333"}}>Start</Button>
               </Link>
              </div>
            </Route>
