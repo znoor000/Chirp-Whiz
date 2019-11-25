@@ -16,8 +16,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
+import birdList from './birdList';
 
-const initialState = {todos:[]};
+{/*const initialState = {todos:[]};
 export const reducer = (state, action) => {
   switch(action.type){
     case 'QUERY':
@@ -27,13 +28,16 @@ export const reducer = (state, action) => {
     default:
       return state
   }
-}
+}*/}
 
 function Glossary () {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
+  const [state, setState] = useState({
+    todos: birdList
+  });
   const [birdNum, setBirdNum] = useState(0);
 
-  useEffect(() => {
+  {/*useEffect(() => {
     getData()
     const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
       next: (eventData) => {
@@ -47,7 +51,7 @@ function Glossary () {
   async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
-  }
+  }*/}
   
   let match = useRouteMatch();
 {/*
