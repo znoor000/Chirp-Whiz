@@ -112,6 +112,12 @@ export function Bird(props) {
       <AudioButton sound={props.bird.sound}/>
       <br />
       <h3>Habitats:</h3>
+      <p>{props.bird.habitat.map((hab, index) => {
+        let tempHab = hab;
+        if (index != props.bird.habitat.length - 1)
+          tempHab += ", ";
+        return tempHab;
+      })}</p>
       </Card.Body>
       </Card>
     </div>
