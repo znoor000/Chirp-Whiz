@@ -11,6 +11,10 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
+function goToPage() {
+  setTimeout(() => window.location.reload(false), 200);
+}
+
 class Home extends Component {
     render() {
       return(
@@ -19,18 +23,23 @@ class Home extends Component {
           <Router>
           <p>
           <Link to="/quiz">
-            <Button variant="outline-light" size="lg" style={{backgroundColor: "#ffa333"}}>Start Quiz Now</Button>
+            <Button
+              variant="outline-light"
+              size="lg"
+              style={{backgroundColor: "#ffa333"}}
+              onClick={() => goToPage()}
+            >Start Quiz Now</Button>
           </Link>
           </p><br />
           <Row>
             <Col>
           <Link to="/glossary">
-            <Button variant="primary">Check out the glossary</Button>
+            <Button variant="primary" onClick={() => goToPage()}>Check out the glossary</Button>
           </Link>
           </Col>
           <Col>
           <Link to="/bird-form">
-            <Button variant="primary">Add a new bird to the collection</Button>
+            <Button variant="primary" onClick={() => goToPage()}>Add a new bird to the collection</Button>
           </Link>
           </Col>
           </Row>
