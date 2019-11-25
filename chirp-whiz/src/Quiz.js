@@ -13,17 +13,9 @@ function Quiz() {
 
     return (
         <Switch>
-            <Route path={`${match.path}/question`}>
-              <Question />
-            </Route>
-            <Route path={match.path}>
-            <div>
-              <h1>Quiz</h1>
-              <Link to={`${match.path}/question`}>
-                <button>Start Quiz</button>
-              </Link>
-            </div>
-            </Route>
+           <Route path={`${match.path}/question`}>
+             
+           </Route>
         </Switch>
     );
 }
