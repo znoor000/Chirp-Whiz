@@ -110,6 +110,7 @@ export function Bird(props) {
   backgroundRepeat: 'no-repeat'}}*/}
       <Image src={props.bird.image} rounded />
       <AudioButton sound={props.bird.sound}/>
+      <br /> 
       </Card.Body>
       </Card>
     </div>
