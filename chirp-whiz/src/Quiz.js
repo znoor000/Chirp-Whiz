@@ -14,7 +14,7 @@ function Quiz() {
     return (
         <Switch>
            <Route path={`${match.path}/question`}>
-             
+              <Question />
            </Route>
         </Switch>
     );
