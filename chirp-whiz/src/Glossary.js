@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import AudioButton from './AudioButton.js';
+import AudioButton from './quizComponents/AudioButton';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import { listTodos } from './graphql/queries'
 import { onCreateTodo } from './graphql/subscriptions'
@@ -110,6 +110,14 @@ export function Bird(props) {
   backgroundRepeat: 'no-repeat'}}*/}
       <Image src={props.bird.image} rounded />
       <AudioButton sound={props.bird.sound}/>
+      <br />
+      <h3>Habitats:</h3>
+      <p>{props.bird.habitat.map((hab, index) => {
+        let tempHab = hab;
+        if (index != props.bird.habitat.length - 1)
+          tempHab += ", ";
+        return tempHab;
+      })}</p>
       </Card.Body>
       </Card>
     </div>
