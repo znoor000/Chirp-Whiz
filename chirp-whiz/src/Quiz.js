@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 
 function Quiz() {
     let match = useRouteMatch();
-
+{/*     not finish yet/need to check more
     return (
         <Switch>
            <Route path={`${match.path}/question`}>
@@ -30,7 +30,7 @@ function Quiz() {
              </div>
            </Route>
         </Switch>
-    );
+    ); */}
 }
 
 export default Quiz;
