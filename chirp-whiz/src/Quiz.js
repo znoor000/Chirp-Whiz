@@ -24,6 +24,9 @@ function Quiz() {
                 <input name="questionNum" type="text" />
               </label>
               </form>
+              <Link to={`${match.path}/question`}>
+                
+              </Link>
              </div>
            </Route>
         </Switch>
