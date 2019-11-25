@@ -30,6 +30,23 @@ function chooseBirds(habs) {
   return birds;
 }
 
+export function checkAnswer(choice, correctBird) {
+  var aType = "";
+  if (choice === correctBird) {
+    aType = "correct";
+    let x = document.getElementById("ding");
+    x.volume = 0.2;
+    x.play();
+  } else {
+    aType = "incorrect";
+    let x = document.getElementById("buzz");
+    x.volume = 0.1;
+    x.play();
+  }
+
+  return aType;
+}
+
 function Quiz() {
     let match = useRouteMatch();
 {/*     not finish yet/need to check more
