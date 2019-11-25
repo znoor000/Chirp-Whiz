@@ -28,7 +28,7 @@ class Home extends Component {
               size="lg"
               style={{backgroundColor: "#ffa333"}}
               onClick={() => goToPage()}
-            >Start Quiz Now</Button>
+            >Go to quiz page</Button>
           </Link>
           </p><br />
           <Row>
