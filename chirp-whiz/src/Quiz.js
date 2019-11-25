@@ -47,6 +47,19 @@ export function checkAnswer(choice, correctBird) {
   return aType;
 }
 
+export function randomize(whichState, availBirds) {
+  if (whichState === "birds") {
+    var arr = [];
+    while(arr.length < 4) {
+      var r = availBirds[Math.floor(Math.random() * availBirds.length)];
+      if(arr.indexOf(r) === -1) arr.push(r);
+    }
+    return arr;
+  } else {
+    return(Math.floor(Math.random() * 4));
+  }
+}
+
 function Quiz() {
     let match = useRouteMatch();
 {/*     not finish yet/need to check more
