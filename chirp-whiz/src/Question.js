@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import AudioButton from './AudioButton.js';
+import AudioButton from './quizComponents/AudioButton';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import PubSub from '@aws-amplify/pubsub';
 import { listTodos } from './graphql/queries'
