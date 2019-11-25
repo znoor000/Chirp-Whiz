@@ -6,25 +6,31 @@ import {
   Link,
   useRouteMatch
 } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 function Quiz() {
     let match = useRouteMatch();
-
+{/*     not finish yet/need to check more
     return (
         <Switch>
-            <Route path={`${match.path}/question`}>
+           <Route path={`${match.path}/question`}>
               <Question />
-            </Route>
-            <Route path={match.path}>
-            <div>
-              <h1>Quiz</h1>
+           </Route>
+           <Route path={match.path}>
+             <div>
+              <br /><h2>How many questions you want to try?</h2>
+              <form>
+              <label>
+                <input name="questionNum" type="text" />
+              </label>
+              </form>
               <Link to={`${match.path}/question`}>
-                <button>Start Quiz</button>
+              <Button variant="outline-light" size="lg" style={{backgroundColor: "#ffa333"}}>Start</Button>
               </Link>
-            </div>
-            </Route>
+             </div>
+           </Route>
         </Switch>
-    );
+    ); */}
 }
 
 export default Quiz;
