@@ -16,6 +16,12 @@ function Quiz() {
            <Route path={`${match.path}/question`}>
               <Question />
            </Route>
+           <Route path={match.path}>
+             <div>
+              <br /><h2>How many questions you want to try?</h2>
+
+             </div>
+           </Route>
         </Switch>
     );
 }
