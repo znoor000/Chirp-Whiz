@@ -13,6 +13,23 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+function chooseBirds(habs) {
+  let birds = [];
+
+  for (let i = 0; i < birdList.length; i++) {
+    let isFromHab = false;
+
+    for (let j = 0; j < habs.length; j++) {
+      if (birdList[i].habitat.includes(habs[j]))
+        isFromHab = true;
+    }
+
+    if (isFromHab) birds.push(i);
+  }
+
+  return birds;
+}
+
 function Quiz() {
     let match = useRouteMatch();
 {/*     not finish yet/need to check more
