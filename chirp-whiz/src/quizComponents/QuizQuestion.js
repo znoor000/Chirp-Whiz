@@ -22,3 +22,5 @@ function QuizQuestion(props) {
         </div>
     );
 }
+
+export default QuizQuestion;
