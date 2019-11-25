@@ -19,7 +19,11 @@ function Quiz() {
            <Route path={match.path}>
              <div>
               <br /><h2>How many questions you want to try?</h2>
-
+              <form>
+              <label>
+                <input name="questionNum" type="text" />
+              </label>
+              </form>
              </div>
            </Route>
         </Switch>
