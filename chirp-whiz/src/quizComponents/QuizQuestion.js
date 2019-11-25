@@ -11,3 +11,14 @@ export function QuestionInfo(props) {
         </div>
     );
 }
+
+function QuizQuestion(props) {
+    return (
+        <div>
+            <h4>Question number {props.currentQuestion} of {props.questionNum}</h4>
+            <ProgressBar now={(props.currentQuestion / props.questionNum) * 100} />
+            <h4>Identify this bird:</h4>
+            <QuestionInfo bird={props.qBird} />
+        </div>
+    );
+}
