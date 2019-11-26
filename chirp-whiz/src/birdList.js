@@ -12,32 +12,32 @@ var birdList = [
         image: 'https://www.allaboutbirds.org/guide/assets/photo/124706471-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h5290so.mp3',
         habitat: 'Open Woodlands',
-        birdType: '',
-        scientificName: ''        
+        birdType: 'Finch',
+        scientificName: 'Carduelis tristis'        
     },
     {
         name: 'House finch',
         image: 'https://www.allaboutbirds.org/guide/assets/photo/63736771-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h5190so.mp3',
         habitat: 'Towns',
-        birdType: '',
-        scientificName: ''
+        birdType: 'Finch',
+        scientificName: 'Carpodacus mexicanus'
     },
     {
         name: 'Baltimore oriole',
         image: 'https://www.allaboutbirds.org/guide/assets/photo/63734201-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h5070so.mp3',
         habitat: 'Open Woodlands',
-        birdType: '',
-        scientificName: ''
+        birdType: 'Oriole',
+        scientificName: 'Icterus galbula'
     },
     {
         name: 'Orchard oriole',
         image: 'https://www.allaboutbirds.org/guide/assets/photo/67361081-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h5060so.mp3',
         habitat: 'Open Woodlands',
-        birdType: '',
-        scientificName: ''
+        birdType: 'Oriole',
+        scientificName: 'Icterus spurius'
     }
 ];
 
