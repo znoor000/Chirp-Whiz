@@ -169,6 +169,24 @@ function Quiz() {
     );
   }
 
+  function renderResult() {
+    return (
+      <div>
+        {answerType == "correct" ? (
+          <span>Correct</span>
+        ) : (
+          <span>Incorrect</span>
+        )}
+        <Button
+          variant="outline-light"
+          size="lg"
+          style={{backgroundColor: "#ffa333"}}
+          onClick={() => nextQuestion()}
+        >Next Question</Button>
+      </div>
+    );
+  }
+
   return (
     <div>
       {quizStart ? (
