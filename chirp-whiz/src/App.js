@@ -24,7 +24,7 @@ Amplify.configure(awsconfig);
 function App() {
   return (
     <div className="App">
-      <Navbar bg="primary" variant="dark" sticky="top">
+      <Navbar variant="light" sticky="top" style={{backgroundColor: '#80ff00'}}>
         <Navbar.Brand href="home">Chirp Whiz</Navbar.Brand>
         <Nav fill className="mr-auto">
           <Nav.Link href="home">Home</Nav.Link>
