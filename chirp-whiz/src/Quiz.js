@@ -73,6 +73,23 @@ function Quiz() {
   const [chosenHabs, setChosenHabs] = useState(['Forest']);
   {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
   
+  useEffect(() => {
+    let birds = chooseBirds(chosenHabs);
+    setAvailBirds(birds);
+    setBirds(randomize("birds", birds));
+    setCorrectBird(randomize("correctBird"));
+    setAnswerType('none_yet');
+  }, [quizStart]);
+
+  useEffect(() => {
+    if (quizStart && answerType != "none_yet") {
+      setAnswered(true);
+    }
+    
+    if (answerType == "correct")
+      setNumCorrect(numCorrect + 1);
+  }, [answerType]);
+
   function QuizOptions(props) {
     return (
       <div>
