@@ -12,10 +12,13 @@ function AnswerPage(props) {
                 <h2>Incorrect...</h2>
             )}
             <Card>
-            <Card.Header as="h2">{props.bird.name}</Card.Header>
-            <Card.Body>
-                
-            </Card.Body>
+                <Card.Header as="h2">
+                    {props.bird.name}
+                </Card.Header>
+                <Card.Body>
+                    <Image src={props.bird.image} rounded style={{height: '200px'}} />
+                    <AudioButton sound={props.bird.sound} />
+                </Card.Body>
             </Card>
         </div>
     );
