@@ -73,6 +73,40 @@ function Quiz() {
   const [chosenHabs, setChosenHabs] = useState(['Forest']);
   {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
   
+  function QuizOptions(props) {
+    return (
+      <div>
+        <h1>Quiz</h1>
+        <h2>How many questions?</h2>
+        <ToggleButtonGroup name="num" value={questionNum} onChange={val => setQuestionNum(val)}>
+          <ToggleButton value={5}>5</ToggleButton>
+          <ToggleButton value={10}>10</ToggleButton>
+          <ToggleButton value={20}>20</ToggleButton>
+        </ToggleButtonGroup>
+        <div style={{padding: '20px'}}>
+        <h2>Which habitats?</h2>
+        <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
+          <ToggleButton value={'Forest'}>Forest</ToggleButton>
+          <ToggleButton value={'Backyard'}>Backyard</ToggleButton>
+          <ToggleButton value={'Field'}>Field</ToggleButton>
+          <ToggleButton value={'Orchard'}>Orchard</ToggleButton>
+          <ToggleButton value={'Desert'}>Desert</ToggleButton>
+          <ToggleButton value={'Streamside'}>Streamside</ToggleButton>
+          <ToggleButton value={'River Edge'}>River Edge</ToggleButton>
+        </ToggleButtonGroup>
+        </div>
+        <div style={{padding: '30px'}}>
+        <Button
+          variant="outline-light"
+          size="lg"
+          style={{backgroundColor: "#ffa333"}}
+          onClick={() => setQuizStart(true)}
+        >Start Quiz Now</Button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
       {quizStart ? (
