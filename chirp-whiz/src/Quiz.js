@@ -124,6 +124,19 @@ function Quiz() {
     );
   }
 
+  function AnswerButton(props) {
+    return (
+      <Button 
+        variant="outline-light"
+        size="lg"
+        style={{backgroundColor: "#ffa333"}}
+        block
+        onClick={() => setAnswerType(checkAnswer(props.answerID, props.correctBird))}>
+        <div>{props.bird.name}</div>
+      </Button>
+    )
+  }
+
   function renderQuestion() {
     return (
       <div>
