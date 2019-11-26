@@ -11,11 +11,11 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
-import awsconfig from './aws-exports';
+//import awsconfig from './aws-exports';
 import birdList from './birdList';
 
-API.configure(awsconfig);
-PubSub.configure(awsconfig);
+//API.configure(awsconfig);
+//PubSub.configure(awsconfig);
 
 {/*const initialState = {todos:[]};
 export const reducer = (state, action) =>{

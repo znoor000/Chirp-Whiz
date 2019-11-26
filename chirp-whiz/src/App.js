@@ -12,14 +12,14 @@ import {
   Link
 } from "react-router-dom";
 import Amplify from 'aws-amplify';
-import awsconfig from './aws-exports';
+//import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 
-Amplify.configure(awsconfig);
+//Amplify.configure(awsconfig);
 
 function App() {
   return (
@@ -64,4 +64,4 @@ function App() {
   );
 }
 
-export default withAuthenticator(App, true);
+export default App; //withAuthenticator(App, true);

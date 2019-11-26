@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import PubSub from '@aws-amplify/pubsub';
 import { createTodo } from './graphql/mutations'
-import config from './aws-exports'
+//import config from './aws-exports'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-API.configure(config);
-PubSub.configure(config);
+//API.configure(config);
+//PubSub.configure(config);
 
 async function createNewTodo(newBird) {
     const todo = {
