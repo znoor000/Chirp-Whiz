@@ -61,7 +61,17 @@ export function randomize(whichState, availBirds) {
 }
 
 function Quiz() {
-    let match = useRouteMatch();
+  const [questionNum, setQuestionNum] = useState(5);
+  const [numCorrect, setNumCorrect] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(1);
+  const [quizStart, setQuizStart] = useState(false);
+  const [availBirds, setAvailBirds] = useState([]);
+  const [answered, setAnswered] = useState(false);
+  const [birds, setBirds] = useState([0, 1, 2, 3]);
+  const [correctBird, setCorrectBird] = useState(0);
+  const [answerType, setAnswerType] = useState("none_yet");
+  const [chosenHabs, setChosenHabs] = useState(['Forest']);
+  {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
 {/*     not finish yet/need to check more
     return (
         <Switch>
