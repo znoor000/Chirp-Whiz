@@ -88,8 +88,17 @@ function Quiz() {
       setAnswered(true);
     }
     
-    if (answerType == "correct")
+    if (answerType == "correct") {
       setNumCorrect(numCorrect + 1);
+
+      let tempCorrect = correctlyAnswered;
+      tempCorrect.push(birds[correctBird]);
+      setCorrectlyAnswered(tempCorrect);
+    } else if (answerType == "incorrect") {
+      let tempIncorrect = incorrectlyAnswered;
+      tempIncorrect.push(birds[correctBird]);
+      setIncorrectlyAnswered(tempIncorrect);
+    }
   }, [answerType]);
 
   function QuizOptions(props) {
@@ -98,16 +107,16 @@ function Quiz() {
         <h1>Quiz</h1>
         <h2>How many questions?</h2>
         <ToggleButtonGroup name="num" value={questionNum} onChange={val => setQuestionNum(val)}>
-          <ToggleButton value={5}>5</ToggleButton>
-          <ToggleButton value={10}>10</ToggleButton>
-          <ToggleButton value={20}>20</ToggleButton>
+          <ToggleButton variant="outline-warning" value={5}>5</ToggleButton>
+          <ToggleButton variant="outline-warning" value={10}>10</ToggleButton>
+          <ToggleButton variant="outline-warning" value={20}>20</ToggleButton>
         </ToggleButtonGroup>
         <div style={{padding: '20px'}}>
         <h2>Which habitats?</h2>
         <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
-          <ToggleButton value={'Forests'}>Forests</ToggleButton>
-          <ToggleButton value={'Open Woodlands'}>Open Woodlands</ToggleButton>
-          <ToggleButton value={'Towns'}>Towns</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Forests'}>Forests</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Open Woodlands'}>Open Woodlands</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Towns'}>Towns</ToggleButton>
         </ToggleButtonGroup>
         </div>
         <div style={{padding: '30px'}}>
@@ -203,7 +212,11 @@ function Quiz() {
         )
       ) : (
         currentQuestion === questionNum ? (
-          <ResultPage correct={numCorrect} totalQs={questionNum}/>
+          <ResultPage
+            totalQs={questionNum}
+            correct={correctlyAnswered}
+            incorrect={incorrectlyAnswered}
+          />
         ) : (
           <QuizOptions />
         )
