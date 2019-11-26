@@ -137,6 +137,18 @@ function Quiz() {
     )
   }
 
+  function nextQuestion() {
+    if (currentQuestion === questionNum) {
+      setQuizStart(!quizStart);
+    } else {
+    setAnswerType('none_yet');
+    setAnswered(false);
+    setCurrentQuestion(currentQuestion + 1);
+    setBirds(randomize("birds", birds));
+    setCorrectBird(randomize("correctBird"));
+    }
+  }
+
   function renderQuestion() {
     return (
       <div>
