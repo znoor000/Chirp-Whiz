@@ -68,7 +68,7 @@ function Glossary () {
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
               <Link to={match.path}>
-                <Button variant="primary">Return</Button>
+                <Button variant="secondary">Return</Button>
               </Link>
             </Route>
             <Route path={match.path}>
@@ -78,7 +78,7 @@ function Glossary () {
               {state.todos.map((todo, i) =>
                 <ListGroup.Item>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <Button variant="outline-primary" onClick={() => setBirdNum(i)}>
+                  <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
                     <p>{todo.name}</p>
                     <Image src={todo.image} rounded style={{height: '300px'}} />
                   </Button>
