@@ -78,27 +78,117 @@ it('test Question renders', () => {
 });
 
 test('Check answer correct', () => {
-    const spy = jest.spyOn(document, 'getElementById')
-    spy.mockReturnValueOnce({volume: 5, play() {}});
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 5, play() {}});
 
-    expect(QuestionInfo.checkAnswer(2, 2,
-        {current: {scrollIntoView() {}}})).toStrictEqual("correct");
-    expect(spy).toHaveBeenCalledTimes(1)
+  expect(QuestionInfo.checkAnswer(2, 2,
+      {current: {scrollIntoView() {}}})).toStrictEqual("correct");
+  expect(spy).toHaveBeenCalledTimes(1)
+})
+
+
+test('Check answer correct', () => {
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 5, play() {}});
+
+  expect(QuestionInfo.checkAnswer(2, 3,
+      {current: {scrollIntoView() {}}})).toStrictEqual("incorrect");
+  expect(spy).toHaveBeenCalledTimes(2)
 })
 
 test('Check answer correct', () => {
-    const spy = jest.spyOn(document, 'getElementById')
-    spy.mockReturnValueOnce({volume: 5, play() {}});
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 0, play() {}});
 
-    expect(QuestionInfo.checkAnswer(2, 3,
-        {current: {scrollIntoView() {}}})).toStrictEqual("incorrect");
-    expect(spy).toHaveBeenCalledTimes(2)
+  expect(QuestionInfo.checkAnswer("Sparrow", "Sparrow",
+      {current: {scrollIntoView() {}}})).toStrictEqual("correct");
+  expect(spy).toHaveBeenCalledTimes(3)
+})
+
+test('Check answer correct', () => {
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 0, play() {}});
+
+  expect(QuestionInfo.checkAnswer("Sparrow", "Pigeon",
+      {current: {scrollIntoView() {}}})).toStrictEqual("incorrect");
+  expect(spy).toHaveBeenCalledTimes(4)
+})
+
+test('Check answer correct', () => {
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 0, play() {}});
+
+  expect(QuestionInfo.checkAnswer("Sparrow", "Seagull",
+      {current: {scrollIntoView() {}}})).toStrictEqual("incorrect");
+  expect(spy).toHaveBeenCalledTimes(5)
+})
+
+test('Check answer correct', () => {
+  const spy = jest.spyOn(document, 'getElementById')
+  spy.mockReturnValueOnce({volume: 5, play() {}});
+
+  expect(QuestionInfo.checkAnswer(4, 4,
+      {current: {scrollIntoView() {}}})).toStrictEqual("correct");
+  expect(spy).toHaveBeenCalledTimes(6)
 })
 
 test('Randomize with 0.5', () => {
-    const spy = jest.spyOn(Math, 'random')
-    spy.mockReturnValueOnce(0.5);
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.5);
 
-    expect(QuestionInfo.randomize("correctBird")).toBeLessThanOrEqual(4)
-    expect(spy).toHaveBeenCalledTimes(1)
+  expect(QuestionInfo.randomize("correctBird")).toBeLessThanOrEqual(4)
+  expect(spy).toHaveBeenCalledTimes(1)
+})
+
+test('Randomize with 0.2', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.2);
+
+  expect(QuestionInfo.randomize("correctBird")).toBeLessThanOrEqual(1)
+  expect(spy).toHaveBeenCalledTimes(2)
+})
+
+test('Randomize above zero', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.2);
+
+  expect(QuestionInfo.randomize("correctBird")).toBeGreaterThanOrEqual(0)
+  expect(spy).toHaveBeenCalledTimes(3)
+})
+
+test('Randomize above lower bound', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.7);
+
+  expect(QuestionInfo.randomize("correctBird")).toBeGreaterThanOrEqual(0)
+  expect(spy).toHaveBeenCalledTimes(4)
+})
+
+test('Check randomized array', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.5);
+
+  expect(QuestionInfo.randomize("birds", 4)).
+      toEqual(expect.arrayContaining([0, 1, 2, 3]))
+})
+
+test('Check size of randomized array', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.5);
+
+  expect(QuestionInfo.randomize("birds", 4)).toHaveLength(4)
+})
+
+test('Check size of randomized array for more birds', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.5);
+
+  expect(QuestionInfo.randomize("birds", 10)).toHaveLength(4)
+})
+
+test('Check size of larger randomized array', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.5);
+
+  expect(QuestionInfo.randomize("birds", 50)).toHaveLength(4)
 })

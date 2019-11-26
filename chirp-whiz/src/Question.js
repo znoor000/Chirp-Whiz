@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
-import AudioButton from './AudioButton.js';
+import AudioButton from './quizComponents/AudioButton';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import PubSub from '@aws-amplify/pubsub';
 import { listTodos } from './graphql/queries'
@@ -12,11 +12,12 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
 import awsconfig from './aws-exports';
+import birdList from './birdList';
 
 API.configure(awsconfig);
 PubSub.configure(awsconfig);
 
-const initialState = {todos:[]};
+{/*const initialState = {todos:[]};
 export const reducer = (state, action) =>{
   switch(action.type){
     case 'QUERY':
@@ -26,7 +27,7 @@ export const reducer = (state, action) =>{
     default:
       return state
   }
-}
+}*/}
 
 export function QuestionInfo(props) {
   {/*if (props.type === 0) {
@@ -109,13 +110,16 @@ export function randomize(whichState, length) {
 }
 
 function Question() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
+  const [state, setState] = useState({
+    todos: birdList
+  });
   const [birds, setBirds] = useState([0]);
   const [qType, setQType] = useState(1);
   const [correctBird, setCorrectBird] = useState(0);
   const [answerType, setAnswerType] = useState("none_yet");
 
-  useEffect(() => {
+  {/*useEffect(() => {
     getData()
     const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
       next: (eventData) => {
@@ -124,7 +128,7 @@ function Question() {
       }
     })
   return () => subscription.unsubscribe()
-  }, [])
+  }, [])*/}
 
   useEffect(() => {
     if (state.todos.length !== 0) {
@@ -175,10 +179,10 @@ function Question() {
     }
   }
 
-  async function getData() {
+  {/*async function getData() {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
-  }
+  }*/}
 
   const resultRef = React.createRef();
 

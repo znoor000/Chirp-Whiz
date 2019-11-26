@@ -46,7 +46,7 @@ function App() {
           */}
           <Switch>
             <Route path="/quiz">
-              <Question />
+              <Quiz />
             </Route>
             <Route path="/glossary">
               <Glossary />
