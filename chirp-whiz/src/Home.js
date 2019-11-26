@@ -34,12 +34,12 @@ class Home extends Component {
           <Row>
             <Col>
           <Link to="/glossary">
-            <Button variant="primary" onClick={() => goToPage()}>Check out the glossary</Button>
+            <Button variant="light" style={{backgroundColor: "#ffbf00"}} onClick={() => goToPage()}>Check out the glossary</Button>
           </Link>
           </Col>
           <Col>
           <Link to="/bird-form">
-            <Button variant="primary" onClick={() => goToPage()}>Add a new bird to the collection</Button>
+            <Button variant="light" style={{backgroundColor: "#ffbf00"}} onClick={() => goToPage()}>Add a new bird to the collection</Button>
           </Link>
           </Col>
           </Row>
