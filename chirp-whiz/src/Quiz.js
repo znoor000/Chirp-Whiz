@@ -107,6 +107,38 @@ function Quiz() {
     );
   }
 
+  function renderQuestion() {
+    return (
+      <div>
+        {/*<h4>Question number {currentQuestion} of {questionNum}</h4>
+        <ProgressBar now={(currentQuestion / questionNum) * 100} />
+        <h4>Identify this bird:</h4>
+    <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
+        <QuizQuestion
+          currentQuestion={currentQuestion}
+          questionNum={questionNum}
+          qBird={birdList[birds[correctBird]]}
+        />
+        <Container>
+          <Row>
+            <Col>
+            <AnswerButton bird={birdList[birds[0]]} answerID={0} correctBird={correctBird} />
+            </Col>
+            <Col>
+            <AnswerButton bird={birdList[birds[1]]} answerID={1} correctBird={correctBird} />
+            </Col>
+            <Col>
+            <AnswerButton bird={birdList[birds[2]]} answerID={2} correctBird={correctBird} />
+            </Col>
+            <Col>
+            <AnswerButton bird={birdList[birds[3]]} answerID={3} correctBird={correctBird} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    );
+  }
+
   return (
     <div>
       {quizStart ? (
