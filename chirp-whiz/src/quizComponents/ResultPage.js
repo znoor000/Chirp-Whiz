@@ -1,4 +1,5 @@
 import React from 'react';
+import birdList from './../birdList';
 
 function ResultPage(props) {
     return (
