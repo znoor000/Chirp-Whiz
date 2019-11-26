@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import birdList from './birdList';
 import QuizQuestion from './quizComponents/QuizQuestion';
 import ResultPage from './quizComponents/ResultPage';
+import AnswerPage from './quizComponents/AnswerPage';
 import AudioButton from './quizComponents/AudioButton';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -69,10 +70,11 @@ function Quiz() {
   const [answered, setAnswered] = useState(false);
   const [birds, setBirds] = useState([0, 1, 2, 3]);
   const [correctBird, setCorrectBird] = useState(0);
+  const [correctlyAnswered, setCorrectlyAnswered] = useState([]);
+  const [incorrectlyAnswered, setIncorrectlyAnswered] = useState([]);
   const [answerType, setAnswerType] = useState("none_yet");
-  const [chosenHabs, setChosenHabs] = useState(['Forest']);
-  {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
-  
+  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Towns']);
+
   useEffect(() => {
     let birds = chooseBirds(chosenHabs);
     setAvailBirds(birds);
@@ -103,13 +105,9 @@ function Quiz() {
         <div style={{padding: '20px'}}>
         <h2>Which habitats?</h2>
         <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
-          <ToggleButton value={'Forest'}>Forest</ToggleButton>
-          <ToggleButton value={'Backyard'}>Backyard</ToggleButton>
-          <ToggleButton value={'Field'}>Field</ToggleButton>
-          <ToggleButton value={'Orchard'}>Orchard</ToggleButton>
-          <ToggleButton value={'Desert'}>Desert</ToggleButton>
-          <ToggleButton value={'Streamside'}>Streamside</ToggleButton>
-          <ToggleButton value={'River Edge'}>River Edge</ToggleButton>
+          <ToggleButton value={'Forests'}>Forests</ToggleButton>
+          <ToggleButton value={'Open Woodlands'}>Open Woodlands</ToggleButton>
+          <ToggleButton value={'Towns'}>Towns</ToggleButton>
         </ToggleButtonGroup>
         </div>
         <div style={{padding: '30px'}}>
@@ -155,7 +153,7 @@ function Quiz() {
         {/*<h4>Question number {currentQuestion} of {questionNum}</h4>
         <ProgressBar now={(currentQuestion / questionNum) * 100} />
         <h4>Identify this bird:</h4>
-    <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
+        <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
         <QuizQuestion
           currentQuestion={currentQuestion}
           questionNum={questionNum}
@@ -184,11 +182,7 @@ function Quiz() {
   function renderResult() {
     return (
       <div>
-        {answerType == "correct" ? (
-          <span>Correct</span>
-        ) : (
-          <span>Incorrect</span>
-        )}
+        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} />
         <Button
           variant="outline-light"
           size="lg"
