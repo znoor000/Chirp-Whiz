@@ -1,6 +1,7 @@
 import React from 'react';
 import AudioButton from './AudioButton';
 import Image from 'react-bootstrap/Image';
+import Card from 'react-bootstrap/Card';
 
 function AnswerPage(props) {
     return (
