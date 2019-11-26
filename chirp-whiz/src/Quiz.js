@@ -72,27 +72,33 @@ function Quiz() {
   const [answerType, setAnswerType] = useState("none_yet");
   const [chosenHabs, setChosenHabs] = useState(['Forest']);
   {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
-{/*     not finish yet/need to check more
-    return (
-        <Switch>
-           <Route path={`${match.path}/question`}>
-              <Question />
-           </Route>
-           <Route path={match.path}>
-             <div>
-              <br /><h2>How many questions you want to try?</h2>
-              <form>
-              <label>
-                <input name="questionNum" type="text" />
-              </label>
-              </form>
-              <Link to={`${match.path}/question`}>
-              <Button variant="outline-light" size="lg" style={{backgroundColor: "#ffa333"}}>Start</Button>
-              </Link>
-             </div>
-           </Route>
-        </Switch>
-    ); */}
+  
+  return (
+    <div>
+      {quizStart ? (
+        answered ? (
+          renderResult()
+        ) : (
+          renderQuestion()
+        )
+      ) : (
+        currentQuestion === questionNum ? (
+          <ResultPage correct={numCorrect} totalQs={questionNum}/>
+        ) : (
+          <QuizOptions />
+        )
+      )}
+      {(quizStart || currentQuestion === questionNum) && 
+      <Button variant="secondary" onClick={() => setTimeout(() => window.location.reload(false), 200)}>Return</Button>
+      }
+      <audio id="buzz">
+        <source src="https://www.myinstants.com/media/sounds/wrong-answer-sound-effect.mp3" type="audio/mpeg"></source>
+      </audio>
+      <audio id="ding">
+        <source src="https://www.myinstants.com/media/sounds/correct.swf.mp3" type="audio/mpeg"></source>
+      </audio>
+    </div>
+  );
 }
 
 export default Quiz;
