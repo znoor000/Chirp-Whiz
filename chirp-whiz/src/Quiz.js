@@ -14,7 +14,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function chooseBirds(habs) {
+export function chooseBirds(habs) {
   let birds = [];
 
   for (let i = 0; i < birdList.length; i++) {

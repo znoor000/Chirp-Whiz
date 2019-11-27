@@ -11,7 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-function goToPage() {
+export function goToPage() {
   setTimeout(() => window.location.reload(false), 200);
 }
 

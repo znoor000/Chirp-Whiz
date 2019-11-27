@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
-import AudioButton from './AudioButton.js';
+import AudioButton from './quizComponents/AudioButton.js';
 import Question from './Question.js';
 import { AnswerButton } from './Question';
 import Button from 'react-bootstrap/Button'
@@ -189,6 +189,13 @@ test('Check size of randomized array for more birds', () => {
 test('Check size of larger randomized array', () => {
   const spy = jest.spyOn(Math, 'random')
   spy.mockReturnValueOnce(0.5);
+
+  expect(QuestionInfo.randomize("birds", 50)).toHaveLength(4)
+})
+
+test('Check size of larger randomized array with alternative random val', () => {
+  const spy = jest.spyOn(Math, 'random')
+  spy.mockReturnValueOnce(0.9);
 
   expect(QuestionInfo.randomize("birds", 50)).toHaveLength(4)
 })
