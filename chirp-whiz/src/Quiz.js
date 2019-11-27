@@ -124,9 +124,8 @@ function Quiz() {
         <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
           <ToggleButton variant="outline-warning" value={'Forests'}>Forests</ToggleButton>
           <ToggleButton variant="outline-warning" value={'Open Woodlands'}>Open Woodlands</ToggleButton>
-          <ToggleButton variant="outline-warning" value={'Towns'}>Towns</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Grasslands'}>Grasslands</ToggleButton>
           <ToggleButton variant="outline-warning" value={'Lakes and Ponds'}>Lakes and Ponds</ToggleButton>
-          <ToggleButton variant="outline-warning" value={'Marshes'}>Marshes</ToggleButton>
         </ToggleButtonGroup>
         </div>
         <div style={{padding: '30px'}}>
