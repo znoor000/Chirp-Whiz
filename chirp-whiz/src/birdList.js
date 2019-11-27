@@ -49,7 +49,7 @@ var birdList = [
     },
     {
         name: 'Wood Duck',
-        image: 'https://www.allaboutbirds.org/guide/assets/og/75220691-1200px.jpg',
+        image: 'https://www.allaboutbirds.org/guide/assets/photo/65533521-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h1440so.mp3',
         habitat: 'Lakes and Ponds',
         birdType: 'Duck',
