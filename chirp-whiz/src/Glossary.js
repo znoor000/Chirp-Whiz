@@ -52,6 +52,10 @@ function Glossary () {
     const todoData = await API.graphql(graphqlOperation(listTodos))
     dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
   }*/}
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [birdNum])
   
   let match = useRouteMatch();
 {/*
@@ -111,13 +115,12 @@ export function Bird(props) {
       <Image src={props.bird.image} rounded />
       <AudioButton sound={props.bird.sound}/>
       <br />
-      <h3>Habitats:</h3>
-      <p>{props.bird.habitat.map((hab, index) => {
-        let tempHab = hab;
-        if (index != props.bird.habitat.length - 1)
-          tempHab += ", ";
-        return tempHab;
-      })}</p>
+      <h3>Scientific Name:</h3>
+      <p>{props.bird.scientificName}</p>
+      <h3>Bird Type:</h3>
+      <p>{props.bird.birdType}</p>
+      <h3>Habitat:</h3>
+      <p>{props.bird.habitat}</p>
       </Card.Body>
       </Card>
     </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import birdList from './birdList';
 import QuizQuestion from './quizComponents/QuizQuestion';
 import ResultPage from './quizComponents/ResultPage';
+import AnswerPage from './quizComponents/AnswerPage';
 import AudioButton from './quizComponents/AudioButton';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -69,10 +70,12 @@ function Quiz() {
   const [answered, setAnswered] = useState(false);
   const [birds, setBirds] = useState([0, 1, 2, 3]);
   const [correctBird, setCorrectBird] = useState(0);
+  const [correctlyAnswered, setCorrectlyAnswered] = useState([]);
+  const [incorrectlyAnswered, setIncorrectlyAnswered] = useState([]);
+  const [questionType, setQuestionType] = useState(['image', 'audio'])
   const [answerType, setAnswerType] = useState("none_yet");
-  const [chosenHabs, setChosenHabs] = useState(['Forest']);
-  {/*const [chosenHabs, setChosenHabs] = useState(['Forest', 'Backyard', 'Field', 'Orchard', 'Desert', 'Streamside', 'River Edge']);*/}
-  
+  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Towns', 'Lakes and Ponds', 'Marshes']);
+
   useEffect(() => {
     let birds = chooseBirds(chosenHabs);
     setAvailBirds(birds);
@@ -86,30 +89,43 @@ function Quiz() {
       setAnswered(true);
     }
     
-    if (answerType == "correct")
+    if (answerType == "correct") {
       setNumCorrect(numCorrect + 1);
+
+      let tempCorrect = correctlyAnswered;
+      tempCorrect.push(birds[correctBird]);
+      setCorrectlyAnswered(tempCorrect);
+    } else if (answerType == "incorrect") {
+      let tempIncorrect = incorrectlyAnswered;
+      tempIncorrect.push(birds[correctBird]);
+      setIncorrectlyAnswered(tempIncorrect);
+    }
   }, [answerType]);
 
   function QuizOptions(props) {
     return (
       <div>
         <h1>Quiz</h1>
+        <div style={{padding: '20px'}}>
+        <h2>What type(s) of questions?</h2>
+        <ToggleButtonGroup type="checkbox" value={questionType} onChange={val => setQuestionType(val)}>
+          <ToggleButton variant="outline-warning" value={'image'}>Image</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'audio'}>Audio</ToggleButton>
+        </ToggleButtonGroup>
+        </div>
         <h2>How many questions?</h2>
         <ToggleButtonGroup name="num" value={questionNum} onChange={val => setQuestionNum(val)}>
-          <ToggleButton value={5}>5</ToggleButton>
-          <ToggleButton value={10}>10</ToggleButton>
-          <ToggleButton value={20}>20</ToggleButton>
+          <ToggleButton variant="outline-warning" value={5}>5</ToggleButton>
+          <ToggleButton variant="outline-warning" value={10}>10</ToggleButton>
+          <ToggleButton variant="outline-warning" value={20}>20</ToggleButton>
         </ToggleButtonGroup>
         <div style={{padding: '20px'}}>
         <h2>Which habitats?</h2>
         <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
-          <ToggleButton value={'Forest'}>Forest</ToggleButton>
-          <ToggleButton value={'Backyard'}>Backyard</ToggleButton>
-          <ToggleButton value={'Field'}>Field</ToggleButton>
-          <ToggleButton value={'Orchard'}>Orchard</ToggleButton>
-          <ToggleButton value={'Desert'}>Desert</ToggleButton>
-          <ToggleButton value={'Streamside'}>Streamside</ToggleButton>
-          <ToggleButton value={'River Edge'}>River Edge</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Forests'}>Forests</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Open Woodlands'}>Open Woodlands</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Grasslands'}>Grasslands</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Lakes and Ponds'}>Lakes and Ponds</ToggleButton>
         </ToggleButtonGroup>
         </div>
         <div style={{padding: '30px'}}>
@@ -155,10 +171,11 @@ function Quiz() {
         {/*<h4>Question number {currentQuestion} of {questionNum}</h4>
         <ProgressBar now={(currentQuestion / questionNum) * 100} />
         <h4>Identify this bird:</h4>
-    <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
+        <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
         <QuizQuestion
           currentQuestion={currentQuestion}
           questionNum={questionNum}
+          qType={questionType}
           qBird={birdList[birds[correctBird]]}
         />
         <Container>
@@ -184,11 +201,7 @@ function Quiz() {
   function renderResult() {
     return (
       <div>
-        {answerType == "correct" ? (
-          <span>Correct</span>
-        ) : (
-          <span>Incorrect</span>
-        )}
+        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} />
         <Button
           variant="outline-light"
           size="lg"
@@ -209,7 +222,11 @@ function Quiz() {
         )
       ) : (
         currentQuestion === questionNum ? (
-          <ResultPage correct={numCorrect} totalQs={questionNum}/>
+          <ResultPage
+            totalQs={questionNum}
+            correct={correctlyAnswered}
+            incorrect={incorrectlyAnswered}
+          />
         ) : (
           <QuizOptions />
         )
