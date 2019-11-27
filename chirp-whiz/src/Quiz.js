@@ -72,8 +72,9 @@ function Quiz() {
   const [correctBird, setCorrectBird] = useState(0);
   const [correctlyAnswered, setCorrectlyAnswered] = useState([]);
   const [incorrectlyAnswered, setIncorrectlyAnswered] = useState([]);
+  const [questionType, setQuestionType] = useState(['image', 'audio'])
   const [answerType, setAnswerType] = useState("none_yet");
-  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Towns']);
+  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Towns', 'Lakes and Ponds', 'Marshes']);
 
   useEffect(() => {
     let birds = chooseBirds(chosenHabs);
@@ -105,6 +106,13 @@ function Quiz() {
     return (
       <div>
         <h1>Quiz</h1>
+        <div style={{padding: '20px'}}>
+        <h2>What type(s) of questions?</h2>
+        <ToggleButtonGroup type="checkbox" value={questionType} onChange={val => setQuestionType(val)}>
+          <ToggleButton variant="outline-warning" value={'image'}>Image</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'audio'}>Audio</ToggleButton>
+        </ToggleButtonGroup>
+        </div>
         <h2>How many questions?</h2>
         <ToggleButtonGroup name="num" value={questionNum} onChange={val => setQuestionNum(val)}>
           <ToggleButton variant="outline-warning" value={5}>5</ToggleButton>
@@ -117,6 +125,8 @@ function Quiz() {
           <ToggleButton variant="outline-warning" value={'Forests'}>Forests</ToggleButton>
           <ToggleButton variant="outline-warning" value={'Open Woodlands'}>Open Woodlands</ToggleButton>
           <ToggleButton variant="outline-warning" value={'Towns'}>Towns</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Lakes and Ponds'}>Lakes and Ponds</ToggleButton>
+          <ToggleButton variant="outline-warning" value={'Marshes'}>Marshes</ToggleButton>
         </ToggleButtonGroup>
         </div>
         <div style={{padding: '30px'}}>
@@ -166,6 +176,7 @@ function Quiz() {
         <QuizQuestion
           currentQuestion={currentQuestion}
           questionNum={questionNum}
+          qType={questionType}
           qBird={birdList[birds[correctBird]]}
         />
         <Container>

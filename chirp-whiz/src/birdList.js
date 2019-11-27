@@ -64,7 +64,7 @@ var birdList = [
         scientificName: 'Ardea herodias'
     },
     {
-        name: 'Double-Crested Cormorant',
+        name: 'Crested Cormorant',
         image: 'https://www.allaboutbirds.org/guide/assets/photo/66027281-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h1200so.mp3',
         habitat: 'Lakes and Ponds',
