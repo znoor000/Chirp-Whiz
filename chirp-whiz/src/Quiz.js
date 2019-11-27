@@ -48,16 +48,20 @@ export function checkAnswer(choice, correctBird) {
   return aType;
 }
 
-export function randomize(whichState, availBirds) {
+export function randomize(whichState, givenBird) {
   if (whichState === "birds") {
     var arr = [];
     while(arr.length < 4) {
-      var r = availBirds[Math.floor(Math.random() * availBirds.length)];
+      var r = givenBird[Math.floor(Math.random() * givenBird.length)];
       if(arr.indexOf(r) === -1) arr.push(r);
     }
     return arr;
   } else {
-    return(Math.floor(Math.random() * 4));
+    let newCorrectBird = 0;
+    do {
+      newCorrectBird = Math.floor(Math.random() * 4);
+    } while (newCorrectBird == givenBird);
+    return newCorrectBird;
   }
 }
 
@@ -74,13 +78,13 @@ function Quiz() {
   const [incorrectlyAnswered, setIncorrectlyAnswered] = useState([]);
   const [questionType, setQuestionType] = useState(['image', 'audio'])
   const [answerType, setAnswerType] = useState("none_yet");
-  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Towns', 'Lakes and Ponds', 'Marshes']);
+  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);
 
   useEffect(() => {
     let birds = chooseBirds(chosenHabs);
     setAvailBirds(birds);
     setBirds(randomize("birds", birds));
-    setCorrectBird(randomize("correctBird"));
+    setCorrectBird(randomize("correctBird", correctBird));
     setAnswerType('none_yet');
   }, [quizStart]);
 

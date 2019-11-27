@@ -48,19 +48,7 @@ var birdList = [
         scientificName: 'Aix sponsa'
     },
     {
-<<<<<<< HEAD
         name: 'Double-Crested Cormorant',
-=======
-        name: 'Great Blue Heron',
-        image: 'https://www.allaboutbirds.org/guide/assets/photo/60314201-720px.jpg',
-        sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h1940so.mp3',
-        habitat: 'Marshes',
-        birdType: 'Heron',
-        scientificName: 'Ardea herodias'
-    },
-    {
-        name: 'Crested Cormorant',
->>>>>>> 676a8c731991b906181a2bc0be4b3ea7ae96a720
         image: 'https://www.allaboutbirds.org/guide/assets/photo/66027281-720px.jpg',
         sound: 'https://www.mbr-pwrc.usgs.gov/id/htmwav/h1200so.mp3',
         habitat: 'Lakes and Ponds',
