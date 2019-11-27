@@ -16,6 +16,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Card from 'react-bootstrap/Card';
 import Image from 'react-bootstrap/Image';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import birdList from './birdList';
 
 {/*const initialState = {todos:[]};
@@ -105,14 +108,19 @@ export function Bird(props) {
 
   return(
     <div>
-      <Card>
+      <Card className="text-center">
       <Card.Header>{props.bird.name}</Card.Header>
       <Card.Body>
        {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat'}}*/}
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat'}}*/}
+      <Container>
+      <Row>
+      <Col>
       <Image src={props.bird.image} rounded />
+      </Col>
+      <Col>
       <AudioButton sound={props.bird.sound}/>
       <br />
       <h3>Scientific Name:</h3>
@@ -121,6 +129,9 @@ export function Bird(props) {
       <p>{props.bird.birdType}</p>
       <h3>Habitat:</h3>
       <p>{props.bird.habitat}</p>
+      </Col>
+      </Row>
+      </Container>
       </Card.Body>
       </Card>
     </div>

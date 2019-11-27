@@ -7,9 +7,9 @@ function ResultPage(props) {
             <h1>You answered {props.correct.length} out of {props.totalQs} correct</h1>
             <br />
             <h3>Birds <span style={{color: 'green'}}>correctly</span> identified &#9989;:</h3>
-            {props.correct.map((birdIndex) => {return <p>{birdList[birdIndex].name}</p>})}
+            {Object.keys(props.correct).map(key => <p>{key}. {birdList[props.correct[key]].name}</p>)}
             <h3>Birds <span style={{color: 'red'}}>incorrectly</span> identified:</h3>
-            {props.incorrect.map((birdIndex) => {return <p>{birdList[birdIndex].name}</p>})}
+            {Object.keys(props.incorrect).map(key => <p>{key}. {birdList[props.incorrect[key]].name}</p>)}
             <br />
         </div>
     );
