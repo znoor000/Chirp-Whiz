@@ -18,3 +18,13 @@ test('QuestionInfo returns both image and audio', () => {
             <AudioButton sound="b" />
           </div>);
 });
+
+it('test QuizQuestion renders', () => {
+    const container = render(<QuizQuestion
+        currentQuestion={2}
+        questionNum={5}
+        qType={['image', 'audio']}
+        qBird={birdList[0]}
+      />)
+    expect(container.firstChild).toMatchSnapshot();
+});
