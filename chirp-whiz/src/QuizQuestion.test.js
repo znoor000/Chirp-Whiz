@@ -38,3 +38,13 @@ test("Check if question is on the page", () => {
       />)
     expect(getByText("Identify this bird:")).toBeInTheDocument();
 });
+
+test("Validate the current and max question numbers", () => {
+    const {getByText} = render(<QuizQuestion
+        currentQuestion={3}
+        questionNum={10}
+        qType={['image', 'audio']}
+        qBird={birdList[0]}
+      />)
+    expect(getByText("Question number 3 of 10")).toBeInTheDocument();
+});
