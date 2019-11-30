@@ -28,3 +28,13 @@ it('test QuizQuestion renders', () => {
       />)
     expect(container.firstChild).toMatchSnapshot();
 });
+
+test("Check if question is on the page", () => {
+    const {getByText} = render(<QuizQuestion
+        currentQuestion={2}
+        questionNum={5}
+        qType={['image', 'audio']}
+        qBird={birdList[0]}
+      />)
+    expect(getByText("Identify this bird:")).toBeInTheDocument();
+});
