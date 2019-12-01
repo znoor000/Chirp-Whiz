@@ -5,10 +5,8 @@ export const getTodo = `query GetTodo($id: ID!) {
   getTodo(id: $id) {
     id
     name
-    image
-    sound
-    habitatImage
-    habitatSound
+    correct
+    incorrect
   }
 }
 `;
@@ -21,10 +19,8 @@ export const listTodos = `query ListTodos(
     items {
       id
       name
-      image
-      sound
-      habitatImage
-      habitatSound
+      correct
+      incorrect
     }
     nextToken
   }

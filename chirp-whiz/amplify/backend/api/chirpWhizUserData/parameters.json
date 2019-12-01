@@ -1,5 +1,5 @@
 {
-    "AppSyncApiName": "chirpWhiz",
+    "AppSyncApiName": "chirpWhizUserData",
     "DynamoDBBillingMode": "PAY_PER_REQUEST",
     "DynamoDBEnableServerSideEncryption": "false"
 }
