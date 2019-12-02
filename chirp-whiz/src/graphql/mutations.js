@@ -5,10 +5,8 @@ export const createTodo = `mutation CreateTodo($input: CreateTodoInput!) {
   createTodo(input: $input) {
     id
     name
-    image
-    sound
-    habitatImage
-    habitatSound
+    correct
+    incorrect
   }
 }
 `;
@@ -16,10 +14,8 @@ export const updateTodo = `mutation UpdateTodo($input: UpdateTodoInput!) {
   updateTodo(input: $input) {
     id
     name
-    image
-    sound
-    habitatImage
-    habitatSound
+    correct
+    incorrect
   }
 }
 `;
@@ -27,10 +23,8 @@ export const deleteTodo = `mutation DeleteTodo($input: DeleteTodoInput!) {
   deleteTodo(input: $input) {
     id
     name
-    image
-    sound
-    habitatImage
-    habitatSound
+    correct
+    incorrect
   }
 }
 `;

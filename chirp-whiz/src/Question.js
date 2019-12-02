@@ -17,7 +17,7 @@ import birdList from './birdList';
 API.configure(awsconfig);
 PubSub.configure(awsconfig);
 
-{/*const initialState = {todos:[]};
+const initialState = {todos:[]};
 export const reducer = (state, action) =>{
   switch(action.type){
     case 'QUERY':
@@ -27,7 +27,7 @@ export const reducer = (state, action) =>{
     default:
       return state
   }
-}*/}
+}
 
 export function QuestionInfo(props) {
   {/*if (props.type === 0) {
@@ -110,10 +110,10 @@ export function randomize(whichState, length) {
 }
 
 function Question() {
-  {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, initialState);
+  {/*const [state, setState] = useState({
     todos: birdList
-  });
+  });*/}
   const [birds, setBirds] = useState([0]);
   const [qType, setQType] = useState(1);
   const [correctBird, setCorrectBird] = useState(0);
