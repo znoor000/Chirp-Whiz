@@ -29,6 +29,31 @@ API.configure(awsconfig);
 PubSub.configure(awsconfig);
 Amplify.configure(awsconfig);
 
+const initialState = {
+  todos: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'QUERY':
+      return {...state, todos: action.todos};
+    case 'SUBSCRIPTION':
+      return {...state, todos:[...state.todos, action.todo]}
+    default:
+      return state;
+  }
+};
+
+async function createNewTodo(userName) {
+  let zeroArr = new Array(birdList.length).fill(0);
+  const todo = {
+    name: userName,
+    correct: zeroArr,
+    incorrect: zeroArr
+  };
+  await API.graphql(graphqlOperation(createTodo, { input: todo }));
+}
+
 function App() {
   return (
     <div className="App">
