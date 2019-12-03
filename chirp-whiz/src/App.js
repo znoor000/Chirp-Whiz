@@ -77,6 +77,29 @@ function App() {
     return () => subscription.unsubscribe();
   }, []);
   
+  useEffect(() => {
+    getUserInfo();
+
+    let userIsFound = false;
+    let userI = 0;
+    if (user != '' && state.todos.length != 0) {
+      for (let i = 0; i < state.todos.length; i++) {
+        if (state.todos[i].name == user)
+          userIsFound = true;
+      }
+
+      if (!userIsFound)
+        createNewTodo(user);
+      
+      for (let j = 0; j < state.todos.length; j++) {
+        if (state.todos[j].name == user)
+          userI = j;
+      }
+      
+      setUserIndex(userI);
+    }
+  }, [state, user]);
+  
   async function getUserInfo() {
     let userData = await Auth.currentAuthenticatedUser();
     setUser(userData.username);
