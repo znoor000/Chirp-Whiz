@@ -55,6 +55,25 @@ async function createNewTodo(userName) {
 }
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    async function getData() {
+      const todoData = await API.graphql(graphqlOperation(listTodos));
+      dispatch({ type: 'QUERY', todos: todoData.data.listTodos.items });
+    }
+    getData();
+
+    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+      next: (eventData) => {
+        const todo = eventData.value.data.onCreateTodo;
+        dispatch({ type: 'SUBSCRIPTION', todo });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
   return (
     <div className="App">
       <Navbar variant="light" sticky="top" style={{backgroundColor: '#80ff00'}}>
