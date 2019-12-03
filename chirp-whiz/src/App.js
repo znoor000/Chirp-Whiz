@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import Home from './Home.js';
 import Quiz from './Quiz.js';
@@ -11,14 +11,22 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Amplify from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
+import API, { graphqlOperation } from '@aws-amplify/api';
+import PubSub from '@aws-amplify/pubsub';
+import { createTodo } from './graphql/mutations';
+import { listTodos } from './graphql/queries';
+import { onCreateTodo } from './graphql/subscriptions';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
+import birdList from './birdList';
 
+API.configure(awsconfig);
+PubSub.configure(awsconfig);
 Amplify.configure(awsconfig);
 
 function App() {
@@ -30,7 +38,6 @@ function App() {
           <Nav.Link href="home">Home</Nav.Link>
           <Nav.Link href="quiz">Quiz</Nav.Link>
           <Nav.Link href="glossary">Glossary</Nav.Link>
-          <Nav.Link href="bird-form">Bird Form</Nav.Link>
         </Nav>
       </Navbar>
       
@@ -50,9 +57,6 @@ function App() {
             </Route>
             <Route path="/glossary">
               <Glossary />
-            </Route>
-            <Route path="/bird-form">
-              <BirdForm />
             </Route>
             <Route path="/">
               <Home />
