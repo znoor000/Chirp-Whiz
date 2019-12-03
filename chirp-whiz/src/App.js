@@ -56,6 +56,9 @@ async function createNewTodo(userName) {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [user, setUser] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userIndex, setUserIndex] = useState();
 
   useEffect(() => {
     async function getData() {
@@ -73,6 +76,12 @@ function App() {
 
     return () => subscription.unsubscribe();
   }, []);
+  
+  async function getUserInfo() {
+    let userData = await Auth.currentAuthenticatedUser();
+    setUser(userData.username);
+    setUserEmail(userData.attributes.email);
+  }
 
   return (
     <div className="App">
