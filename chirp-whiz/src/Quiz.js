@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
+import Amplify, { Auth } from 'aws-amplify';
+import API, { graphqlOperation } from '@aws-amplify/api'
+import { updateTodo } from './graphql/mutations';
+import { listTodos } from './graphql/queries'
+import { onCreateTodo } from './graphql/subscriptions'
 import birdList from './birdList';
 import QuizQuestion from './quizComponents/QuizQuestion';
 import ResultPage from './quizComponents/ResultPage';
 import AnswerPage from './quizComponents/AnswerPage';
-import AudioButton from './quizComponents/AudioButton';
+import Leaderboard from './Leaderboard';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
