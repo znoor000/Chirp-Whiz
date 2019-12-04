@@ -108,7 +108,7 @@ export function randomize(whichState, birds, oldBird, correct, incorrect) {
       var r = weights[Math.floor(Math.random() * weights.length)];
       if(arr.indexOf(r) === -1) arr.push(r);
     }
-
+    
     return arr;
   } else {
     let newCorrectBird = 0;
@@ -137,9 +137,9 @@ function Quiz() {
   const [incorrectCount, setIncorrectCount] = useState([]);
   const [questionType, setQuestionType] = useState(['image', 'audio']);
   const [answerType, setAnswerType] = useState("none_yet");
-  const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);
+  const [chosenHabs, setChosenHabs] = useState(['Forests']);
   {/*const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);*/}
-
+  
   useEffect(() => {
     getUserInfo();
     
