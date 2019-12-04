@@ -156,10 +156,18 @@ function Quiz() {
       let tempCorrect = correctlyAnswered;
       tempCorrect[currentQuestion] = birds[correctBird];
       setCorrectlyAnswered(tempCorrect);
+
+      let tempCount = correctCount;
+      tempCount[birds[correctBird]] += 1;
+      setCorrectCount(tempCount);
     } else if (answerType == "incorrect") {
       let tempIncorrect = incorrectlyAnswered;
       tempIncorrect[currentQuestion] = birds[correctBird];
       setIncorrectlyAnswered(tempIncorrect);
+
+      let tempCount = incorrectCount;
+      tempCount[birds[correctBird]] += 1;
+      setIncorrectCount(tempCount);
     }
   }, [answerType]);
 
