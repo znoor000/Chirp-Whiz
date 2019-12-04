@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import Home from './Home.js';
 import Quiz from './Quiz.js';
+import UserPage from './UserPage.js';
+import About from './About.js';
 import Question from './Question.js';
 import Glossary from './Glossary.js';
 import BirdForm from './BirdForm.js';
