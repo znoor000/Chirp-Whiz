@@ -116,6 +116,8 @@ function App() {
           <Nav.Link href="home">Home</Nav.Link>
           <Nav.Link href="quiz">Quiz</Nav.Link>
           <Nav.Link href="glossary">Glossary</Nav.Link>
+          <Nav.Link href="user-page">User Page</Nav.Link>
+          <Nav.Link href="about">About</Nav.Link>
         </Nav>
       </Navbar>
       
