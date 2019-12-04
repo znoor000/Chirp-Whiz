@@ -162,6 +162,9 @@ function Quiz() {
     return (
       <div>
         <h1>Quiz</h1>
+        <Container>
+        <Row>
+        <Col>
         <div style={{padding: '20px'}}>
         <h2>What type(s) of questions?</h2>
         <ToggleButtonGroup type="checkbox" value={questionType} onChange={val => setQuestionType(val)}>
@@ -192,6 +195,13 @@ function Quiz() {
           onClick={() => setQuizStart(true)}
         >Start Quiz Now</Button>
         </div>
+        </Col>
+        <Col>
+          <h2>Leaderboard</h2><br />
+          <Leaderboard users={state.todos} />
+        </Col>
+        </Row>
+        </Container>
       </div>
     );
   }
