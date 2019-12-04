@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 
-function compare(a, b) {
+export function compare(a, b) {
     const scoreA = a.score;
     const scoreB = b.score;
 
@@ -16,8 +16,7 @@ function compare(a, b) {
     return comparison;
 }
 
-
-function totalPercent(user) {
+export function totalPercent(user) {
     let percent = 0;
     let corrTotal = user.correct.reduce((a, b) => a + b, 0);
     let incorrTotal = user.incorrect.reduce((a, b) => a + b, 0);
@@ -29,7 +28,7 @@ function totalPercent(user) {
     return percent.toFixed(2);
 }
 
-function scorify(users) {
+export function scorify(users) {
     let newUserArray = [];
     for (let i = 0; i < users.length; i++) {
         newUserArray.push({
@@ -48,6 +47,7 @@ function Leaderboard(props) {
         usersWithScores.sort(compare);
         setLboardUsers(usersWithScores);
     }, [])
+
     return (
         <div>
             {lboardUsers.length > 0 &&
