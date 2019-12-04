@@ -6,6 +6,12 @@ function About() {
             <h1>About this Web Application:</h1>
             <p>Chirp Whiz started off as a simple idea for bird-lovers 
                 who are stuck in the city or don't have spare time. 
+
+                Please peruse the glossary to get to know the birds on 
+                our app and then quiz yourself to see how well you do at 
+                identifying our birds! You can check how well you identify 
+                each bird in your stats on the User page. You can also view 
+                the top players in our leaderboard in the Quiz page.
             </p>
             <br/>
             <h1>Contact Us:</h1>
