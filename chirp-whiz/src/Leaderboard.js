@@ -41,7 +41,13 @@ function scorify(users) {
 }
 
 function Leaderboard(props) {
+    const [lboardUsers, setLboardUsers] = useState([]);
 
+    useEffect(() => {
+        let usersWithScores = scorify(props.users);
+        usersWithScores.sort(compare);
+        setLboardUsers(usersWithScores);
+    }, [])
     return (
         <div>
             {lboardUsers.length > 0 &&
