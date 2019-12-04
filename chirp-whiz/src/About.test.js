@@ -7,3 +7,7 @@ it('test About renders', () => {
     const container = render(<About />)    
     expect(container.firstChild).toMatchSnapshot();
 });
+
+test("Check if contact us heading is on the page", () => {
+    
+});
