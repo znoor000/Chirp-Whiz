@@ -12,3 +12,8 @@ test("Check if contact us heading is on the page", () => {
     const {getByText} = render(<About />)
     expect(getByText("Contact Us:")).toBeInTheDocument();
 });
+
+test("Check if cedits heading is on the page", () => {
+    const {getByText} = render(<About />)
+    expect(getByText("Credits:")).toBeInTheDocument();
+});
