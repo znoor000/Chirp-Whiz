@@ -19,6 +19,7 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Carousel from 'react-bootstrap/Carousel';
 import birdList from './birdList';
 
 const initialState = {todos:[]};
@@ -70,7 +71,6 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <h1>Glossary</h1>
           <Switch>
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
@@ -80,6 +80,7 @@ function Glossary () {
             </Route>
             <Route path={match.path}>
               <div>
+              <h1>Glossary</h1>
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
@@ -87,7 +88,7 @@ function Glossary () {
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
                   <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
                     <p>{todo.name}</p>
-                    <Image src={todo.image} rounded style={{height: '300px'}} />
+                    <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
                 </Link>
                 </ListGroup.Item>
@@ -109,7 +110,7 @@ export function Bird(props) {
   return(
     <div>
       <Card className="text-center">
-      <Card.Header>{props.bird.name}</Card.Header>
+      <Card.Header><h2>{props.bird.name}</h2></Card.Header>
       <Card.Body>
        {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
         backgroundPosition: 'center',
@@ -118,17 +119,24 @@ export function Bird(props) {
       <Container>
       <Row>
       <Col>
-      <Image src={props.bird.image} rounded />
+      {/*<Image src={props.bird.image[0]} rounded />*/}
+      <Carousel>
+        {props.bird.image.map((imag, i) =>
+          <Carousel.Item>
+            <Image src={imag} rounded style={{height: '360px'}} />
+          </Carousel.Item>
+        )}
+      </Carousel>
       </Col>
       <Col>
       <AudioButton sound={props.bird.sound}/>
       <br />
       <h3>Scientific Name:</h3>
-      <p>{props.bird.scientificName}</p>
+      <h5>{props.bird.scientificName}</h5><br />
       <h3>Bird Type:</h3>
-      <p>{props.bird.birdType}</p>
+      <h5>{props.bird.birdType}</h5><br />
       <h3>Habitat:</h3>
-      <p>{props.bird.habitat}</p>
+      <h5>{props.bird.habitat}</h5><br />
       </Col>
       </Row>
       </Container>
