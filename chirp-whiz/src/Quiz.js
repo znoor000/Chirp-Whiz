@@ -207,6 +207,17 @@ function Quiz() {
     }
   }, [answerType]);
 
+  useEffect(() => {
+    let corrBird = birdList[birds[correctBird]];
+    let birdImage = Math.floor(Math.random()*corrBird.image.length);
+    setImageNum(birdImage);
+  }, [correctBird])
+  
+  async function getUserInfo() {
+    let userData = await Auth.currentAuthenticatedUser();
+    setUser(userData.username);
+  }
+
   function QuizOptions(props) {
     return (
       <div>
