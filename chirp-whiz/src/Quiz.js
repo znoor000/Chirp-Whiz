@@ -135,9 +135,14 @@ function Quiz() {
     let birdsFromHabs = chooseBirds(chosenHabs);
     let oldBird = birdList[birds[correctBird]];
     setAvailBirds(birdsFromHabs);
-    setBirds(randomize("birds", birdsFromHabs));
-    setCorrectBird(randomize("correctBird", correctBird, oldBird));
+    let newBirds = randomize("birds", birdsFromHabs, oldBird, correctCount, incorrectCount)
+    setBirds(newBirds);
+    setCorrectBird(randomize("correctBird", newBirds, oldBird, correctCount, incorrectCount));
     setAnswerType('none_yet');
+
+    {/*if (currentQuestion === questionNum) {
+      updateOldTodo();
+    }*/}
   }, [quizStart]);
 
   useEffect(() => {
