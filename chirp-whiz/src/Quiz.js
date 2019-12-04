@@ -287,9 +287,10 @@ function Quiz() {
       setAnswerType('none_yet');
       setAnswered(false);
       setCurrentQuestion(currentQuestion + 1);
-      let newBirds = randomize("birds", availBirds)
+      let newBirds = randomize("birds", availBirds, oldBird, correctCount, incorrectCount)
       setBirds(newBirds);
-      setCorrectBird(randomize("correctBird", newBirds, oldBird));
+      setCorrectBird(randomize("correctBird", newBirds, oldBird, correctCount, incorrectCount));
+      updateOldTodo();
     }
   }
 
@@ -339,6 +340,19 @@ function Quiz() {
         >Next Question</Button>
       </div>
     );
+  }
+
+  async function updateOldTodo() {
+    let obj = state.todos.find(obj => obj.name == user);
+    let objId = obj.id;
+
+    const todo = {
+      id: objId,
+      name: user,
+      correct: correctCount,
+      incorrect: incorrectCount
+    };
+    await API.graphql(graphqlOperation(updateTodo, { input: todo }));
   }
 
   return (
