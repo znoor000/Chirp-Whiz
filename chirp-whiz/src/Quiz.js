@@ -17,6 +17,21 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+const initialState = {
+  todos: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'QUERY':
+      return {...state, todos: action.todos};
+    case 'SUBSCRIPTION':
+      return {...state, todos:[...state.todos, action.todo]}
+    default:
+      return state;
+  }
+};
+
 export function chooseBirds(habs) {
   let birds = [];
 
