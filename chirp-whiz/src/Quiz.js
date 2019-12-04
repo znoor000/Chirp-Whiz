@@ -66,13 +66,49 @@ export function checkAnswer(choice, correctBird) {
   return aType;
 }
 
-export function randomize(whichState, birds, oldBird) {
+export function createWeights(birds, correct, incorrect) {
+  let weights = [];
+  let total = 0;
+
+  for (let i = 0; i < birds.length; i++) {
+    let temp = 0;
+    temp += incorrect[birds[i]];
+    temp -= correct[birds[i]];
+    total += temp;
+    weights.push(temp);
+  }
+
+  let min = Math.abs(Math.min(...weights));
+
+  for (let i = 0; i < weights.length; i++) {
+    weights[i] += (min + 1);
+    total += (min + 1);
+  }
+
+  let freqArr = [];
+
+  for (let i = 0; i < weights.length; i++) {
+    for (let j = 0; j < weights[i]; j++) {
+      freqArr.push(birds[i]);
+    }
+  }
+
+  return freqArr;
+}
+
+export function randomize(whichState, birds, oldBird, correct, incorrect) {
   if (whichState === "birds") {
     var arr = [];
+    let weights = createWeights(birds, correct, incorrect);
+
+    if (weights.length == 0)
+      weights = birds;
+
     while(arr.length < 4) {
-      var r = birds[Math.floor(Math.random() * birds.length)];
+      var r = weights[Math.floor(Math.random() * weights.length)];
       if(arr.indexOf(r) === -1) arr.push(r);
     }
+
     return arr;
   } else {
     let newCorrectBird = 0;
