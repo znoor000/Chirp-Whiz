@@ -15,3 +15,16 @@ function compare(a, b) {
 
     return comparison;
 }
+
+
+function totalPercent(user) {
+    let percent = 0;
+    let corrTotal = user.correct.reduce((a, b) => a + b, 0);
+    let incorrTotal = user.incorrect.reduce((a, b) => a + b, 0);
+
+    if (corrTotal > 0 || incorrTotal > 0) {
+        percent = (corrTotal/(corrTotal+incorrTotal))*100;
+    }
+
+    return percent.toFixed(2);
+}
