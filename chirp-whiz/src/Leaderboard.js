@@ -28,3 +28,14 @@ function totalPercent(user) {
 
     return percent.toFixed(2);
 }
+
+function scorify(users) {
+    let newUserArray = [];
+    for (let i = 0; i < users.length; i++) {
+        newUserArray.push({
+            name: users[i].name,
+            score: totalPercent(users[i])
+        })
+    }
+    return newUserArray;
+}
