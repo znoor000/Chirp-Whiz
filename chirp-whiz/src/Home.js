@@ -38,8 +38,8 @@ class Home extends Component {
           </Link>
           </Col>
           <Col>
-          <Link to="/bird-form">
-            <Button variant="light" style={{backgroundColor: "#ffbf00"}} onClick={() => goToPage()}>Add a new bird to the collection</Button>
+          <Link to="/user-page">
+            <Button variant="light" style={{backgroundColor: "#ffbf00"}} onClick={() => goToPage()}>Go to your user profile</Button>
           </Link>
           </Col>
           </Row>
