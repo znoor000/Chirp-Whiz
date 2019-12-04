@@ -41,3 +41,5 @@ return(
     </div>
 );
 }
+
+export default UserPage;
