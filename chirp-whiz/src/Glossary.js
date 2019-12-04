@@ -22,7 +22,7 @@ import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
 import birdList from './birdList';
 
-{/*const initialState = {todos:[]};
+const initialState = {todos:[]};
 export const reducer = (state, action) => {
   switch(action.type){
     case 'QUERY':
@@ -32,7 +32,7 @@ export const reducer = (state, action) => {
     default:
       return state
   }
-}*/}
+}
 
 function Glossary () {
   {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
@@ -110,7 +110,7 @@ export function Bird(props) {
   return(
     <div>
       <Card className="text-center">
-      <Card.Header>{props.bird.name}</Card.Header>
+      <Card.Header><h2>{props.bird.name}</h2></Card.Header>
       <Card.Body>
        {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
         backgroundPosition: 'center',
@@ -125,11 +125,11 @@ export function Bird(props) {
       <AudioButton sound={props.bird.sound}/>
       <br />
       <h3>Scientific Name:</h3>
-      <p>{props.bird.scientificName}</p>
+      <h5>{props.bird.scientificName}</h5><br />
       <h3>Bird Type:</h3>
-      <p>{props.bird.birdType}</p>
+      <h5>{props.bird.birdType}</h5><br />
       <h3>Habitat:</h3>
-      <p>{props.bird.habitat}</p>
+      <h5>{props.bird.habitat}</h5><br />
       </Col>
       </Row>
       </Container>
