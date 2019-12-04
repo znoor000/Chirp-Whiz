@@ -119,7 +119,16 @@ export function Bird(props) {
       <Container>
       <Row>
       <Col>
-      <Image src={props.bird.image} rounded />
+      {/*<Image src={props.bird.image[0]} rounded />*/}
+      <Carousel>
+        {props.bird.image.map((imag, i) =>
+          <Carousel.Item>
+            <Image src={imag} rounded style={{height: '360px'}} />
+          </Carousel.Item>
+          )
+        }
+      </Carousel>
+
       </Col>
       <Col>
       <AudioButton sound={props.bird.sound}/>
