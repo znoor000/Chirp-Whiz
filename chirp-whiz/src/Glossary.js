@@ -19,6 +19,7 @@ import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import Carousel from 'react-bootstrap/Carousel';
 import birdList from './birdList';
 
 {/*const initialState = {todos:[]};
@@ -70,7 +71,6 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <h1>Glossary</h1>
           <Switch>
             <Route path={`${match.path}/:birdName`}>
               <Bird bird={state.todos[birdNum]}/>
@@ -80,6 +80,7 @@ function Glossary () {
             </Route>
             <Route path={match.path}>
               <div>
+              <h1>Glossary</h1>
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
