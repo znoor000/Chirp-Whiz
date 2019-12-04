@@ -21,7 +21,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import birdList from './birdList';
 
-{/*const initialState = {todos:[]};
+const initialState = {todos:[]};
 export const reducer = (state, action) => {
   switch(action.type){
     case 'QUERY':
@@ -31,7 +31,7 @@ export const reducer = (state, action) => {
     default:
       return state
   }
-}*/}
+}
 
 function Glossary () {
   {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
