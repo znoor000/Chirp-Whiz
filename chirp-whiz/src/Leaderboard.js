@@ -39,3 +39,29 @@ function scorify(users) {
     }
     return newUserArray;
 }
+
+function Leaderboard(props) {
+
+    return (
+        <div>
+            {lboardUsers.length > 0 &&
+                <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Accuracy</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {lboardUsers.map((currentUser, i) =>
+                        <tr>
+                            <th>{currentUser.name}</th>
+                            <th>{currentUser.score}%</th>
+                        </tr>
+                    )}
+                </tbody>
+                </Table>
+            }
+        </div>
+    );
+}
