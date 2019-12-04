@@ -1,18 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
+import Amplify, { Auth } from 'aws-amplify';
+import API, { graphqlOperation } from '@aws-amplify/api'
+import { updateTodo } from './graphql/mutations';
+import { listTodos } from './graphql/queries'
+import { onCreateTodo } from './graphql/subscriptions'
 import birdList from './birdList';
 import QuizQuestion from './quizComponents/QuizQuestion';
 import ResultPage from './quizComponents/ResultPage';
 import AnswerPage from './quizComponents/AnswerPage';
-import AudioButton from './quizComponents/AudioButton';
+import Leaderboard from './Leaderboard';
 import Button from 'react-bootstrap/Button';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import Image from 'react-bootstrap/Image';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+const initialState = {
+  todos: [],
+};
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'QUERY':
+      return {...state, todos: action.todos};
+    case 'SUBSCRIPTION':
+      return {...state, todos:[...state.todos, action.todo]}
+    default:
+      return state;
+  }
+};
 
 export function chooseBirds(habs) {
   let birds = [];
@@ -48,13 +66,49 @@ export function checkAnswer(choice, correctBird) {
   return aType;
 }
 
-export function randomize(whichState, birds, oldBird) {
+export function createWeights(birds, correct, incorrect) {
+  let weights = [];
+  let total = 0;
+
+  for (let i = 0; i < birds.length; i++) {
+    let temp = 0;
+    temp += incorrect[birds[i]];
+    temp -= correct[birds[i]];
+    total += temp;
+    weights.push(temp);
+  }
+
+  let min = Math.abs(Math.min(...weights));
+
+  for (let i = 0; i < weights.length; i++) {
+    weights[i] += (min + 1);
+    total += (min + 1);
+  }
+
+  let freqArr = [];
+
+  for (let i = 0; i < weights.length; i++) {
+    for (let j = 0; j < weights[i]; j++) {
+      freqArr.push(birds[i]);
+    }
+  }
+
+  return freqArr;
+}
+
+export function randomize(whichState, birds, oldBird, correct, incorrect) {
   if (whichState === "birds") {
     var arr = [];
+    let weights = createWeights(birds, correct, incorrect);
+
+    if (weights.length == 0)
+      weights = birds;
+
     while(arr.length < 4) {
-      var r = birds[Math.floor(Math.random() * birds.length)];
+      var r = weights[Math.floor(Math.random() * weights.length)];
       if(arr.indexOf(r) === -1) arr.push(r);
     }
+
     return arr;
   } else {
     let newCorrectBird = 0;
@@ -66,6 +120,8 @@ export function randomize(whichState, birds, oldBird) {
 }
 
 function Quiz() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [user, setUser] = useState('');
   const [questionNum, setQuestionNum] = useState(5);
   const [numCorrect, setNumCorrect] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -74,19 +130,55 @@ function Quiz() {
   const [answered, setAnswered] = useState(false);
   const [birds, setBirds] = useState([0, 1, 2, 3]);
   const [correctBird, setCorrectBird] = useState(0);
+  const [imageNum, setImageNum] = useState(0);
   const [correctlyAnswered, setCorrectlyAnswered] = useState({});
   const [incorrectlyAnswered, setIncorrectlyAnswered] = useState({});
+  const [correctCount, setCorrectCount] = useState([]);
+  const [incorrectCount, setIncorrectCount] = useState([]);
   const [questionType, setQuestionType] = useState(['image', 'audio']);
   const [answerType, setAnswerType] = useState("none_yet");
   const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);
+  {/*const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);*/}
+
+  useEffect(() => {
+    getUserInfo();
+    
+    if (state.todos.length > 0) {
+      let obj = state.todos.find(obj => obj.name == user);
+      setCorrectCount(obj.correct);
+      setIncorrectCount(obj.incorrect);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    async function getData() {
+      const todoData = await API.graphql(graphqlOperation(listTodos));
+      dispatch({ type: 'QUERY', todos: todoData.data.listTodos.items });
+    }
+    getData();
+
+    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+      next: (eventData) => {
+        const todo = eventData.value.data.onCreateTodo;
+        dispatch({ type: 'SUBSCRIPTION', todo });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     let birdsFromHabs = chooseBirds(chosenHabs);
     let oldBird = birdList[birds[correctBird]];
     setAvailBirds(birdsFromHabs);
-    setBirds(randomize("birds", birdsFromHabs));
-    setCorrectBird(randomize("correctBird", correctBird, oldBird));
+    let newBirds = randomize("birds", birdsFromHabs, oldBird, correctCount, incorrectCount)
+    setBirds(newBirds);
+    setCorrectBird(randomize("correctBird", newBirds, oldBird, correctCount, incorrectCount));
     setAnswerType('none_yet');
+
+    {/*if (currentQuestion === questionNum) {
+      updateOldTodo();
+    }*/}
   }, [quizStart]);
 
   useEffect(() => {
@@ -100,17 +192,39 @@ function Quiz() {
       let tempCorrect = correctlyAnswered;
       tempCorrect[currentQuestion] = birds[correctBird];
       setCorrectlyAnswered(tempCorrect);
+
+      let tempCount = correctCount;
+      tempCount[birds[correctBird]] += 1;
+      setCorrectCount(tempCount);
     } else if (answerType == "incorrect") {
       let tempIncorrect = incorrectlyAnswered;
       tempIncorrect[currentQuestion] = birds[correctBird];
       setIncorrectlyAnswered(tempIncorrect);
+
+      let tempCount = incorrectCount;
+      tempCount[birds[correctBird]] += 1;
+      setIncorrectCount(tempCount);
     }
   }, [answerType]);
+
+  useEffect(() => {
+    let corrBird = birdList[birds[correctBird]];
+    let birdImage = Math.floor(Math.random()*corrBird.image.length);
+    setImageNum(birdImage);
+  }, [correctBird])
+  
+  async function getUserInfo() {
+    let userData = await Auth.currentAuthenticatedUser();
+    setUser(userData.username);
+  }
 
   function QuizOptions(props) {
     return (
       <div>
         <h1>Quiz</h1>
+        <Container>
+        <Row>
+        <Col>
         <div style={{padding: '20px'}}>
         <h2>What type(s) of questions?</h2>
         <ToggleButtonGroup type="checkbox" value={questionType} onChange={val => setQuestionType(val)}>
@@ -141,6 +255,13 @@ function Quiz() {
           onClick={() => setQuizStart(true)}
         >Start Quiz Now</Button>
         </div>
+        </Col>
+        <Col>
+          <h2>Leaderboard</h2><br />
+          <Leaderboard users={state.todos} />
+        </Col>
+        </Row>
+        </Container>
       </div>
     );
   }
@@ -166,9 +287,10 @@ function Quiz() {
       setAnswerType('none_yet');
       setAnswered(false);
       setCurrentQuestion(currentQuestion + 1);
-      let newBirds = randomize("birds", availBirds)
+      let newBirds = randomize("birds", availBirds, oldBird, correctCount, incorrectCount)
       setBirds(newBirds);
-      setCorrectBird(randomize("correctBird", newBirds, oldBird));
+      setCorrectBird(randomize("correctBird", newBirds, oldBird, correctCount, incorrectCount));
+      updateOldTodo();
     }
   }
 
@@ -184,6 +306,7 @@ function Quiz() {
           questionNum={questionNum}
           qType={questionType}
           qBird={birdList[birds[correctBird]]}
+          birdImage={imageNum}
         />
         <Container>
           <Row>
@@ -208,7 +331,7 @@ function Quiz() {
   function renderResult() {
     return (
       <div>
-        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} />
+        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} birdImage={imageNum} />
         <Button
           variant="outline-light"
           size="lg"
@@ -217,6 +340,19 @@ function Quiz() {
         >Next Question</Button>
       </div>
     );
+  }
+
+  async function updateOldTodo() {
+    let obj = state.todos.find(obj => obj.name == user);
+    let objId = obj.id;
+
+    const todo = {
+      id: objId,
+      name: user,
+      correct: correctCount,
+      incorrect: incorrectCount
+    };
+    await API.graphql(graphqlOperation(updateTodo, { input: todo }));
   }
 
   return (
