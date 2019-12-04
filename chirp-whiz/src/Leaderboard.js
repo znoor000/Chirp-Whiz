@@ -71,3 +71,5 @@ function Leaderboard(props) {
         </div>
     );
 }
+
+export default Leaderboard;
