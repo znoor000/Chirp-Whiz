@@ -7,7 +7,7 @@ export function QuestionInfo(props) {
     return(
         <div>
             {props.qType.includes('image') &&
-                <Image src={props.bird.image} thumbnail style={{height: '300px'}}/>
+                <Image src={props.bird.image[props.imageNum]} thumbnail style={{height: '300px'}}/>
             }
             {props.qType.includes('audio') &&
                 <AudioButton sound={props.bird.sound} />
@@ -22,7 +22,7 @@ function QuizQuestion(props) {
             <h4>Question number {props.currentQuestion} of {props.questionNum}</h4>
             <ProgressBar now={(props.currentQuestion / props.questionNum) * 100} />
             <h4>Identify this bird:</h4>
-            <QuestionInfo bird={props.qBird} qType={props.qType} />
+            <QuestionInfo bird={props.qBird} qType={props.qType} imageNum={props.birdImage} />
         </div>
     );
 }
