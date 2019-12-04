@@ -199,3 +199,12 @@ test('Check size of larger randomized array with alternative random val', () => 
 
   expect(QuestionInfo.randomize("birds", 50)).toHaveLength(4)
 })
+
+test('randomize to return val >= 0 with higher seed', () => {
+  const spy = jest.spyOn(Math, 'abs')
+  spy.mockReturnValueOnce(1);
+  const spy3 = jest.spyOn(Math, 'min')
+  spy3.mockReturnValueOnce(1);
+
+  expect(QuizTest.createWeights({a: 'a', b: 'b', c: 'c'}, [0,0,0], [0,0,0])).toStrictEqual([])
+})
