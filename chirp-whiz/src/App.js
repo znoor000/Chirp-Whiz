@@ -132,11 +132,24 @@ function App() {
           </nav>
           */}
           <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
             <Route path="/quiz">
               <Quiz />
             </Route>
             <Route path="/glossary">
               <Glossary />
+            </Route>
+            <Route path="/user-page">
+              {userIndex != undefined &&
+                <UserPage
+                  name={user}
+                  email={userEmail}
+                  correct={state.todos[userIndex].correct}
+                  incorrect={state.todos[userIndex].incorrect}
+                />
+              }
             </Route>
             <Route path="/">
               <Home />
