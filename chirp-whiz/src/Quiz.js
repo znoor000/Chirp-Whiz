@@ -330,7 +330,7 @@ function Quiz() {
   function renderResult() {
     return (
       <div>
-        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} />
+        <AnswerPage answerType={answerType} bird={birdList[birds[correctBird]]} birdImage={imageNum} />
         <Button
           variant="outline-light"
           size="lg"
