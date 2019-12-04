@@ -4,10 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 
 function UserPage(props) {
+    function winPercentage(index) {
+        let percent = 0;
 
+        if (props.correct[index] > 0 || props.incorrect[index] > 0)
+            percent = (props.correct[index] / (props.correct[index] + props.incorrect[index]))*100;
 
+        return percent.toFixed(2);
 }
-
 return(
     <div>
         <h1>User Profile</h1><br />
