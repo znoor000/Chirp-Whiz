@@ -102,6 +102,34 @@ function Quiz() {
   const [questionType, setQuestionType] = useState(['image', 'audio']);
   const [answerType, setAnswerType] = useState("none_yet");
   const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);
+  {/*const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);*/}
+
+  useEffect(() => {
+    getUserInfo();
+    
+    if (state.todos.length > 0) {
+      let obj = state.todos.find(obj => obj.name == user);
+      setCorrectCount(obj.correct);
+      setIncorrectCount(obj.incorrect);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    async function getData() {
+      const todoData = await API.graphql(graphqlOperation(listTodos));
+      dispatch({ type: 'QUERY', todos: todoData.data.listTodos.items });
+    }
+    getData();
+
+    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
+      next: (eventData) => {
+        const todo = eventData.value.data.onCreateTodo;
+        dispatch({ type: 'SUBSCRIPTION', todo });
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     let birdsFromHabs = chooseBirds(chosenHabs);
