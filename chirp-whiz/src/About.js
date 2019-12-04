@@ -12,6 +12,12 @@ function About() {
                 identifying our birds! You can check how well you identify 
                 each bird in your stats on the User page. You can also view 
                 the top players in our leaderboard in the Quiz page.
+
+                On the Quiz page you can choose to identify a bird given 
+                audio, image, or both. You can also choose the size of your 
+                quiz session by choosing 5, 10, or 20 questions per quiz. 
+                Lastly, you can limit the range of birds based on habitat - 
+                select all habitats to be quized on ANY bird! 
             </p>
             <br/>
             <h1>Contact Us:</h1>
