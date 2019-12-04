@@ -84,6 +84,8 @@ export function randomize(whichState, birds, oldBird) {
 }
 
 function Quiz() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [user, setUser] = useState('');
   const [questionNum, setQuestionNum] = useState(5);
   const [numCorrect, setNumCorrect] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(1);
@@ -92,8 +94,11 @@ function Quiz() {
   const [answered, setAnswered] = useState(false);
   const [birds, setBirds] = useState([0, 1, 2, 3]);
   const [correctBird, setCorrectBird] = useState(0);
+  const [imageNum, setImageNum] = useState(0);
   const [correctlyAnswered, setCorrectlyAnswered] = useState({});
   const [incorrectlyAnswered, setIncorrectlyAnswered] = useState({});
+  const [correctCount, setCorrectCount] = useState([]);
+  const [incorrectCount, setIncorrectCount] = useState([]);
   const [questionType, setQuestionType] = useState(['image', 'audio']);
   const [answerType, setAnswerType] = useState("none_yet");
   const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);
