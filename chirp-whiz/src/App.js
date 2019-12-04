@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer } from 'react';
 import './App.css';
 import Home from './Home.js';
 import Quiz from './Quiz.js';
+import UserPage from './UserPage.js';
+import About from './About.js';
 import Question from './Question.js';
 import Glossary from './Glossary.js';
 import BirdForm from './BirdForm.js';
@@ -114,6 +116,8 @@ function App() {
           <Nav.Link href="home">Home</Nav.Link>
           <Nav.Link href="quiz">Quiz</Nav.Link>
           <Nav.Link href="glossary">Glossary</Nav.Link>
+          <Nav.Link href="user-page">User Page</Nav.Link>
+          <Nav.Link href="about">About</Nav.Link>
         </Nav>
       </Navbar>
       
@@ -128,11 +132,24 @@ function App() {
           </nav>
           */}
           <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
             <Route path="/quiz">
               <Quiz />
             </Route>
             <Route path="/glossary">
               <Glossary />
+            </Route>
+            <Route path="/user-page">
+              {userIndex != undefined &&
+                <UserPage
+                  name={user}
+                  email={userEmail}
+                  correct={state.todos[userIndex].correct}
+                  incorrect={state.todos[userIndex].incorrect}
+                />
+              }
             </Route>
             <Route path="/">
               <Home />

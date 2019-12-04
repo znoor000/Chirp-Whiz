@@ -88,7 +88,7 @@ function Glossary () {
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
                   <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
                     <p>{todo.name}</p>
-                    <Image src={todo.image} rounded style={{height: '300px'}} />
+                    <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
                 </Link>
                 </ListGroup.Item>
@@ -125,10 +125,8 @@ export function Bird(props) {
           <Carousel.Item>
             <Image src={imag} rounded style={{height: '360px'}} />
           </Carousel.Item>
-          )
-        }
+        )}
       </Carousel>
-
       </Col>
       <Col>
       <AudioButton sound={props.bird.sound}/>
