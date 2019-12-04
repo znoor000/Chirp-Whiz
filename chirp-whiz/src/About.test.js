@@ -9,5 +9,6 @@ it('test About renders', () => {
 });
 
 test("Check if contact us heading is on the page", () => {
-    
+    const {getByText} = render(<About />)
+    expect(getByText("Contact Us:")).toBeInTheDocument();
 });
