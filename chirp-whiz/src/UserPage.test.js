@@ -23,3 +23,13 @@ it('test UserPage renders', () => {
     expect(container.firstChild).toMatchSnapshot();
 });
 
+test("Check if user profile is on the page", () => {
+    const {getByText} = render(<UserPage 
+        name='name'
+        email='email'
+        correct={[0,0,0]}
+        incorrect={[0,0,0]}
+      />)
+    expect(getByText("User Profile")).toBeInTheDocument();
+});
+
