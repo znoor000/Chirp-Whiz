@@ -250,6 +250,7 @@ function Quiz() {
           questionNum={questionNum}
           qType={questionType}
           qBird={birdList[birds[correctBird]]}
+          birdImage={imageNum}
         />
         <Container>
           <Row>
