@@ -1,15 +1,23 @@
 # Chirp Whiz
 
-This is the read-me for the Chirp Whiz project.
-
 Check it out here:
-http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/
+[Chirp Whiz](http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/)
 
-* npm install
-* npm install react-router-dom
-* amplify
-* npm install --save-dev @testing-library/dom (if this doesn't work,
-    do it without --save-dev at first then once more with that flag)
+### Steps to install:
+* Clone the repo
+* Enter the chirp-whiz directory
+* `npm install`
+* `npm start`
+#### You might need to install:
+* [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+* [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/)
+* [AWS Amplify](https://aws-amplify.github.io/docs/js/start)
+
+### Steps to test:
+* `npm test`
+#### You might need to run:
+* `npm install --save-dev @testing-library/dom` (if this doesn't work,
+    do it without `--save-dev` at first then once more with that flag)
 
 ### About this Web Application:
 Chirp Whiz started off as a simple idea for bird-lovers who are stuck in the city or don't have spare time.
