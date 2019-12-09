@@ -87,7 +87,7 @@ var birdList = [
         scientificName: 'Aix sponsa'
     },
     {
-        name: 'Double-Crested Cormorant',
+        name: 'Crested Cormorant',
         image: ['https://www.allaboutbirds.org/guide/assets/photo/66027281-720px.jpg', 
             'https://www.allaboutbirds.org/guide/assets/photo/66027241-720px.jpg', 
             'https://www.allaboutbirds.org/guide/assets/photo/66027251-720px.jpg', 
