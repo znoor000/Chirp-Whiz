@@ -1,13 +1,20 @@
 # Chirp Whiz
 
 Check it out here:
-http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/
+## [Chirp Whiz](http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/)
 
-Steps to install:
+### Steps to install:
+* clone the repo
+* 'npm install'
+* 'npm start'
+#### You might need to install:
+* [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
+* [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/)
+* [AWS Amplify](https://aws-amplify.github.io/docs/js/start)
 
-* npm install
-* npm install react-router-dom
-* amplify
+### Steps to test:
+* 'npm test'
+#### You might need to run:
 * npm install --save-dev @testing-library/dom (if this doesn't work,
     do it without --save-dev at first then once more with that flag)
 
