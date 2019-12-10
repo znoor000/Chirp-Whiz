@@ -17,10 +17,8 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
-import Form from 'react-bootstrap/Form';
+import Form from 'react-bootstrap/Form'
 import birdList from './birdList';
-
-
 
 function Glossary () {
   const [state, setState] = useState({
@@ -29,15 +27,10 @@ function Glossary () {
   const [birdNum, setBirdNum] = useState(0);
   const [inBirdPage, setInBirdPage] = useState(false);
   const [searchName, setSearchName] = useState('');
-  
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [birdNum])
-  
-  useEffect(() => {
-    console.log(searchName);
-  }, [searchName])
 
   function handleChange(e) {
     setSearchName(e.target.value);
@@ -47,24 +40,26 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-           {inBirdPage ? (
+          {inBirdPage ? (
             <div>
               <Bird bird={state.todos[birdNum]}/>
               <Button variant="secondary" onClick={() => setInBirdPage(false)}>Return</Button>
             </div>
           ) : (
-
-              <div>
+            <div>
               <h1>Glossary</h1>
               <div>
               <Form.Group as={Row}>
                 <Col>
+                <Form.Group as={Row} controlId="formBasicName">
+                <Form.Label>Bird Search</Form.Label>
                 <Form.Control
                   size="lg"
                   type="text"
                   placeholder="Enter the name of a bird"
                   onChange={handleChange}
                 />
+                </Form.Group>
                 </Col>
               </Form.Group>
               </div>
@@ -72,7 +67,7 @@ function Glossary () {
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
-                <div>
+              <div key={i}>
                 {todo.name.includes(searchName) &&
                 <ListGroup.Item>
                   <Button variant="outline-warning" style={{color: 'black'}} onClick={() => {
@@ -82,14 +77,13 @@ function Glossary () {
                     <p>{todo.name}</p>
                     <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
-             
                 </ListGroup.Item>
                 }
-                </div>
+              </div>
               )}
               </ListGroup>
               </ButtonGroup>
-              </div>
+            </div>
           )}
         </div>
       }
@@ -98,8 +92,6 @@ function Glossary () {
 }
 
 export function Bird(props) {
-  
-
   return(
     <div>
       <Card className="text-center">
@@ -110,7 +102,7 @@ export function Bird(props) {
       <Col>
       <Carousel>
         {props.bird.image.map((imag, i) =>
-          <Carousel.Item>
+          <Carousel.Item key={i}>
             <Image src={imag} rounded style={{height: '360px'}} />
           </Carousel.Item>
         )}
