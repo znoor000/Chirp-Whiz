@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import AudioButton from './quizComponents/AudioButton';
-import API, { graphqlOperation } from '@aws-amplify/api'
-import { listTodos } from './graphql/queries'
-import { onCreateTodo } from './graphql/subscriptions'
 import {
   Switch,
   Route,
@@ -20,84 +17,80 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
+import Form from 'react-bootstrap/Form';
 import birdList from './birdList';
 
-const initialState = {todos:[]};
-export const reducer = (state, action) => {
-  switch(action.type){
-    case 'QUERY':
-      return {...state, todos:action.todos}
-    case 'SUBSCRIPTION':
-      return {...state, todos:[...state.todos, action.todo]}
-    default:
-      return state
-  }
-}
+
 
 function Glossary () {
-  {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
   const [state, setState] = useState({
     todos: birdList
   });
   const [birdNum, setBirdNum] = useState(0);
-
-  {/*useEffect(() => {
-    getData()
-    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-      next: (eventData) => {
-        const todo = eventData.value.data.onCreateTodo;
-        dispatch({type:'SUBSCRIPTION', todo})
-      }
-    })
-  return () => subscription.unsubscribe()
-  }, [])
-
-  async function getData() {
-    const todoData = await API.graphql(graphqlOperation(listTodos))
-    dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
-  }*/}
+  const [inBirdPage, setInBirdPage] = useState(false);
+  const [searchName, setSearchName] = useState('');
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [birdNum])
   
-  let match = useRouteMatch();
-{/*
-  function chosenBird(index) {
-    setBirdNum(index);
-  }*/}
+  useEffect(() => {
+    console.log(searchName);
+  }, [searchName])
+
+  function handleChange(e) {
+    setSearchName(e.target.value);
+  };
 
   return(
     <div>
       {state.todos.length > 0 &&
         <div>
-          <Switch>
-            <Route path={`${match.path}/:birdName`}>
+           {inBirdPage ? (
+            <div>
               <Bird bird={state.todos[birdNum]}/>
-              <Link to={match.path}>
-                <Button variant="secondary">Return</Button>
-              </Link>
-            </Route>
-            <Route path={match.path}>
+              <Button variant="secondary" onClick={() => setInBirdPage(false)}>Return</Button>
+            </div>
+          ) : (
+
               <div>
               <h1>Glossary</h1>
+              <div>
+              <Form.Group as={Row}>
+                <Col>
+                <Form.Control
+                  size="lg"
+                  type="text"
+                  placeholder="Enter the name of a bird"
+                  onChange={handleChange}
+                />
+                </Col>
+              </Form.Group>
+              </div>
+              <br />
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
+                <div>
+                {todo.name.includes(searchName) &&
                 <ListGroup.Item>
-                <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
+                  <Button variant="outline-warning" style={{color: 'black'}} onClick={() => {
+                    setBirdNum(i);
+                    setInBirdPage(true);
+                  }}>
                     <p>{todo.name}</p>
                     <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
-                </Link>
+             
                 </ListGroup.Item>
+                }
+                </div>
               )}
               </ListGroup>
               </ButtonGroup>
               </div>
-            </Route>
-          </Switch>
+          )}
         </div>
       }
     </div>
@@ -105,21 +98,16 @@ function Glossary () {
 }
 
 export function Bird(props) {
-  let { birdName } = useParams();
+  
 
   return(
     <div>
       <Card className="text-center">
       <Card.Header><h2>{props.bird.name}</h2></Card.Header>
       <Card.Body>
-       {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'}}*/}
       <Container>
       <Row>
       <Col>
-      {/*<Image src={props.bird.image[0]} rounded />*/}
       <Carousel>
         {props.bird.image.map((imag, i) =>
           <Carousel.Item>
