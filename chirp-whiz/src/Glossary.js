@@ -39,7 +39,9 @@ function Glossary () {
     console.log(searchName);
   }, [searchName])
 
-
+  function handleChange(e) {
+    setSearchName(e.target.value);
+  };
 
   return(
     <div>
