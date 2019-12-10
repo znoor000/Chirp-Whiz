@@ -27,13 +27,18 @@ function Glossary () {
     todos: birdList
   });
   const [birdNum, setBirdNum] = useState(0);
-
+  const [inBirdPage, setInBirdPage] = useState(false);
+  const [searchName, setSearchName] = useState('');
   
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [birdNum])
   
+  useEffect(() => {
+    console.log(searchName);
+  }, [searchName])
+
 
 
   return(
