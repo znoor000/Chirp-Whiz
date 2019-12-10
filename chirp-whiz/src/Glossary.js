@@ -20,50 +20,21 @@ import Carousel from 'react-bootstrap/Carousel';
 import Form from 'react-bootstrap/Form';
 import birdList from './birdList';
 
-const initialState = {todos:[]};
-export const reducer = (state, action) => {
-  switch(action.type){
-    case 'QUERY':
-      return {...state, todos:action.todos}
-    case 'SUBSCRIPTION':
-      return {...state, todos:[...state.todos, action.todo]}
-    default:
-      return state
-  }
-}
+
 
 function Glossary () {
-  {/*const [state, dispatch] = useReducer(reducer, initialState);*/}
   const [state, setState] = useState({
     todos: birdList
   });
   const [birdNum, setBirdNum] = useState(0);
 
-  {/*useEffect(() => {
-    getData()
-    const subscription = API.graphql(graphqlOperation(onCreateTodo)).subscribe({
-      next: (eventData) => {
-        const todo = eventData.value.data.onCreateTodo;
-        dispatch({type:'SUBSCRIPTION', todo})
-      }
-    })
-  return () => subscription.unsubscribe()
-  }, [])
-
-  async function getData() {
-    const todoData = await API.graphql(graphqlOperation(listTodos))
-    dispatch({type:'QUERY', todos: todoData.data.listTodos.items});
-  }*/}
+  
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [birdNum])
   
-  let match = useRouteMatch();
-{/*
-  function chosenBird(index) {
-    setBirdNum(index);
-  }*/}
+
 
   return(
     <div>
@@ -110,14 +81,9 @@ export function Bird(props) {
       <Card className="text-center">
       <Card.Header><h2>{props.bird.name}</h2></Card.Header>
       <Card.Body>
-       {/*style={{backgroundImage: `url(${props.bird.habitatImage})`,
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat'}}*/}
       <Container>
       <Row>
       <Col>
-      {/*<Image src={props.bird.image[0]} rounded />*/}
       <Carousel>
         {props.bird.image.map((imag, i) =>
           <Carousel.Item>
