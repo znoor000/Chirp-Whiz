@@ -75,7 +75,10 @@ function Glossary () {
                 <div>
                 {todo.name.includes(searchName) &&
                 <ListGroup.Item>
-                
+                  <Button variant="outline-warning" style={{color: 'black'}} onClick={() => {
+                    setBirdNum(i);
+                    setInBirdPage(true);
+                  }}>
                     <p>{todo.name}</p>
                     <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
