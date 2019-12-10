@@ -2,20 +2,6 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Table from 'react-bootstrap/Table';
 
-export function compare(a, b) {
-    const scoreA = a.score;
-    const scoreB = b.score;
-
-    let comparison = 0;
-    if (scoreA > scoreB) {
-        comparison = 1;
-    } else if (scoreA < scoreB) {
-        comparison = -1;
-    }
-
-    return comparison;
-}
-
 export function totalPercent(user) {
     let percent = 0;
     let corrTotal = user.correct.reduce((a, b) => a + b, 0);
@@ -40,34 +26,35 @@ export function scorify(users) {
 }
 
 function Leaderboard(props) {
-    const [lboardUsers, setLboardUsers] = useState([]);
+    const [lboardUsers, setLboardUsers] = useState([{
+        name: 'name',
+        score: 0.00
+    }]);
 
     useEffect(() => {
         let usersWithScores = scorify(props.users);
-        usersWithScores.sort(compare);
+        usersWithScores.sort(function(a, b){return b.score - a.score});
         setLboardUsers(usersWithScores);
     }, [])
 
     return (
         <div>
-            {lboardUsers.length > 0 &&
-                <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Accuracy</th>
+            <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Accuracy</th>
+                </tr>
+            </thead>
+            <tbody>
+                {lboardUsers.map((currentUser, i) =>
+                    <tr key={i}>
+                        <th>{currentUser.name}</th>
+                        <th>{currentUser.score}%</th>
                     </tr>
-                </thead>
-                <tbody>
-                    {lboardUsers.map((currentUser, i) =>
-                        <tr>
-                            <th>{currentUser.name}</th>
-                            <th>{currentUser.score}%</th>
-                        </tr>
-                    )}
-                </tbody>
-                </Table>
-            }
+                )}
+            </tbody>
+            </Table>
         </div>
     );
 }
