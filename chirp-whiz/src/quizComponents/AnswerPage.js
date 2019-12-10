@@ -7,9 +7,9 @@ function AnswerPage(props) {
     return (
         <div>
             {props.answerType == "correct" ? (
-                <h2>Correct!</h2>
+                <h2 style={{color: 'green'}}><strong>Correct!</strong></h2>
             ) : (
-                <h2>Incorrect...</h2>
+                <h2 style={{color: 'red'}}><strong>Incorrect...</strong></h2>
             )}
             <Card>
                 <Card.Header as="h2">
