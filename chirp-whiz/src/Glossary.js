@@ -47,16 +47,18 @@ function Glossary () {
     <div>
       {state.todos.length > 0 &&
         <div>
-          <Switch>
-            <Route path={`${match.path}/:birdName`}>
+           {inBirdPage ? (
+            <div>
               <Bird bird={state.todos[birdNum]}/>
-              <Link to={match.path}>
-                <Button variant="secondary">Return</Button>
-              </Link>
-            </Route>
-            <Route path={match.path}>
+              <Button variant="secondary" onClick={() => setInBirdPage(false)}>Return</Button>
+            </div>
+          ) : (
+
               <div>
               <h1>Glossary</h1>
+
+
+              
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
