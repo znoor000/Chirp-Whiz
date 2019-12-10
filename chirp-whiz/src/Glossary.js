@@ -98,7 +98,7 @@ function Glossary () {
 }
 
 export function Bird(props) {
-  let { birdName } = useParams();
+  
 
   return(
     <div>
