@@ -21,7 +21,7 @@ class Home extends Component {
         <div className="homepage">
           <br /><h1>Chirp Whiz</h1><br />
           <Router>
-          <h2>New to the app?</h2>
+          <h2>New to the app? (Or need to practice?)</h2>
           <Link to="/tutorial">
             <Button
               variant="outline-light"
