@@ -21,16 +21,20 @@ class Home extends Component {
         <div className="homepage">
           <br /><h1>Chirp Whiz</h1><br />
           <Router>
-          <p>
-          <Link to="/quiz">
+          {/*<p>
+          <Link to="/quiz">*/}
+          <h2>New to the app?</h2>
+          <Link to="/tutorial">
             <Button
               variant="outline-light"
               size="lg"
               style={{backgroundColor: "#ffa333"}}
               onClick={() => goToPage()}
-            >Go to quiz page</Button>
+            {/*>Go to quiz page</Button>
           </Link>
-          </p><br />
+            </p><br />*/}
+            >Try the tutorial</Button>
+          </Link><br /><br />
           <Row>
             <Col>
           <Link to="/glossary">
