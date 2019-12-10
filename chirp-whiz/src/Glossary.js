@@ -75,12 +75,11 @@ function Glossary () {
                 <div>
                 {todo.name.includes(searchName) &&
                 <ListGroup.Item>
-                <Link to={`${match.url}/${todo.name}`} key={todo.id}>
-                  <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
+                
                     <p>{todo.name}</p>
                     <Image src={todo.image[0]} rounded style={{height: '300px'}} />
                   </Button>
-                </Link>
+             
                 </ListGroup.Item>
                 }
                 </div>
@@ -88,8 +87,7 @@ function Glossary () {
               </ListGroup>
               </ButtonGroup>
               </div>
-            </Route>
-          </Switch>
+          )}
         </div>
       }
     </div>
