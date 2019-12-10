@@ -1,8 +1,5 @@
 import React, { useEffect, useState, useReducer } from 'react';
 import AudioButton from './quizComponents/AudioButton';
-import API, { graphqlOperation } from '@aws-amplify/api'
-import { listTodos } from './graphql/queries'
-import { onCreateTodo } from './graphql/subscriptions'
 import {
   Switch,
   Route,
@@ -20,6 +17,7 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Carousel from 'react-bootstrap/Carousel';
+import Form from 'react-bootstrap/Form';
 import birdList from './birdList';
 
 const initialState = {todos:[]};
