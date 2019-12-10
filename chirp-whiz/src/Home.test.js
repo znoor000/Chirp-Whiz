@@ -22,6 +22,12 @@ test("check if we're at home", () => {
     fireEvent.click(getByText('Check out the glossary'))
 });
 
+test("check if we're at home", () => {
+    const {getByText} = render(<Home />)
+    expect(getByText("Chirp Whiz")).toBeInTheDocument();
+    fireEvent.click(getByText('Go to your user profile'))
+});
+
 test('test for gotopage on false', () => {
     const spy = jest.spyOn(window.location, 'reload')
     spy.mockReturnValueOnce(false);
