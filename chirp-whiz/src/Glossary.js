@@ -56,12 +56,24 @@ function Glossary () {
 
               <div>
               <h1>Glossary</h1>
-
-
-              
+              <div>
+              <Form.Group as={Row}>
+                <Col>
+                <Form.Control
+                  size="lg"
+                  type="text"
+                  placeholder="Enter the name of a bird"
+                  onChange={handleChange}
+                />
+                </Col>
+              </Form.Group>
+              </div>
+              <br />
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>
+                <div>
+                {todo.name.includes(searchName) &&
                 <ListGroup.Item>
                 <Link to={`${match.url}/${todo.name}`} key={todo.id}>
                   <Button variant="outline-warning" style={{color: 'black'}} onClick={() => setBirdNum(i)}>
@@ -70,6 +82,8 @@ function Glossary () {
                   </Button>
                 </Link>
                 </ListGroup.Item>
+                }
+                </div>
               )}
               </ListGroup>
               </ButtonGroup>
