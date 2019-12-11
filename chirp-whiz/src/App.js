@@ -4,9 +4,8 @@ import Home from './Home.js';
 import Quiz from './Quiz.js';
 import UserPage from './UserPage.js';
 import About from './About.js';
-import Question from './Question.js';
 import Glossary from './Glossary.js';
-import BirdForm from './BirdForm.js';
+import Tutorial from './Tutorial.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,7 +21,6 @@ import { onCreateTodo } from './graphql/subscriptions';
 import awsconfig from './aws-exports';
 import { withAuthenticator } from 'aws-amplify-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import birdList from './birdList';
@@ -35,7 +33,7 @@ const initialState = {
   todos: [],
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case 'QUERY':
       return {...state, todos: action.todos};
@@ -46,14 +44,19 @@ const reducer = (state, action) => {
   }
 };
 
-async function createNewTodo(userName) {
+export async function createNewTodo(userName) {
   let zeroArr = new Array(birdList.length).fill(0);
   const todo = {
     name: userName,
     correct: zeroArr,
     incorrect: zeroArr
   };
-  await API.graphql(graphqlOperation(createTodo, { input: todo }));
+  try{
+    await API.graphql(graphqlOperation(createTodo, { input: todo }));
+  }
+  catch(e) {
+    console.log('Caught error: ', e)
+  }
 }
 
 function App() {
@@ -114,6 +117,7 @@ function App() {
         <Navbar.Brand href="home">Chirp Whiz</Navbar.Brand>
         <Nav fill className="mr-auto">
           <Nav.Link href="home">Home</Nav.Link>
+          <Nav.Link href="tutorial">Tutorial</Nav.Link>
           <Nav.Link href="quiz">Quiz</Nav.Link>
           <Nav.Link href="glossary">Glossary</Nav.Link>
           <Nav.Link href="user-page">User Page</Nav.Link>
@@ -123,17 +127,12 @@ function App() {
       
       <Router>
         <div>
-          {/*
-          <nav>
-            <Link to="/"><button>Home</button></Link><br />
-            <Link to="/quiz"><button>Quiz</button></Link><br />
-            <Link to="/glossary"><button>Glossary</button></Link><br />
-            <Link to="/bird-form"><button>Bird Form</button></Link><br />
-          </nav>
-          */}
           <Switch>
             <Route path="/about">
               <About />
+            </Route>
+            <Route path="/tutorial">
+              <Tutorial />
             </Route>
             <Route path="/quiz">
               <Quiz />
