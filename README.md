@@ -12,7 +12,9 @@ Check it out here:
 [Chirp Whiz](http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/)
 
 To demo the app without making an account use this log-in info:
+
 Username: test
+
 Password: strongPassword
 
 ### Steps to install:
