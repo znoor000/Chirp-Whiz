@@ -26,6 +26,7 @@ Password: strongPassword
 * [AWS Amplify](https://aws-amplify.github.io/docs/js/start)
 
 ### Steps to test:
+* Enter the chirp-whiz directory
 * `npm test`
 #### You might need to run:
 * `npm install --save-dev @testing-library/dom` (if this doesn't work,
