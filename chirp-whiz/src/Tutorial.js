@@ -63,6 +63,7 @@ function Tutorial() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [currentBird, setCurrentBird] = useState(0);
   const [modalShow, setModalShow] = useState(false);
+  const [answered, setAnswered] = useState(false);
   const [correctBird, setCorrectBird] = useState(0);
 
   useEffect(() => {
@@ -74,7 +75,11 @@ function Tutorial() {
   return (
     <div>
       {quizStarted ? (
-        <div></div>
+        answered ? (
+          <div></div>
+          ) : (
+          <div></div>
+          )
       ) : (
         correctAnswers === 5 ? (
           <div></div>
