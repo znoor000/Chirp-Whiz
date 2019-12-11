@@ -134,13 +134,27 @@ function renderQuestion() {
   );
 }
 
+  function renderResult() {
+    return (
+    <div>
+        <AnswerPage answerType={answerType} bird={birdList[learningBirds[correctBird]]} birdImage={0} />
+        <Button
+        variant="outline-light"
+        size="lg"
+        style={{backgroundColor: "#ffa333"}}
+        onClick={() => nextQuestion()}
+        >Next Question</Button>
+    </div>
+    );
+  }
+
   return (
     <div>
       {quizStarted ? (
         answered ? (
-          <div></div>
+          renderResult()
           ) : (
-            renderQuestion()
+          renderQuestion()
           )
       ) : (
         correctAnswers === 5 ? (
