@@ -11,6 +11,10 @@ On the Quiz page you can choose to identify a bird given audio, image, or both. 
 Check it out here:
 [Chirp Whiz](http://chirp-whiz-20191115172533-hostingbucket-myenv.s3-website.us-east-2.amazonaws.com/)
 
+#### To demo the app without making an account use this log-in info:
+Username: test  
+Password: strongPassword
+
 ### Steps to install:
 * Clone the repo
 * Enter the chirp-whiz directory
@@ -22,6 +26,7 @@ Check it out here:
 * [AWS Amplify](https://aws-amplify.github.io/docs/js/start)
 
 ### Steps to test:
+* Enter the chirp-whiz directory
 * `npm test`
 #### You might need to run:
 * `npm install --save-dev @testing-library/dom` (if this doesn't work,
