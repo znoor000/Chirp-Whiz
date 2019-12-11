@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import birdList from './birdList';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Image from 'react-bootstrap/Image';
 
 export function randomize(type, oldBird) {
   if (type == "learn") {
