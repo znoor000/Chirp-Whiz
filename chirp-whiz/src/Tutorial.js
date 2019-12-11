@@ -26,6 +26,17 @@ export function randomize(type, oldBird) {
   }
 }
 
+export function checkAnswer(choice, correctBird) {
+  var aType = "";
+  if (choice === correctBird) {
+    aType = "correct";
+  } else {
+    aType = "incorrect";
+  }
+
+  return aType;
+}
+
 function BirdModal(props) {
   return(
       <Modal
@@ -66,12 +77,36 @@ function Tutorial() {
   const [modalShow, setModalShow] = useState(false);
   const [answered, setAnswered] = useState(false);
   const [correctBird, setCorrectBird] = useState(0);
+  const [answerType, setAnswerType] = useState("none_yet");
 
   useEffect(() => {
     let oldBird = correctBird;
     setLearningBirds(randomize("learn"));
     setCorrectBird(randomize("correct", oldBird));
 }, []);
+
+useEffect(() => {
+  if (quizStarted && answerType != "none_yet") {
+    setAnswered(true);
+  }
+  
+  if (answerType == "correct") {
+    setCorrectAnswers(correctAnswers + 1);
+  }
+}, [answerType]);
+
+function AnswerButton(props) {
+  return (
+  <Button 
+      variant="outline-light"
+      size="lg"
+      style={{backgroundColor: "#ffa333"}}
+      block
+      onClick={() => setAnswerType(checkAnswer(props.answerID, props.correctBird))}>
+      <div>{props.bird.name}</div>
+  </Button>
+  )
+}
 
 function renderQuestion() {
   return (
