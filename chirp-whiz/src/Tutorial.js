@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import birdList from './birdList';
 import AudioButton from './quizComponents/AudioButton';
+import AnswerPage from './quizComponents/AnswerPage';
+import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
