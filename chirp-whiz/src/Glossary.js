@@ -21,9 +21,7 @@ import Form from 'react-bootstrap/Form'
 import birdList from './birdList';
 
 function Glossary () {
-  const [state, setState] = useState({
-    todos: birdList
-  });
+  const [state, setState] = useState({todos: birdList});
   const [birdNum, setBirdNum] = useState(0);
   const [inBirdPage, setInBirdPage] = useState(false);
   const [searchName, setSearchName] = useState('');
@@ -47,23 +45,20 @@ function Glossary () {
             </div>
           ) : (
             <div>
-              <h1>Glossary</h1>
+              <h1>Glossary</h1><br />
               <div>
-              <Form.Group as={Row}>
-                <Col>
                 <Form.Group as={Row} controlId="formBasicName">
-                <Form.Label>Bird Search</Form.Label>
+                <Form.Label column sm="2">Bird Search:</Form.Label>
+                <Col sm="8">
                 <Form.Control
                   size="lg"
                   type="text"
                   placeholder="Enter the name of a bird"
                   onChange={handleChange}
                 />
-                </Form.Group>
                 </Col>
-              </Form.Group>
+                </Form.Group>
               </div>
-              <br />
               <ButtonGroup vertical>
               <ListGroup variant="flush">
               {state.todos.map((todo, i) =>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer } from 'react';
 import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
 import API, { graphqlOperation } from '@aws-amplify/api'
 import { updateTodo } from './graphql/mutations';
 import { listTodos } from './graphql/queries'
@@ -17,11 +18,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+Amplify.configure(awsconfig);
+
 const initialState = {
   todos: [],
 };
 
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case 'QUERY':
       return {...state, todos: action.todos};
@@ -138,7 +141,6 @@ function Quiz() {
   const [questionType, setQuestionType] = useState(['image', 'audio']);
   const [answerType, setAnswerType] = useState("none_yet");
   const [chosenHabs, setChosenHabs] = useState(['Forests']);
-  {/*const [chosenHabs, setChosenHabs] = useState(['Forests', 'Open Woodlands', 'Grasslands', 'Lakes and Ponds']);*/}
   
   useEffect(() => {
     getUserInfo();
@@ -168,17 +170,23 @@ function Quiz() {
   }, []);
 
   useEffect(() => {
-    let birdsFromHabs = chooseBirds(chosenHabs);
+    if (questionType.length == 0) {
+      setQuestionType(['image', 'audio']);
+    }
+
+    let chosenHabitats = chosenHabs;
+    if (chosenHabs.length == 0) {
+      chosenHabitats = ['Forests'];
+      setChosenHabs(chosenHabitats);
+    }
+
+    let birdsFromHabs = chooseBirds(chosenHabitats);
     let oldBird = birdList[birds[correctBird]];
     setAvailBirds(birdsFromHabs);
     let newBirds = randomize("birds", birdsFromHabs, oldBird, correctCount, incorrectCount)
     setBirds(newBirds);
     setCorrectBird(randomize("correctBird", newBirds, oldBird, correctCount, incorrectCount));
     setAnswerType('none_yet');
-
-    {/*if (currentQuestion === questionNum) {
-      updateOldTodo();
-    }*/}
   }, [quizStart]);
 
   useEffect(() => {
@@ -297,10 +305,6 @@ function Quiz() {
   function renderQuestion() {
     return (
       <div>
-        {/*<h4>Question number {currentQuestion} of {questionNum}</h4>
-        <ProgressBar now={(currentQuestion / questionNum) * 100} />
-        <h4>Identify this bird:</h4>
-        <QuestionInfo bird={birdList[birds[correctBird]]} />*/}
         <QuizQuestion
           currentQuestion={currentQuestion}
           questionNum={questionNum}
@@ -343,7 +347,10 @@ function Quiz() {
   }
 
   async function updateOldTodo() {
-    let obj = state.todos.find(obj => obj.name == user);
+    let obj = {id: 0};
+    if(state.todos.length > 0)
+      obj = state.todos.find(obj => obj.name == user);
+    
     let objId = obj.id;
 
     const todo = {
