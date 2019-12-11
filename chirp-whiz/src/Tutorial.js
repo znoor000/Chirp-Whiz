@@ -28,6 +28,10 @@ export function randomize(type, oldBird) {
   }
 }
 
+export function goToPage() {
+  setTimeout(() => window.location.reload(false), 200);
+}
+
 export function checkAnswer(choice, correctBird) {
   var aType = "";
   if (choice === correctBird) {
@@ -172,7 +176,32 @@ function renderQuestion() {
           )
       ) : (
         correctAnswers === 5 ? (
-          <div></div>
+          <div>
+            <h1>Congrats!</h1>
+            <h2>You answered five questions correctly</h2><br /><br />
+            <Row>
+                <Col>
+                    <Link to="/quiz">
+                        <Button
+                        variant="outline-light"
+                        size="lg"
+                        style={{backgroundColor: "#ffa333"}}
+                        onClick={() => goToPage()}
+                        >Take the full quiz</Button>
+                    </Link>
+                </Col>
+                <Col>
+                    <Link to="/glossary">
+                        <Button
+                        variant="outline-light"
+                        size="lg"
+                        style={{backgroundColor: "#ffa333"}}
+                        onClick={() => goToPage()}
+                        >Learn more in the glossary</Button>
+                    </Link>
+                </Col>
+            </Row>
+            </div>
         ) : (
         <div>
           <br /><h1>Start by observing the following birds:</h1><br />
@@ -209,8 +238,7 @@ function renderQuestion() {
             birdNum = {currentBird}
           />
           </div>
-        )
-      )}<br />
+        ))}<br />
       {(quizStarted || correctAnswers === 5) && 
       <Button variant="secondary" onClick={() => setTimeout(() => window.location.reload(false), 200)}>Start over</Button>
       }
