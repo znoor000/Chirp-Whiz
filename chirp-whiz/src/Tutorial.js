@@ -134,6 +134,18 @@ function renderQuestion() {
   );
 }
 
+  function nextQuestion() {
+    if (correctAnswers === 5) {
+      setQuizStarted(!quizStarted);
+    } else {
+      let oldBird = correctBird;
+      setAnswerType('none_yet');
+      setAnswered(false);
+      setCorrectBird(randomize("correct", oldBird));
+      console.log(learningBirds);
+    }
+  }
+
   function renderResult() {
     return (
     <div>
