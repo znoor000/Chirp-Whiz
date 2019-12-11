@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import birdList from './birdList';
+import AudioButton from './quizComponents/AudioButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
@@ -72,13 +73,39 @@ function Tutorial() {
     setCorrectBird(randomize("correct", oldBird));
 }, []);
 
+function renderQuestion() {
+  return (
+  <div>
+      <h4>Identify this bird:</h4>
+      <Image src={birdList[learningBirds[correctBird]].image[0]} thumbnail style={{height: '300px'}}/>
+      <AudioButton sound={birdList[learningBirds[correctBird]].sound} />
+      <Container>
+      <Row>
+          <Col>
+          <AnswerButton bird={birdList[learningBirds[0]]} answerID={0} correctBird={correctBird} />
+          </Col>
+          <Col>
+          <AnswerButton bird={birdList[learningBirds[1]]} answerID={1} correctBird={correctBird} />
+          </Col>
+          <Col>
+          <AnswerButton bird={birdList[learningBirds[2]]} answerID={2} correctBird={correctBird} />
+          </Col>
+          <Col>
+          <AnswerButton bird={birdList[learningBirds[3]]} answerID={3} correctBird={correctBird} />
+          </Col>
+      </Row>
+      </Container>
+  </div>
+  );
+}
+
   return (
     <div>
       {quizStarted ? (
         answered ? (
           <div></div>
           ) : (
-          <div></div>
+            renderQuestion()
           )
       ) : (
         correctAnswers === 5 ? (
@@ -120,7 +147,10 @@ function Tutorial() {
           />
           </div>
         )
-      )}
+      )}<br />
+      {(quizStarted || correctAnswers === 5) && 
+      <Button variant="secondary" onClick={() => setTimeout(() => window.location.reload(false), 200)}>Start over</Button>
+      }
     </div>
   )
 }
