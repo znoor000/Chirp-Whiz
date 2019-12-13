@@ -13,7 +13,10 @@ function About() {
 
                 <p>Please peruse the glossary to get to know the birds on 
                 our app and then quiz yourself to see how well you do at 
-                identifying our birds! You can check how well you identify 
+                identifying our birds! You can also use the tutorial to 
+                practice without having your scores affected. </p>
+
+                <p>You can check how well you identify 
                 each bird in your stats on the User page. You can also view 
                 the top players in our leaderboard in the Quiz page.</p>
 
