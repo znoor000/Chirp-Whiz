@@ -24,10 +24,12 @@ Password: strongPassword
 * [React Router](https://reacttraining.com/react-router/web/guides/quick-start)
 * [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction/)
 * [AWS Amplify](https://aws-amplify.github.io/docs/js/start)
+* You might need to set-up amplify along with a DynamoDB database and GraphQL backend
 
 ### Steps to test:
 * Enter the chirp-whiz directory
 * `npm test`
+* 'npm test -- --coverage' for test coverage
 #### You might need to run:
 * `npm install --save-dev @testing-library/dom` (if this doesn't work,
     do it without `--save-dev` at first then once more with that flag)
