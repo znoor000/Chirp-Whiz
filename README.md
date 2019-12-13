@@ -29,7 +29,7 @@ Password: strongPassword
 ### Steps to test:
 * Enter the chirp-whiz directory
 * `npm test`
-* 'npm test -- --coverage' for test coverage
+* `npm test -- --coverage` for test coverage
 #### You might need to run:
 * `npm install --save-dev @testing-library/dom` (if this doesn't work,
     do it without `--save-dev` at first then once more with that flag)
