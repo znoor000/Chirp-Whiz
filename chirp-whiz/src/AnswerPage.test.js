@@ -4,6 +4,8 @@ import birdList from './birdList';
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, waitForElement } from '@testing-library/react'
 
+// Integration tests
+
 it('test AnswerPage renders', () => {
     const container = render(<AnswerPage answerType="correct" bird={birdList[0]} />)
     expect(container.firstChild).toMatchSnapshot();

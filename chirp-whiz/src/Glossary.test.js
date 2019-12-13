@@ -1,59 +1,42 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import Glossary from './Glossary'
 
-const GlosLib = require('./Glossary');
+window.scrollTo = jest.fn();
 
-test('reducer case DEFAULT', () => {
-    expect(GlosLib.reducer(
-        {}, {type: "def"}
-    )).toStrictEqual({});
+// Integration tests
+
+it('Glossary snapshot', () => {
+    const container = render(<Glossary />)
+    expect(container.firstChild).toMatchSnapshot();
+    window.scrollTo.mockClear();
 });
 
-test('reducer case QUERY', () => {
-    expect(GlosLib.reducer(
-        {},
-        {type: "QUERY", todos: "td"}
-    )).toStrictEqual(
-        {todos: "td"}
-    );
+test("test if glossary renders correctly", () => {
+    const {getByText} = render(<Glossary />)
+    expect(getByText("Glossary")).toBeInTheDocument();
 });
 
-test('reducer case SUBSCRIPTION', () => {
-    expect(GlosLib.reducer(
-        {todos: "tds"},
-        {type: "SUBSCRIPTION", todo: "td"}
-    )).toStrictEqual(
-        {todos: ["t", "d", "s", "td"]}
-    );
+test("check out bird info page then return to glossary", () => {
+    const {getByText} = render(<Glossary />)
+    fireEvent.click(getByText('Evening grosbeak'));
+    expect(getByText("Return")).toBeInTheDocument();
+    fireEvent.click(getByText('Return'));
+    expect(getByText("Glossary")).toBeInTheDocument();
 });
 
-test('reducer case DEFAULT with state being passed in', () => {
-    expect(GlosLib.reducer(
-        "STATE", {type: "def"}
-    )).toStrictEqual("STATE");
-});
+const setup = () => {
+  const utils = render(<Glossary />)
+  const input = utils.getByLabelText('Bird Search:')
+  return {
+    input,
+    ...utils,
+  }
+}
 
-test('reducer case QUERY with state being passed in', () => {
-    expect(GlosLib.reducer(
-        "STATE",
-        {type: "QUERY", todos: "td"}
-    )).toStrictEqual({
-        0: "S",
-        1: "T",
-        2: "A",
-        3: "T",
-        4: "E", 
-        todos: "td"}
-    );
-});
-
-test('reducer case SUBSCRIPTION with state having extra args', () => {
-    expect(GlosLib.reducer(
-        {0: "s", 1: "t", todos: "tds"},
-        {type: "SUBSCRIPTION", todo: "td"}
-    )).toStrictEqual(
-        {0: "s", 1: "t", todos: ["t", "d", "s", "td"]}
-    );
-});
+test('testing the search feature', () => {
+  const { input } = setup()
+  fireEvent.change(input, { target: { value: 'Even' } })
+  expect(input.value).toBe('Even')
+})
