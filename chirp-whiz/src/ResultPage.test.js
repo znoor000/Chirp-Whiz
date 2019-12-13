@@ -1,12 +1,11 @@
 import React from 'react';
 import ResultPage from './quizComponents/ResultPage';
-import birdList from './birdList';
 import '@testing-library/jest-dom/extend-expect'
 import { render, fireEvent, waitForElement } from '@testing-library/react'
 
 // Integration tests
 
-it('test ResultPage renders', () => {
+it('ResultPage snapshot', () => {
     const container = render(<ResultPage
         totalQs={5}
         correct={{}}
