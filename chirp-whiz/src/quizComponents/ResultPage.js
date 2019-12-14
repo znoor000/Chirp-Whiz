@@ -1,5 +1,12 @@
 import React from 'react';
-import birdList from './../birdList';
+import birdList from './../birdList';   // Bird info
+
+/*
+    This is the page that renders at the end of the quiz. It lets the user know how many
+    questions they got correct and which questions in the quiz that they were.
+    Props are the arrays of correct and incorrect questions for that quiz along with
+    the total questions in the quiz.
+*/
 
 function ResultPage(props) {
     return (

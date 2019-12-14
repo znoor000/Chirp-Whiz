@@ -1,3 +1,7 @@
+/*
+    JSON of bird database. Moved from DynamoDB to keep control over bird info.
+*/
+
 var birdList = [
     {
         name: 'Evening grosbeak',

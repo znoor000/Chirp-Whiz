@@ -1,11 +1,22 @@
 import React from 'react';
-import birdList from './birdList';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Table from 'react-bootstrap/Table';
-import Container from 'react-bootstrap/Container';
+import birdList from './birdList';      // Bird info
+import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap for general styling
+import Table from 'react-bootstrap/Table';      // For the leaderboard
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+/*
+    The user profile page lists info related to the user such as their quiz stats
+    and user info such asa username and email. The statistics are intended to give
+    the user feedback on how well they are performing in their quizzes.
+    Info listed includes he amount of questions they got correct and incorrect along with
+    their total and bird-specific accuracy scores.
+    The props are the user's name, email, and the array of the correct and incorrect values.
+    These arrays are then used to calculate the percentages seen on the page and in the table.
+*/
+
+// Calculates the accuracy score for each bird.
+// Returns the accuracy as a percentage out of 100.
 export function winPercentage(index, correct, incorrect) {
     let percent = 0;
 
@@ -15,6 +26,8 @@ export function winPercentage(index, correct, incorrect) {
     return percent.toFixed(2);
 }
 
+// Calculates the accuracy score for every bird overall.
+// Returns the accuracy as a percentage out of 100.
 export function totalPercent(corrTotal, incorrTotal) {
     let percent = 0;
 
@@ -26,9 +39,11 @@ export function totalPercent(corrTotal, incorrTotal) {
 }
 
 function UserPage(props) {
+    // Summations of the amount of questions answered correctly and incorrectly.
     const answeredCorrect = props.correct.reduce((a, b) => a + b, 0);
     const answeredInCorrect = props.incorrect.reduce((a, b) => a + b, 0);
     
+    // Placeholder email for the test user.
     let email = props.email;
     if (props.name == 'test') {
         email = 'placeholder email';

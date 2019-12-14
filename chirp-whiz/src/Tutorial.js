@@ -1,16 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import birdList from './birdList';
-import AudioButton from './quizComponents/AudioButton';
-import AnswerPage from './quizComponents/AnswerPage';
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import birdList from './birdList';      // Bird info
+import AudioButton from './quizComponents/AudioButton';     // For the questions
+import AnswerPage from './quizComponents/AnswerPage';       // For the answer pages
+import { BrowserRouter as Router, Link } from "react-router-dom";   // Linking to other pages
+import 'bootstrap/dist/css/bootstrap.min.css';      // Bootstrap for general styling
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
-import BirdModal from './BirdModal';
+import BirdModal from './BirdModal';        // Modal for the bird info before the practice quiz
 
+/*
+    The tutorial is a combination of the quiz and the glossary. It's intended to be
+    beginner friendly so that new users can be eased into the flow of the app.
+    It starts with giving the user four random birds to study from. The bird images
+    are on buttons that when clicked render a modal with the name, image, and audio
+    of that bird. The user then starts the practice quiz when they are ready.
+    The practice quiz is similar to the regular quiz except that it doesn't keep track
+    of which birds are (in)correctly identified, so they may repeat without prejudice.
+    The quiz goes on until the user gives 5 correct answers. No stats are recorded so
+    there is no pressure during the practice quiz. Once completed the user is linked to
+    the glossary and regular quiz.
+*/
+
+// Randomiizes either the learning birds array or the current bird being questioned.
+// Returns either intended output depending on the value of 'type':
+//      "learn" for learning birds
+//      "correct" for correct bird for the current question
+// Also takes in the previous correct bird so that a bird isn't repeated twice in a row.
 export function randomize(type, oldBird) {
     if (type == "learn") {
         var arr = [];
@@ -28,10 +46,14 @@ export function randomize(type, oldBird) {
     }
 }
 
+// Refreshes the page when the return button is pressed, resetting the tutorial.
 export function goToPage() {
   setTimeout(() => window.location.reload(false), 200);
 }
 
+// Checks to see if the user answered the question correctly.
+// Returns "correct" or "incorrect" depending on whether the answer choice (choice)
+// matches the bird being questioned (correctBird).
 export function checkAnswer(choice, correctBird) {
     var aType = "";
     if (choice === correctBird) {
@@ -44,21 +66,32 @@ export function checkAnswer(choice, correctBird) {
 }
 
 function Tutorial() {
+    // The 4 birds used in the practice quiz.
     const [learningBirds, setLearningBirds] = useState([0, 1, 2, 3]);
+    // The amount of questions answered correctly.
     const [correctAnswers, setCorrectAnswers] = useState(0);
+    // Whether the quiz has started yet.
     const [quizStarted, setQuizStarted] = useState(false);
+    // Which bird is shown on the modal.
     const [currentBird, setCurrentBird] = useState(0);
+    // Showing the modal.
     const [modalShow, setModalShow] = useState(false);
+    // Whether the question is answered yet or not.
     const [answered, setAnswered] = useState(false);
+    // Which bird is the correct answer for the current question.
     const [correctBird, setCorrectBird] = useState(0);
+    // Whether the question was answered right or wrong.
     const [answerType, setAnswerType] = useState("none_yet");
 
+    // Initializes the learning birds and correct bird for the quiz.
     useEffect(() => {
         let oldBird = correctBird;
         setLearningBirds(randomize("learn"));
         setCorrectBird(randomize("correct", oldBird));
     }, []);
 
+    // Happens when a question is answered, allows the answer page to show after
+    // eacch question and keeps track of correct answers.
     useEffect(() => {
       if (quizStarted && answerType != "none_yet") {
         setAnswered(true);
@@ -69,6 +102,7 @@ function Tutorial() {
       }
     }, [answerType]);
 
+    // The multiple-choice answer buttons on the quiz, checks answer on click.
     function AnswerButton(props) {
         return (
         <Button 
@@ -82,6 +116,8 @@ function Tutorial() {
         )
     }
 
+    // Sets new values for the next question once user leaves each answer page.
+    // Also ends the quiz once 5 questions answered correctly.
     function nextQuestion() {
       if (correctAnswers === 5) {
         setQuizStarted(!quizStarted);
@@ -93,6 +129,8 @@ function Tutorial() {
       }
     }
   
+    // Questions page in the quiz, renders the current correct bird and the
+    // answer buttons.
     function renderQuestion() {
         return (
         <div>
@@ -119,6 +157,7 @@ function Tutorial() {
         );
     }
 
+    // Renders the answer page in between each question.
     function renderResult() {
         return (
         <div>
@@ -133,6 +172,9 @@ function Tutorial() {
         );
     }
 
+    // Renders the initial study page at first, then alternates between rendering the
+    // question and answer pages until 5 questions are answered correctly. Then renders
+    // the results page which links to the glossary and quiz.
     return (
         <div>
             {quizStarted ? (
