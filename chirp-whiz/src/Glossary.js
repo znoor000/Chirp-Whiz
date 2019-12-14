@@ -1,39 +1,52 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import AudioButton from './quizComponents/AudioButton';
-import {
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from 'react';
+import AudioButton from './quizComponents/AudioButton';   // For bird audio
+import 'bootstrap/dist/css/bootstrap.min.css';    // Bootstrap for general styling
 import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Card from 'react-bootstrap/Card';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';  // For listing the bird buttons
+import ListGroup from 'react-bootstrap/ListGroup';    // For listing the birds on the main page
+import Card from 'react-bootstrap/Card';    // For the bird info pages
 import Image from 'react-bootstrap/Image';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import Carousel from 'react-bootstrap/Carousel';
-import Form from 'react-bootstrap/Form'
-import birdList from './birdList';
+import Carousel from 'react-bootstrap/Carousel';    // To display multiple images for each bird
+import Form from 'react-bootstrap/Form'   // For the search bar
+import birdList from './birdList';    // Bird info
 
+/*
+  The glossary is mainly a presentational component that lists all of the birds
+  and buttons linking to their respective profile pages. These pages were originally
+  separate pages but have since changed to be rendered on the same page as the glossary.
+  The bird info pages contain all of the bird info. Their images are shown in a carousel
+  so the user can cycle through all of the images.
+*/
+
+// Renders the entire glossary page.
 function Glossary () {
+  // Array of the birds and their info.
   const [state, setState] = useState({todos: birdList});
+  // Index in the array of the chosen bird to be displayed.
   const [birdNum, setBirdNum] = useState(0);
+  // Boolean value of whether we are viewing a specific bird in the glossary.
   const [inBirdPage, setInBirdPage] = useState(false);
+  // Value for the search bar.
   const [searchName, setSearchName] = useState('');
 
+  // Scrolls to the top of the page when either viewing a bird's page
+  // or returning to the main glossary.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [birdNum])
 
+  // Changes the search bar value as it is changed so that birds appear on the page
+  // as the user types into the search bar.
   function handleChange(e) {
     setSearchName(e.target.value);
   };
 
+  // Renders the glossary page. Initially renders a list of buttons with the bird images
+  // on them along with a search bar. The buttons then rerender the page with only a card
+  // containing the chosen bird's info.
   return(
     <div>
       {state.todos.length > 0 &&
@@ -86,6 +99,10 @@ function Glossary () {
   );
 }
 
+// Returns a card containing the specified bird's info.
+// The prop is the bird object containing its info such as
+// name, image array, sound, scientificName, birdType, and habitat.
+// Bird images are shown in a carousel.
 export function Bird(props) {
   return(
     <div>

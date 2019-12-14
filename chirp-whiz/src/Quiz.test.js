@@ -1,13 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
-import AudioButton from './quizComponents/AudioButton.js';
+import { render, fireEvent } from '@testing-library/react'
 import Quiz from './Quiz.js';
 import birdList from './birdList';
-import Button from 'react-bootstrap/Button'
-import Image from 'react-bootstrap/Image'
 
 const QuizTest = require('./Quiz.js');
+
+// Unit tests
 
 test('Check answer correct given same inputs', () => {
     const spy = jest.spyOn(document, 'getElementById')
@@ -40,34 +39,7 @@ test('Check size of randomized array', () => {
     const spy = jest.spyOn(Math, 'random')
     spy.mockReturnValueOnce(0.5);
   
-    expect(QuizTest.randomize("birds", [0, 1, 2, 3])).toHaveLength(4)
-})
-  
-test('Check size of randomized array for more birds', () => {
-    const spy = jest.spyOn(Math, 'random')
-    spy.mockReturnValueOnce(0.5);
-
-    let arr = Array.from({length: 40}, () => Math.floor(Math.random() * 10));
-  
-    expect(QuizTest.randomize("birds", arr)).toHaveLength(4)
-})
-  
-test('Check size of larger randomized array', () => {
-    const spy = jest.spyOn(Math, 'random')
-    spy.mockReturnValueOnce(0.5);
-    
-    let largeArr = Array.from({length: 40}, () => Math.floor(Math.random() * 50));
-  
-    expect(QuizTest.randomize("birds", largeArr)).toHaveLength(4)
-})
-  
-test('Check size of larger randomized array with alternative random val', () => {
-    const spy = jest.spyOn(Math, 'random')
-    spy.mockReturnValueOnce(0.9);
-    
-    let largeArr = Array.from({length: 40}, () => Math.floor(Math.random() * 50));
-  
-    expect(QuizTest.randomize("birds", largeArr)).toHaveLength(4)
+    expect(QuizTest.randomize("birds", [0, 1, 2, 3], 0, [0,0,0], [0,0,0])).toHaveLength(4)
 })
 
 test('randomize to return val less than or equal to 4', () => {
@@ -139,3 +111,105 @@ test('Choose birds from forests, woodlands, and lakes and ponds', () => {
         ['Forests', 'Open Woodlands', 'Lakes and Ponds']
     )).toHaveLength(24)
 })
+
+test('randomize to return val >= 0 with higher seed', () => {
+    const spy = jest.spyOn(Math, 'abs')
+    spy.mockReturnValueOnce(1);
+    const spy3 = jest.spyOn(Math, 'min')
+    spy3.mockReturnValueOnce(1);
+  
+    expect(QuizTest.createWeights({a: 'a', b: 'b', c: 'c'}, [0,0,0], [0,0,0])).toStrictEqual([])
+})
+
+test('reducer case DEFAULT', () => {
+    expect(QuizTest.reducer(
+        {}, {type: "def"}
+    )).toStrictEqual({});
+});
+
+test('reducer case QUERY', () => {
+    expect(QuizTest.reducer(
+        {},
+        {type: "QUERY", todos: "td"}
+    )).toStrictEqual(
+        {todos: "td"}
+    );
+});
+
+test('reducer case SUBSCRIPTION', () => {
+    expect(QuizTest.reducer(
+        {todos: "tds"},
+        {type: "SUBSCRIPTION", todo: "td"}
+    )).toStrictEqual(
+        {todos: ["t", "d", "s", "td"]}
+    );
+});
+
+test('reducer case DEFAULT with state being passed in', () => {
+    expect(QuizTest.reducer(
+        "STATE", {type: "def"}
+    )).toStrictEqual("STATE");
+});
+
+test('reducer case QUERY with state being passed in', () => {
+    expect(QuizTest.reducer(
+        "STATE",
+        {type: "QUERY", todos: "td"}
+    )).toStrictEqual({
+        0: "S",
+        1: "T",
+        2: "A",
+        3: "T",
+        4: "E", 
+        todos: "td"}
+    );
+});
+
+test('reducer case SUBSCRIPTION with state having extra args', () => {
+    expect(QuizTest.reducer(
+        {0: "s", 1: "t", todos: "tds"},
+        {type: "SUBSCRIPTION", todo: "td"}
+    )).toStrictEqual(
+        {0: "s", 1: "t", todos: ["t", "d", "s", "td"]}
+    );
+});
+
+// Integration tests
+
+test("testing the quiz options", () => {
+    const {getByText, getAllByRole} = render(<Quiz />)
+    fireEvent.click(getByText('Image'));
+    fireEvent.click(getByText('Audio'));
+    fireEvent.click(getByText('Forests'));
+    fireEvent.click(getByText('10'));
+    fireEvent.click(getByText('5'));
+    fireEvent.click(getByText('Start Quiz Now'));
+    fireEvent.click(getByText('Return'));
+});
+
+test("going through the quiz of 5 questions", () => {
+    const {getByText, getAllByRole} = render(<Quiz />)
+    fireEvent.click(getByText('Start Quiz Now'));
+
+    const buttons = getAllByRole('button');
+    fireEvent.click(buttons[3]);
+    fireEvent.click(getByText('Next Question'));
+
+    const buttons2 = getAllByRole('button');
+    fireEvent.click(buttons2[3]);
+    fireEvent.click(getByText('Next Question'));
+
+    const buttons3 = getAllByRole('button');
+    fireEvent.click(buttons3[3]);
+    fireEvent.click(getByText('Next Question'));
+
+    const buttons4 = getAllByRole('button');
+    fireEvent.click(buttons4[3]);
+    fireEvent.click(getByText('Next Question'));
+
+    const buttons5 = getAllByRole('button');
+    fireEvent.click(buttons5[3]);
+    fireEvent.click(getByText('Next Question'));
+
+    expect(getByText("incorrectly")).toBeInTheDocument();
+});

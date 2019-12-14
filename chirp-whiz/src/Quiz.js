@@ -1,29 +1,51 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from './aws-exports';
-import API, { graphqlOperation } from '@aws-amplify/api'
-import { updateTodo } from './graphql/mutations';
-import { listTodos } from './graphql/queries'
-import { onCreateTodo } from './graphql/subscriptions'
-import birdList from './birdList';
-import QuizQuestion from './quizComponents/QuizQuestion';
-import ResultPage from './quizComponents/ResultPage';
-import AnswerPage from './quizComponents/AnswerPage';
-import Leaderboard from './Leaderboard';
+import Amplify, { Auth } from 'aws-amplify';    // Amplify and authorization
+import awsconfig from './aws-exports';    // Important for AWS config
+import API, { graphqlOperation } from '@aws-amplify/api'    // API for backend
+import { updateTodo } from './graphql/mutations';   // Update database info
+import { listTodos } from './graphql/queries'   // Get databse info
+import { onCreateTodo } from './graphql/subscriptions'  // Subscription to database
+import birdList from './birdList';    // Bird info
+import QuizQuestion from './quizComponents/QuizQuestion';   // Question for quiz
+import ResultPage from './quizComponents/ResultPage';   // Results at the end of quiz
+import AnswerPage from './quizComponents/AnswerPage';   // Answers after each question
+import Leaderboard from './Leaderboard';    // Leaderboard before quiz starts
+import 'bootstrap/dist/css/bootstrap.min.css';    // Bootstrap for general styling
 import Button from 'react-bootstrap/Button';
-import ToggleButton from 'react-bootstrap/ToggleButton';
-import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import ToggleButton from 'react-bootstrap/ToggleButton';    // For quiz options
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';  // For quiz options
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-Amplify.configure(awsconfig);
+/*
+  The main quiz of the app. Starts with an options page that allows the user to specify
+  what type of questions they want, how many questions, and which habitats they want
+  the birds to be from. Also includes a leaderboard of the scores of all the users who
+  took the quiz.
+  Once the quiz begins it alternates between question and answer pages. The user is given
+  feedback on how they performed on each question. Identifying a bird correctly makes that
+  bird appear less often in the quiz, while identifying it incorrectly makes it appear
+  more often. The quiz ends after the previously determined amount of questions regardless
+  of how many were answered right or wrong.
+  The results page gives the user feedback on which questions they got right or wrong
+  and which birds were the subject of each question. The user's statistics are updated
+  after the user continues on to the next question right after answering a previous
+  one, so their stats are updated dynamically and stay updated even if they leave in the
+  middle of a quiz.
+*/
 
+Amplify.configure(awsconfig);   // For AWS Amplify configuration
+
+// Initialize the array used to store the database info.
 const initialState = {
   todos: [],
 };
 
+// Stores the database info according to which action is performed.
+// Takes in the initial state, which is the birds from the database,
+// and the action to be performed.
+// Returns the state altered.
 export const reducer = (state, action) => {
   switch (action.type) {
     case 'QUERY':
@@ -35,6 +57,10 @@ export const reducer = (state, action) => {
   }
 };
 
+// Chooses the birds to be seen in the quiz according to the previously
+// determined habitat(s) in the quiz options.
+// Argument is an array containing strings of names of the habitats chosen.
+// Returns array of indices of the birds that match with the habitats.
 export function chooseBirds(habs) {
   let birds = [];
 
@@ -52,6 +78,11 @@ export function chooseBirds(habs) {
   return birds;
 }
 
+// Checks whether the user answered the question correctly or not. Plays an audio
+// clip depending on whether it was right or wrong (correct: bell, incorrect: buzzer).
+// Arguments are choice as the user's answer choice and correctBird as the
+// bird that was the correct choice for that question.
+// Returns "correct" or "incorrect" accordingly.
 export function checkAnswer(choice, correctBird) {
   var aType = "";
   if (choice === correctBird) {
@@ -69,6 +100,19 @@ export function checkAnswer(choice, correctBird) {
   return aType;
 }
 
+// Creates weights for the randomization function depending on the correct and
+// incorrect arrays for the current user. Creates a new array weights and adds
+// the amount of incorrect answers for each bird in their respective locations
+// according to their indicies and subtracts the correct count from the incorrect
+// one. Then adds all the values in the weights array by the min value to get
+// everything > 0. Finally creates a frequency array freqArr that has one entry
+// for each value in the weights array according to the index.
+// So if weights[2] = 4, freqArr will have 4 entries with values of 2, so maybe
+// freqArr[3] thru freqArr[6] have values of 2.
+// Arguments are the birds chosen for that question, and the correct and
+// incorrect arrays containing the amount of questions the user got right or wrong
+// and the indices correlate to that bird in the birdInfo array.
+// Returns the frequency array to be used to randomize the correct birds for quiz questions.
 export function createWeights(birds, correct, incorrect) {
   let weights = [];
   let total = 0;
@@ -99,6 +143,16 @@ export function createWeights(birds, correct, incorrect) {
   return freqArr;
 }
 
+// Randomizes the four birds for each quiz question and the correct bird for the questions.
+// Uses the frequency array to randomize the birds according to the user's stats.
+// Also makes sure that the same bird isn't given as two questions in a row. Uses
+// createWeights to create the frequency array to personalize the birds that appear.
+// Arguments are whichState which picks which to randomize ("birds" for quiz birds
+// and "correctBird" for the correct bird for the question), birds as the bird array
+// which contains the birds that can be shown for the certain quiz, oldBird as the
+// bird from the previous question, and the correct and incorrect arrays.
+// Returns either 4 birds that will be used in the quiz question or the bird that
+// is the correct answer choice for that question.
 export function randomize(whichState, birds, oldBird, correct, incorrect) {
   if (whichState === "birds") {
     var arr = [];
@@ -122,26 +176,48 @@ export function randomize(whichState, birds, oldBird, correct, incorrect) {
   }
 }
 
+// The main quiz of the app. Has customization features, new ones will be added
+// so the user can customize their quizzes in more detail.
 function Quiz() {
+  // User data from the database
   const [state, dispatch] = useReducer(reducer, initialState);
+  // The username of the current user
   const [user, setUser] = useState('');
+  // The amount of questions in the quiz, default is 5
   const [questionNum, setQuestionNum] = useState(5);
+  // The number of questions the user answered correctly
   const [numCorrect, setNumCorrect] = useState(0);
+  // The current question that the user is on, starts at question 1
   const [currentQuestion, setCurrentQuestion] = useState(1);
+  // Boolean of whether the quiz has started yet
   const [quizStart, setQuizStart] = useState(false);
+  // The birds that can be used in the quiz, chosen by the "habitats"
+  // choice in the quiz options
   const [availBirds, setAvailBirds] = useState([]);
+  // Whether the question has been answered yet, to show the answer page
   const [answered, setAnswered] = useState(false);
+  // The indices of the four birds that will appear in the current question
   const [birds, setBirds] = useState([0, 1, 2, 3]);
+  // The index of the correct answer choice
   const [correctBird, setCorrectBird] = useState(0);
+  // The index of the bird's image that will appear in the question
   const [imageNum, setImageNum] = useState(0);
+  // The birds the user correctly answered, question number and name
   const [correctlyAnswered, setCorrectlyAnswered] = useState({});
+  // The birds the user incorrectly answered, question number and name
   const [incorrectlyAnswered, setIncorrectlyAnswered] = useState({});
+  // The array of counts of how many times the user correctly identified which bird
   const [correctCount, setCorrectCount] = useState([]);
+  // The array of counts of how many times the user incorrectly identified which bird
   const [incorrectCount, setIncorrectCount] = useState([]);
+  // Which forms of media appear in each question
   const [questionType, setQuestionType] = useState(['image', 'audio']);
+  // Whether the question was answered correctly or incorrectly
   const [answerType, setAnswerType] = useState("none_yet");
+  // Which habitats the user wishes to see represented in the quiz
   const [chosenHabs, setChosenHabs] = useState(['Forests']);
   
+  // Store user info from database into state
   useEffect(() => {
     getUserInfo();
     
@@ -152,6 +228,8 @@ function Quiz() {
     }
   }, [state]);
 
+  // API functions query data from database and subscribe to it so the app
+  // automatically updates with new/updated entries
   useEffect(() => {
     async function getData() {
       const todoData = await API.graphql(graphqlOperation(listTodos));
@@ -169,6 +247,11 @@ function Quiz() {
     return () => subscription.unsubscribe();
   }, []);
 
+  // Sets up quiz state variables when quiz begins. Sets the question type and
+  // chosen habitats according to the given quiz options, birds that can be chosen
+  // for the quiz according to the chosen habitats, the correct bird for the first
+  // question, and making sure that the next page is the question page. Sets defaults
+  // if no quiz options are chosen such as image and audio questions and the forest habitat.
   useEffect(() => {
     if (questionType.length == 0) {
       setQuestionType(['image', 'audio']);
@@ -189,6 +272,11 @@ function Quiz() {
     setAnswerType('none_yet');
   }, [quizStart]);
 
+  // Updates state once a question is answered. Enters the answer page and updates
+  // state according to whether the question was answered right or wrong. Increments
+  // the (in)correct array on the index corresponding to the correct bird, adds the
+  // answered bird and its question number to an array that will display that info on
+  // the results page, and increments the amount of questions answered correctly.
   useEffect(() => {
     if (quizStart && answerType != "none_yet") {
       setAnswered(true);
@@ -215,17 +303,26 @@ function Quiz() {
     }
   }, [answerType]);
 
+  // Randomizes the image that will be displayed for the bird being questioned
+  // to improve variety. This way the user will be quizzed on the bird itself
+  // rather than a specific image.
   useEffect(() => {
     let corrBird = birdList[birds[correctBird]];
     let birdImage = Math.floor(Math.random()*corrBird.image.length);
     setImageNum(birdImage);
   }, [correctBird])
   
+  // Gets the user's info from the authentication feature.
+  // Stores the current user's username.
   async function getUserInfo() {
     let userData = await Auth.currentAuthenticatedUser();
     setUser(userData.username);
   }
 
+  // The quiz options that are displayed before the quiz begins. Lets the user
+  // choose whether they want images, audio, or both, how many questions on the quiz
+  // between 5, 10, and 20, and which habitats they want birds to appear from in
+  // the quiz. Also displays the leaderboard.
   function QuizOptions(props) {
     return (
       <div>
@@ -247,7 +344,7 @@ function Quiz() {
           <ToggleButton variant="outline-warning" value={20}>20</ToggleButton>
         </ToggleButtonGroup>
         <div style={{padding: '20px'}}>
-        <h2>Which habitats?</h2>
+        <h2>Include birds of which habitats?</h2>
         <ToggleButtonGroup type="checkbox" value={chosenHabs} onChange={val => setChosenHabs(val)}>
           <ToggleButton variant="outline-warning" value={'Forests'}>Forests</ToggleButton>
           <ToggleButton variant="outline-warning" value={'Open Woodlands'}>Open Woodlands</ToggleButton>
@@ -274,6 +371,9 @@ function Quiz() {
     );
   }
 
+  // The answer buttons that appear in the quiz. Checks whether the answer is correct
+  // on click. Props are the ID of the button clicked, the index of the correct bird,
+  // and the of the bird that the answer button corresponds to.
   function AnswerButton(props) {
     return (
       <Button 
@@ -287,6 +387,12 @@ function Quiz() {
     )
   }
 
+  // Changes state when the users wishes to continue on to the next question from
+  // the answer page of the previous question. Ends the quiz if the user answered the
+  // last question of the quiz. Increments the current question tally, re-randomizes
+  // the birds to appear in the next question and the next correct bird choice, updates
+  // the correct and incorrect arrays in the database, and resets other values so that the
+  // current state matches that of being in a question in the quiz.
   function nextQuestion() {
     if (currentQuestion === questionNum) {
       setQuizStart(!quizStart);
@@ -302,6 +408,8 @@ function Quiz() {
     }
   }
 
+  // Renders the quiz page. Outputs the quiz questions at the top and the four answer
+  // buttons underneath.
   function renderQuestion() {
     return (
       <div>
@@ -332,6 +440,8 @@ function Quiz() {
     );
   }
 
+  // Renders the answer page after each question is answered. Outputs the answer page
+  // with the correct bird from the question and also a button to continue in the quiz.
   function renderResult() {
     return (
       <div>
@@ -346,6 +456,10 @@ function Quiz() {
     );
   }
 
+  // Updates the user's correct and incorrect count arrays in the database.
+  // Starts with an initial value if the API hasn't loaded yet, then creates a new
+  // user object containing the new info and updates the user's data in the database
+  // to be the new object.
   async function updateOldTodo() {
     let obj = {id: 0};
     if(state.todos.length > 0)
@@ -362,6 +476,12 @@ function Quiz() {
     await API.graphql(graphqlOperation(updateTodo, { input: todo }));
   }
 
+  // The quiz renders the options page at the intital render. This then leads into
+  // a question that when answered (an answer button is clicked) leads to an answer
+  // page. This answer page has a button that then continues the quiz. Once the quiz
+  // has finished the final results page is rendered with the stats from the just
+  // finished quiz. Also includes the two audio files that are played when on the answer
+  // page when a question is answered either right or wrong.
   return (
     <div>
       {quizStart ? (

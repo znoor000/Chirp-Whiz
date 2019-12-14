@@ -1,6 +1,11 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Jumbotron from 'react-bootstrap/Jumbotron';
+import 'bootstrap/dist/css/bootstrap.min.css';  // Bootstrap for general styling
+import Jumbotron from 'react-bootstrap/Jumbotron';  // Ccontainer for displaying info
+
+/*
+    About page contains most of the info about the app such as what it is, how to
+    use it, contact info, the resources used, and credits for all of the team members.
+*/
 
 function About() {
     return (
